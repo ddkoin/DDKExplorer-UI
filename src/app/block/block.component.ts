@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { allBlockService } from '../shared/services/allBlock.service';
 
 
+
+
 @Component({
 	templateUrl: './block.component.html',
 	styleUrls: ['./block.css'],
@@ -14,9 +16,12 @@ export class BlockComponent implements AfterViewInit {
 	public blocklist : any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 
-	constructor(private router: Router, private allBlocks :allBlockService) { 
-		
-	}
+	constructor(private router: Router, private allBlocks :allBlockService) { }
+
+
+	
+
+
 
 	allBlockList() {
 		this.allBlocks.getAllBlocks().subscribe(
@@ -34,6 +39,7 @@ export class BlockComponent implements AfterViewInit {
 	/* For Block ID By Height */
 	getBlockId(id,name) {
 		this.router.navigate(['/block-info', name, id]);
+		 this.blocklist= [];
 	}
 	/* For Block Detail By Height */
 	getBlockHeight(height,name) {

@@ -98,7 +98,7 @@ export class ProjectCounterComponent implements AfterViewInit {
         
     ];
     public lineChartLegend: boolean = false;
-    public lineChartType: string = 'bar';
+    public lineChartType: string = 'line';
 
     // Doughnut
     public doughnutChartLabels: string[] = [

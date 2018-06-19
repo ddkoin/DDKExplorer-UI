@@ -8,9 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardRoutes } from './dashboard.routing';
 import { ChartistModule} from 'ng-chartist';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { IncomeCounterComponent } from './dashboard-components/income-counter/income-counter.component';
 import { ProjectCounterComponent } from './dashboard-components/project-counter/project-counter.component';
-
 import { SharedModule } from './../shared/shared.module'
 
 @NgModule({
@@ -26,7 +24,6 @@ import { SharedModule } from './../shared/shared.module'
     ],
 	declarations: [
         DashboardComponent,
-        IncomeCounterComponent,
         ProjectCounterComponent
         
     ]
