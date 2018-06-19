@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 info-box">
+                        <span class="heading b-b">Overview</span>
+                        <ul class="blog-info">
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">ID:</span>
+                                    <span class="col-md-8">{{transactionInfo.id}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Height:</span>
+                                    <span class="col-md-8">{{transactionInfo.height}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">BlockId:</span>
+                                    <span class="col-md-8">{{transactionInfo.blockId}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Type:</span>
+                                    <span class="col-md-8">{{transactionInfo.type}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Timestamp:</span>
+                                    <span class="col-md-8">{{transactionInfo.timestamp | timeagofilter}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">SenderId:</span>
+                                    <span class="col-md-8">
+                                        <a>{{transactionInfo.senderId}}</a>
+                                    </span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">RecipientId:</span>
+                                    <span class="col-md-8">
+                                        <a>{{transactionInfo.recipientId}}</a>
+                                    </span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Amount:</span>
+                                    <span class="col-md-8">{{transactionInfo.amount}}
+                                    </span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Fee:</span>
+                                    <span class="col-md-8">{{transactionInfo.fee}}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

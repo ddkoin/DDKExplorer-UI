@@ -1,0 +1,65 @@
+<!-- Start Page Content -->
+<div class="row">
+    <div class="col-12">
+        <!-- You can find this in the dashboard-component -->
+        <project-counter></project-counter>
+    </div>
+</div>
+<!-- Ends Start Page Content -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card m-b-0">
+            <div class="card-body heading-box b-b">
+                <h4 class="card-title">
+                    <span class="lstick"></span>Blocks</h4>
+                <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/block">View All</button>
+            </div>
+            <div *ngFor="let bxList of bxLists; let i = index;">
+                <div class="p-20 b-b block-info-box d-flex" *ngIf="i<5">
+                    <div class="align-self-center pull-left">
+                        <a class="m-b-0" (click)="getBlockHeight(bxList.height,'height')">Block {{bxList.height}}</a>
+                        
+                        <small>> {{bxList.timestamp | timeagofilter}}</small>
+                    </div>
+                    <div class="ml-left block-info-details pull-left">
+                        <div class="overflow-h">Generator By
+                            <a class="address-tag link-hover" (click)="getGeneratorId(bxList.generatorId,'generatorId')">{{bxList.generatorId}}</a>
+                            <p class="txns-time">
+                                <a class="link-hover">
+                                    <b>{{bxList.numberOfTransactions}} txns</b>
+                                </a> in 10 secs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card m-b-0">
+            <div class="card-body heading-box b-b">
+                <h4 class="card-title">
+                    <span class="lstick"></span>Transactions</h4>
+                <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button>
+            </div>
+            <div *ngFor="let txList of  txLists; let i = index;">
+                <div class="profile-post color-one b-b" *ngIf="i<5">
+                    <span class="profile-post-numb">
+                        <i class="fa fa-hdd-o"></i>
+                    </span>
+                    <div class="profile-post-in">
+                        <span class="heading-xs">TX#
+                            <a class="hash-tag-frontpage link-hover" title="Transaction Hash" (click)="getTxId(txList.id,'transactionId')">{{txList.id}}</a>
+                            <span class="pull-right">{{txList.timestamp | timeagofilter }}</span>
+                        </span>
+                        <p>
+                            From <a class="address-tag link-hover" (click)="getSenderId(txList.senderId,'senderId')">{{txList.senderId}}</a>
+                            <span *ngIf="txList.recipientId!==null">
+                            To <a class="address-tag link-hover" (click)="getSenderId(txList.recipientId,'recipientId')">{{txList.recipientId}}</a></span>
+                        </p>
+                        <p>Amount {{txList.amount}} ETP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

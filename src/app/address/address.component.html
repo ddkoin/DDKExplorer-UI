@@ -1,0 +1,236 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 info-box">
+                        <span class="heading b-b">Overview</span>
+                        <ul class="blog-info">
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Balance:</span>
+                                    <span class="col-md-8">6.558848137440000009 Ether</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">DDK Value:</span>
+                                    <span class="col-md-8">$4,521.34 (@ $689.35/DDK)</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Transactions:</span>
+                                    <span class="col-md-8">2188 txns</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12 default-tab-layout m-t-20">
+                        <ngb-tabset #t="ngbTabset" (tabChange)="showComments($event)">
+                            <ngb-tab id="tab-selectbyid1" title="Transactions">
+                                <ng-template ngbTabContent>
+                                    <div class="table-container p-t-em">
+                                        <table datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>TxHash</th>
+                                                    <th>Block</th>
+                                                    <th>Age</th>
+                                                    <th>From</th>
+                                                    <th></th>
+                                                    <th>To</th>
+                                                    <th>Value</th>
+                                                    <th class="txFee">[TxFee]</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xb7d3422c4397cc613142ef</a>
+                                                    </td>
+                                                    <td>5593391</td>
+                                                    <td>43 secs ago</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">0xf096e3b06de41f</a>
+                                                    </td>
+                                                    <td>
+                                                        <img src="https://etherscan.io/images/green-arrow-right.png">
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i>
+                                                        <a href="#" class="address-tag">0xd77bcd9cf4212a41defbcd2e2ff0f50fea2be643</a>
+                                                    </td>
+                                                    <td>0 ETP</td>
+                                                    <td class="font-11">0.00014842</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab id="tab-selectbyid2" >
+                                <ng-template ngbTabTitle >Comments</ng-template>
+                                <ng-template ngbTabContent> </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                        <div *ngIf="show" id="comments-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

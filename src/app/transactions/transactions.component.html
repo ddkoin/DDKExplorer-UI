@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-container">
+                <table datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                    <thead>
+                        <tr>
+                            <th>Transactions ID</th>
+                            <th>Height</th>
+                            <th>Block ID</th>
+                            <th>SenderId</th>
+                            <th>RecipientId</th>
+                            <th>Time</th>
+                            <th>Amount</th>
+                            <th class="txFee text-muted">[TxFee]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let transaction of transactionlist">
+                            <!-- <td><a (click)="getTransactionId(transaction.id)" class="address-tag">{{transaction.id}}</a></td> -->
+                            <td>
+                                <a (click)="getTxId(transaction.id,'transactionId')" class="address-tag link-hover">{{transaction.id}}</a>
+                            </td>
+                            <td><a>{{transaction.height}}</a>
+                            </td>
+                            <td>
+                                <a (click)="getBlockId(transaction.blockId,'blockId')" class="address-tag link-hover">{{transaction.blockId}}</a>
+                            </td>
+                            <td>
+                                <a (click)="getSenderId(transaction.senderId,'senderId')" class="address-tag link-hover">{{transaction.senderId}}</a>
+                            </td>
+                            <td>
+                                <a (click)="getSenderId(transaction.recipientId,'recipientId')" class="address-tag">{{transaction.recipientId}}</a>
+                            </td>
+                            <td>{{transaction.timestamp | timeagofilter}}</td>
+                            <td>{{transaction.amount}}</td>
+                            <td class="font-11 text-muted">{{transaction.fee}} ETP</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

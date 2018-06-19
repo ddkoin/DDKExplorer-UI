@@ -1,0 +1,269 @@
+<div class="card-group m-b-30">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-briefcase-check text-info"></i>
+                    </h2>
+                    <h3 class="">{{currentBlock - 1}}</h3>
+                    <h6 class="card-subtitle m-b-0">Height</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-alert-circle text-success"></i>
+                    </h2>
+                    <h3 class="">45,000,000</h3>
+                    <h6 class="card-subtitle m-b-0">Supply</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-wallet text-purple"></i>
+                    </h2>
+                    <h3 class="">0.0011508674</h3>
+                    <h6 class="card-subtitle m-b-0">DDK/BTC</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-buffer text-warning"></i>
+                    </h2>
+                    <h3 class="">7.43</h3>
+                    <h6 class="card-subtitle m-b-0">DDK/EUR</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 m-b-30 delegates-info">
+                        <h3>Delegates</h3>
+                        <span class="btn-block">{{delegateCount}} Total Delegates</span>
+                        <span class="btn-block">{{activeDelegates}} Active Delegates</span>
+                        <span class="btn-block">{{delegateCount - activeDelegates}}  Standby Delegates</span>
+                    </div>
+                    <div class="col-md-4 m-b-30 delegates-info">
+                        <h3>Last Block By</h3>
+                        <span class="btn-block">
+                            <a href="#">{{lastBlock.generatorId}}</a>
+                        </span>
+                        <span class="btn-block">
+                            <a href="#">{{lastBlock.id}}</a>
+                        </span>
+                        <span class="btn-block">Applied {{lastBlock.numberOfTransactions}} transactions with {{lastBlock.confirmations}} confirmations</span>
+                    </div>
+
+
+
+                    <div class="col-md-4 m-b-30 delegates-info">
+                        <h3>Next Forgers</h3>
+                        <span class="btn-block">
+                            <a>{{nextForgersList[0]}}</a>
+                        </span>
+                        <ul class="next-forgers">
+                            <li *ngFor="let delegate of nextForgersList | slice:1">
+                                <a href="#">{{delegate}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 delegates-info">
+                        <h3>Best Forgers</h3>
+                        <span class="btn-block">
+                            <a href="#">{{bestForger.username}}</a>
+                        </span>
+                        <span class="btn-block">{{bestForger.producedblocks}} Blocks Forged</span>
+                        <span class="btn-block">since registration</span>
+                    </div>
+                    <div class="col-md-4 delegates-info">
+                        <h3>Best Productivity</h3>
+                        <span class="btn-block">{{bestProductivity.productivity}}%</span>
+                        <span class="btn-block">
+                            <a href="#">by {{bestProductivity.username}}</a>
+                        </span>
+                    </div>
+                    <div class="col-md-4 delegates-info">
+                        <h3>Worst Productivity</h3>
+                        <span class="btn-block">{{worstProductivity.productivity}}%</span>
+                        <span class="btn-block">
+                            <a href="#">by {{worstProductivity.username}}</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="default-tab-layout m-t-30">
+                    <h4 class="card-title m-b-0 font-medium">Latest Votes</h4>
+                    <div class="table-container p-t-em">
+                        <table class="row-border hover default-table-layout">
+                            <thead>
+                                <tr>
+                                    <th>Voter</th>
+                                    <th>Transaction</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let voters of latestVotes">
+                                    <td>
+                                        <a href="/address/{{voters.senderId}}">{{voters.senderId}}</a>
+                                    </td>
+                                    <td>
+                                        <a class="ellipsis">{{voters.id}}</a>
+                                    </td>
+                                    <td class="time-ago">
+                                        <span class="text-muted">{{voters.timestamp | timeagofilter}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="default-tab-layout m-t-30">
+                    <h4 class="card-title m-b-0 font-medium">Newest Delegates</h4>
+                    <div class="table-container p-t-em">
+                        <table class="row-border hover default-table-layout">
+                            <thead>
+                                <tr>
+                                    <th>Delegate</th>
+                                    <th>Transaction</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let delegate of latestDelegates">
+                                    <td>
+                                        <a href="/address/8399757677145070415L">{{delegate.username}}</a>
+                                    </td>
+                                    <td>
+                                        <a class="ellipsis">{{delegate.id}}</a>
+                                    </td>
+                                    <td class="time-ago">
+                                        <span class="text-muted">{{delegate.timestamp | timeagofilter }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="default-tab-layout m-t-20">
+                    <ngb-tabset #t="ngbTabset">
+                        <ngb-tab id="tab-selectbyid1" title="Active Delegates">
+                            <ng-template ngbTabContent>
+                                <div class="col-md-12 m-t-20 m-b-20">
+                                    <h4 class="card-title font-medium m-b-20">Active Delegates</h4>
+                                    <div class="row">
+                                        <div class="col-md-3 col-lg-3 col-xlg-2">
+                                            <div class="card card-inverse card-info">
+                                                <div class="box bg-info text-center">
+                                                    <h1 class="font-light text-white">{{totalActiveForged}}</h1>
+                                                    <h6 class="text-white">Forged block recently</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xlg-2">
+                                            <div class="card card-inverse card-warning">
+                                                <div class="box text-center">
+                                                    <h1 class="font-light text-white">{{totalMissedBlocks}}</h1>
+                                                    <h6 class="text-white">Missed block recently</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xlg-2">
+                                            <div class="card card-inverse card-megna">
+                                                <div class="box text-center">
+                                                    <h1 class="font-light text-white">{{activeDelegates - nextForgers.length}}</h1>
+                                                    <h6 class="text-white">Not forging</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xlg-2">
+                                            <div class="card card-inverse card-dark">
+                                                <div class="box text-center">
+                                                    <h1 class="font-light text-white">{{activeDelegates - 1}}</h1>
+                                                    <h6 class="text-white">In queue for forging</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-container">
+                                        <table datatable="ng" datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Address</th>
+                                                    <th>Status</th>
+                                                    <th>Productivity</th>
+                                                    <th>Approval</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let delegate of delegatesInfo">
+                                                    <td>{{delegate.rank}}</td>
+                                                    <td>{{delegate.address}}</td>
+                                                    <td>
+                                                        <div class="label label-table label-success text-center">Active</div>
+                                                    </td>
+                                                    <td>{{delegate.productivity}}%</td>
+                                                    <td>{{delegate.approval}}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab id="tab-selectbyid2" title="Standby Delegates">
+                            <!-- <ng-template ngbTabTitle>Standby Delegates</ng-template> -->
+                            <ng-template ngbTabContent>
+                                <div class="col-md-12 m-t-20 m-b-20">
+                                    <h4 class="card-title font-medium m-b-20">Standby Delegates</h4>
+                                    <div class="table-container">
+                                        <table datatable="ng" datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Address</th>
+                                                    <th>Productivity</th>
+                                                    <th>Approval</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let delegate of standbyDelegates">
+                                                    <td>{{delegate.rank}}</td>
+                                                    <td>{{delegate.address}}</td>
+                                                    <td>{{delegate.productivity}}%</td>
+                                                    <td>{{delegate.approval}}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>

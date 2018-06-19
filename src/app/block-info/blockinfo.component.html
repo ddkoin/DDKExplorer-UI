@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 info-box">
+                        <span class="heading b-b">Overview</span>
+                        <ul class="blog-info">
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">ID:</span>
+                                    <span class="col-md-8">{{blockInfo.id}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Timestamp:</span>
+                                    <span class="col-md-8">{{blockInfo.timestamp | timeagofilter}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Height:</span>
+                                    <span class="col-md-8">{{blockInfo.height}}</span>
+                                </span>
+                            </li>
+
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Previous Block:</span>
+                                    <span class="col-md-8">{{blockInfo.previousBlock}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Number Of Transactions:</span>
+                                    <span class="col-md-8">{{blockInfo.numberOfTransactions}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Total Amount:</span>
+                                    <span class="col-md-8">{{blockInfo.totalAmount}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Total Fee:</span>
+                                    <span class="col-md-8">{{blockInfo.totalFee}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Pay load Hash:</span>
+                                    <span class="col-md-8">{{blockInfo.payloadHash}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">GeneratorId:</span>
+                                    <span class="col-md-8">{{blockInfo.generatorId}}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

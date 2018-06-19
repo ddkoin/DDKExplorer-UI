@@ -1,0 +1,58 @@
+<header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <!-- Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <b>
+                    <img src="assets/images/logo.png" alt="homepage" class="DDkoin-logo" width="100" />
+                </b>
+            </a>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Logo -->
+
+
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+        <div class="search-menu-box">
+            <ul class="navbar-nav my-lg-0 ">
+                <li>
+                    <a routerLink="/dashboard" routerLinkActive="active">Home</a>
+                </li>
+                <li class="nav-item dropdown bockchain-menu" ngbDropdown>
+                    <a ngbDropdownToggle class="waves-effect waves-dark" href="javascript:void(0)" routerLinkActive="active">Blockchain</a>
+                    <i class="fa fa-angle-down fa-inverse"></i>
+                    <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" ngbDropdownMenu>
+                        <ul>
+                            <li>
+                                <a class="drop-title" routerLink="/transactions">View Transaction</a>
+                            </li>
+                            <li>
+                                <a class="drop-title" routerLink="/transactions">View Pending Transaction</a>
+                            </li>
+                            <li>
+                                <a class="drop-title" routerLink="/block">View Block</a>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a routerLink="/delegate-monitor" routerLinkActive="active">Delegate Monitor</a>
+                </li>
+                <li class="nav-item hidden-sm-down search-box">
+                    <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="ti-search"></i>
+                    </a>
+                    <form class="app-search">
+                        <input type="text" class="form-control" placeholder="Search & enter">
+                        <a class="srh-btn">
+                            <i class="ti-close"></i>
+                        </a>
+                    </form>
+                </li>
+                <!-- ============================================================== -->
+                <!-- Ends user profile and search  -->
+            </ul>
+        </div>
+    </nav>
+</header>

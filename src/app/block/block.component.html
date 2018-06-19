@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-container">
+                <table ng-if="blocklist" datatable="ng" datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                    <thead>
+                        <tr>
+                            <th>Height</th>
+                            <th>Block ID</th>
+                            <th>Generator</th>
+                            <th>Time</th>
+                            <th>Transactions</th>
+                            <th>Amount</th>
+                            <th class="txFee text-muted">Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let blocks of blocklist">
+                            <td><a (click)="getBlockHeight(blocks.height,'height')" class="link-hover">{{blocks.height}}</a></td>
+                            <td><a (click)="getBlockId(blocks.id,'blockId')" class="link-hover">{{blocks.id}}</a></td>
+                            <td><a>{{blocks.generatorId}}</a></td>
+                            <td>{{blocks.timestamp | timeagofilter}}</td>
+                            <td><a href="#" routerLink="">{{blocks.numberOfTransactions}}</a></td>
+                            <td>{{blocks.totalAmount}}</td>
+                            <td class="font-11 text-muted">{{blocks.totalFee}} ETP</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
