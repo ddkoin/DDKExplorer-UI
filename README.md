@@ -25,4 +25,18 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
 # DDKExplorer-UI
+## Installation Steps:
+### 1. Clone code
+```
+$ git clone https://github.com/oodlestechnologies/DDKExplorer-UI
+```
+### 2. Install Dependencies
+```
+$ npm install
+```
+### 3. Run Application
+```
+$ ng serve  //specify port if any with port i.e --port 4300. Default runs on http://localhost:4200
+```
