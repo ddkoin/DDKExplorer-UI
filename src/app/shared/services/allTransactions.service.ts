@@ -14,7 +14,7 @@ export class allTransactionsService {
 
     /* For All Transactions List Services */
     getAllTransactions() {
-        return this.http.get(environment.serverUrl + '/api/transactions')
+        return this.http.get(environment.serverUrl + '/api/transactions?orderBy=timestamp:desc')
             .map((res: Response) => res.json());
     }
 
