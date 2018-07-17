@@ -13,9 +13,9 @@ export class allBlockService {
     constructor(private http: Http) { }
 
     /* For All Transactions List Services */
-    getAllBlocks(limit, offset) {
+    getAllBlocks() {
         //console.log('limit : ', limit);
-        return this.http.get(environment.serverUrl + '/api/blocks?limit='+limit+'&offset='+offset)
+        return this.http.get(environment.serverUrl + '/api/blocks')
             .map((res: Response) => res.json());
     }
 }

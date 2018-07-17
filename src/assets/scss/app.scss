@@ -2355,4 +2355,18 @@ Layouts
 }
 
 
+.logo-container{
+    .navbar-brand{
+        width: 220px;
+        height: 70px;
+        overflow: hidden;
+        img{
+            width: 210px;
+            position: relative;
+            top: -25px;
+        }
+    }
+}
+
+
 

@@ -1,10 +1,11 @@
+import * as $ from 'jquery';
 import { Component, AfterViewInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbPanelChangeEvent, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {Directive, HostListener, HostBinding} from '@angular/core';
 
-declare var jquery:any;
-declare var $ :any;
+/* declare var jquery:any;
+declare var $ :any; */
 
 @Component({
   selector: 'ap-navigation',

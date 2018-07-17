@@ -43,10 +43,15 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let sender of senderInfo">
-                                                    <td><a href="#" class="address-tag">{{sender.senderId}}</a></td>
-                                                    <td><a href="#" class="address-tag">{{sender.recipientId}}</a></td>
-                                                    <td>{{sender.timestamp | timeagofilter}}</td>
-                                                    <td>{{sender.amount}} DDK</td>
+                                                    <td>
+                                                        <a href="#" class="address-tag">{{sender.senderId}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <!-- <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i> -->
+                                                        <a href="#" class="address-tag">{{sender.recipientId}}</a>
+                                                    </td>
+                                                    <td>{{sender.timestamp}}</td>
+                                                    <td>{{sender.amount}} ETP</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -55,12 +60,10 @@
                             </ngb-tab>
                             <ngb-tab id="tab-selectbyid2">
                                 <ng-template ngbTabTitle>Comments</ng-template>
-                                <ng-template ngbTabContent>
-                                   <!--  <p class="alert-message text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i> The login functionality does not work yet.</p> -->
-                                </ng-template>
+                                <ng-template ngbTabContent> </ng-template>
                             </ngb-tab>
                         </ngb-tabset>
-                       <!--  <div *ngIf="show" id="comments-container"></div> -->
+                        <div *ngIf="show" id="comments-container"></div>
                     </div>
                 </div>
             </div>
