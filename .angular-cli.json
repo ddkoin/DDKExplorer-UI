@@ -69,6 +69,10 @@
     }
   },
   "defaults": {
+    "serve": {
+      "port": 7001,
+      "host": "159.65.139.87"
+    },
     "styleExt": "css",
     "component": {}
   }

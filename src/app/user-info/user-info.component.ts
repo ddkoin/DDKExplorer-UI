@@ -17,7 +17,7 @@ export class UserInfoComponent implements AfterViewInit {
 	public addressInfo:any = [];
 	public typeId:any;
 	public senderInfo:any = [];
-	public explorerServer = "http://localhost:7003";
+	public explorerServer = "http://159.65.139.248:7003";
 
 	constructor(private senderidDetail:SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail:AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
