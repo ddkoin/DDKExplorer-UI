@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './../shared/shared.module'
 
 const routes: Routes = [{
-	path: '',
+	path: ':name/:id',
 	data: {
         title: 'Block',
         urls: [{title: 'Home',url: '/dashboard'},{title: 'Block Information'}]

@@ -15,6 +15,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public blockId: any;
 	public bxsHight: any;
 	public typeId: any;
+	
 
 	constructor(private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -68,6 +69,8 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		let flag:any = true
+		window.localStorage.setItem('flag',flag)
 		this.dtOptions = {
 			pagingType: 'full_numbers'
 		};

@@ -1,11 +1,10 @@
 import * as $ from 'jquery';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, LocationStrategy, HashLocationStrategy  } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
-import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { NavigationComponent } from './shared/header-navigation/navigation.component';
@@ -26,7 +25,8 @@ import{ BlockDetailsService } from './shared/services/blockDetails.service';
 import{ AddressDetailService } from './shared/services/addressDetail.service';
 import { SenderidDetailService } from './shared/services/senderidDetail.service';
 import { DelegatesService } from './shared/services/delegates.service'
-
+import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -52,13 +52,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(Approutes),  
-    PerfectScrollbarModule
+    RouterModule.forRoot(Approutes, { useHash: true }),    
+    PerfectScrollbarModule,
+    HttpClientModule
   ],
   providers: [DelegatesService, SenderidDetailService, AddressDetailService, BlockHeightDetailsService, allTransactionsService, allBlockService, transactionsDetailsService, BlockDetailsService,
       {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },{
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
     }],
     // exports: [
     //   OrdinalPipe
