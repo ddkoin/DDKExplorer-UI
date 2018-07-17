@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 import { Services } from '@angular/core/src/view';
 import { Body } from '@angular/http/src/body';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AddressDetailService {
@@ -14,9 +15,9 @@ export class AddressDetailService {
     /* For All Transactions List Services */
     getAddressDetail(address) {
         console.log('type of address :', address)
-        return this.http.get('http://localhost:7000/api/accounts?address='+address)
+        return this.http.get(environment.serverUrl + '/api/accounts?address='+address)
             .map((res: Response) => res.json());
     }
 }
 
-/* return this.http.get('http://localhost:7000/api/blocks/get?id='+id) */
+/* return this.http.get(environment.serverUrl + '/api/blocks/get?id='+id) */

@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 import { Services } from '@angular/core/src/view';
 import { Body } from '@angular/http/src/body';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class allTransactionsService {
@@ -13,7 +14,7 @@ export class allTransactionsService {
 
     /* For All Transactions List Services */
     getAllTransactions() {
-        return this.http.get('http://localhost:7000/api/transactions')
+        return this.http.get(environment.serverUrl + '/api/transactions')
             .map((res: Response) => res.json());
     }
 
