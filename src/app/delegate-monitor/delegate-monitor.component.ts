@@ -29,6 +29,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public totalMissedBlocks = 0;
 	public delegateCount: any;
 	public currentBlock: any;
+	public DDKPrice: any;
 	
 
 	constructor(private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
@@ -154,6 +155,19 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 			}
 		);
 	}
+
+	/* getPrice() {
+		this.delegateService.getPrice().subscribe(
+			resp => {
+				if(resp.success) {
+					this.DDKPrice = resp;
+				}
+			},
+			error => {
+				console.log(error);
+			}
+		);
+	} */
 	
 	
 
@@ -165,6 +179,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		//this.getPrice();
 		this.getDelegatesDetail();
 		this.getNextForgers();
 		this.getLatestVotes();

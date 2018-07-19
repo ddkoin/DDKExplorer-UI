@@ -45,8 +45,8 @@
                     <h2 class="m-b-0">
                         <i class="mdi mdi-buffer text-warning"></i>
                     </h2>
-                    <h3 class="">7.43</h3>
-                    <h6 class="card-subtitle m-b-0">DDK/EUR</h6>
+                    <h3 class="">{{DDKPrice | 180.729}}</h3>
+                    <h6 class="card-subtitle m-b-0">DDK/USD</h6>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
                                         <a class="ellipsis">{{voters.id}}</a>
                                     </td>
                                     <td class="time-ago">
-                                        <span class="text-muted">{{voters.timestamp | timeagofilter}}</span>
+                                        <span class="text-muted">{{voters.timestamp | timeagofilter}} | {{voters.timestamp | timestampFilter}}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -159,7 +159,7 @@
                                         <a class="ellipsis">{{delegate.id}}</a>
                                     </td>
                                     <td class="time-ago">
-                                        <span class="text-muted">{{delegate.timestamp | timeagofilter }}</span>
+                                        <span class="text-muted">{{delegate.timestamp | timeagofilter }} | {{delegate.timestamp | timestampFilter }}</span>
                                     </td>
                                 </tr>
                             </tbody>

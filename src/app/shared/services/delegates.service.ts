@@ -35,4 +35,9 @@ export class DelegatesService {
     return this.http.get(environment.serverUrl + '/api/delegates/getLatestDelegates?limit=5')
     .map((res: Response) => res.json());
   }
+
+  /* getPrice() {
+    return this.http.get('http://bcmy.io/price/price-ddk-api.php?com=sell')
+    .map((res: Response) => res.json());
+  } */
 }

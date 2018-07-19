@@ -51,7 +51,12 @@
                                                         <a href="#" class="address-tag">{{sender.recipientId}}</a>
                                                     </td>
                                                     <td>{{sender.timestamp}}</td>
-                                                    <td>{{sender.amount}} DDK</td>
+                                                    <div *ngIf="sender.type === 8; else elseBlock">
+                                                        <td>{{sender.stakedAmount/100000000}} DDK</td>
+                                                    </div>
+                                                    <ng-template #elseBlock>
+                                                        <td>{{sender.amount/100000000}} DDK</td>
+                                                    </ng-template>
                                                 </tr>
                                             </tbody>
                                         </table>
