@@ -1,0 +1,138 @@
+<div class="card-group m-b-30">
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-briefcase-check text-info"></i>
+                    </h2>
+                    <h3 class="">{{currentBlock - 1}}</h3>
+                    <h6 class="card-subtitle m-b-0">Height</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-alert-circle text-success"></i>
+                    </h2>
+                    <h3 class="">45,000,000</h3>
+                    <h6 class="card-subtitle m-b-0">Supply</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-wallet text-purple"></i>
+                    </h2>
+                    <h3 class="">0.0011508674</h3>
+                    <h6 class="card-subtitle m-b-0">DDK/BTC</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-12 network-status">
+                    <h2 class="m-b-0">
+                        <i class="mdi mdi-buffer text-warning"></i>
+                    </h2>
+                    <h3 class="">7.43</h3>
+                    <h6 class="card-subtitle m-b-0">DDK/EUR</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 info-box">
+                        <span class="heading b-b">Overview</span>
+                        <ul class="blog-info">
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Name:</span>
+                                    <span class="col-md-8">{{blockInfo.id}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Address:</span>
+                                    <span class="col-md-8">{{blockInfo.timestamp | timeagofilter}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Uptime:</span>
+                                    <span class="col-md-8">{{blockInfo.height}}</span>
+                                </span>
+                            </li>
+
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Rank / Status</span>
+                                    <span class="col-md-8">{{blockInfo.previousBlock}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Approval:</span>
+                                    <span class="col-md-8">{{blockInfo.numberOfTransactions}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Vote weight:</span>
+                                    <span class="col-md-8">{{blockInfo.totalAmount}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Forged:</span>
+                                    <span class="col-md-8">{{blockInfo.totalFee}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Blocks:</span>
+                                    <span class="col-md-8">{{blockInfo.payloadHash}}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card m-b-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 info-box">
+                        <span class="heading b-b">Votes 20</span>
+                        <ul class="next-forgers">
+                            <li>
+                                <a href="#">will</a>
+                            </li>
+                            <li>
+                                <a href="#">punkrock</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

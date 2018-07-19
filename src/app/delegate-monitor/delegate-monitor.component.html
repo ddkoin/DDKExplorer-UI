@@ -153,7 +153,8 @@
                             <tbody>
                                 <tr *ngFor="let delegate of latestDelegates">
                                     <td>
-                                        <a href="/address/8399757677145070415L">{{delegate.username}}</a>
+                                        <!-- <a href="/address/8399757677145070415L">{{delegate.username}}</a> -->
+                                        <a routerLink="/delegate-monitor-info">{{delegate.username}}</a>
                                     </td>
                                     <td>
                                         <a class="ellipsis">{{delegate.id}}</a>
