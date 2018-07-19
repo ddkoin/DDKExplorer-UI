@@ -71,7 +71,7 @@
   "defaults": {
     "serve": {
       "port": 7001,
-      "host": "159.65.139.87"
+      "host": "explorertestnet.ddkoin.com"
     },
     "styleExt": "css",
     "component": {}
