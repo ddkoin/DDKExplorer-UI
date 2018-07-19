@@ -14,7 +14,6 @@ export class AddressDetailService {
 
     /* For All Transactions List Services */
     getAddressDetail(address) {
-        console.log('type of address :', address)
         return this.http.get(environment.serverUrl + '/api/accounts?address='+address)
             .map((res: Response) => res.json());
     }

@@ -3,6 +3,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BlockDetailsService } from '../shared/services/blockDetails.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
+import { DelegatesService } from '../shared/services/delegates.service';
+import {Observable} from 'rxjs/Rx'
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Component({
 	templateUrl: './delegateMonitorInfo.component.html',
@@ -15,11 +18,15 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public blockId: any;
 	public bxsHight: any;
 	public typeId: any;
+	public currentHeight: any;
+	public delegateInfo: any = {};
+	public Voters: any;
+	public votesCount: any = Number;
+	public publicKey: any;
 	
 
-	constructor(private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService) {
+	constructor(private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
-			console.log('params===', params)
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
 				this.blockId = params.id;
@@ -47,13 +54,50 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		this.blockInfo = [];
 		this.allBxHeight.getBlockHeightDetail(parseInt(this.bxsHight)).subscribe(
 			resp => {
-				console.log('resp============', resp);
 				if (resp.success) {
 					this.blockInfo = resp.blocks[0];
 				}
 			},
 			error => {
 				console.log(error)
+			}
+		);
+	}
+	getLatestHeight() {
+		this.delegateService.getNextForgers().subscribe(
+			resp => {
+				if(resp.success) {
+					this.currentHeight = resp.currentBlock;
+				}
+			},
+			error => {
+				console.log(error);
+			}
+		);
+	}
+	getDelegate(publicKey) {
+		this.delegateService.getDelegate(publicKey).subscribe(
+			resp => {
+				if(resp.success) {
+					this.delegateInfo = resp.delegate;
+				}
+			},
+			error => {
+				console.log(error);
+			}
+		);
+	}
+
+	getVoters(publicKey) {
+		this.delegateService.getVoters(publicKey).subscribe(
+			resp => {
+				if(resp.success) {
+					this.Voters = resp.accounts;
+					this.votesCount = resp.accounts.length;
+				}
+			},
+			error => {
+				console.log(error);
 			}
 		);
 	}
@@ -64,16 +108,23 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		} else {
 			this.blockHeight();
 		}
-
-
 	}
 
 	ngAfterViewInit() {
+		this.publicKey = window.location.href.split('/delegate/')[1];
+		this.getDelegate(this.publicKey);
+		this.getVoters(this.publicKey);
+		this.getLatestHeight();
 		let flag:any = true
 		window.localStorage.setItem('flag',flag)
 		this.dtOptions = {
 			pagingType: 'full_numbers'
 		};
+		this.getLatestHeight();
+		const that = this;
+		Observable.interval(10000).subscribe(x => {
+			this.getLatestHeight();
+		});
 	}
 }
 

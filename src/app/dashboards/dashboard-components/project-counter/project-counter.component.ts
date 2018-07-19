@@ -6,7 +6,7 @@ const data: any = require('./data.json');
 
 import { allBlockService } from '../../../shared/services/allBlock.service'
 import { allTransactionsService } from '../../../shared/services/allTransactions.service';
-import { transactionsHistoryService } from '../../../shared/services/transactionsHistory.service'
+//import { transactionsHistoryService } from '../../../shared/services/transactionsHistory.service'
 
 @Component({
     selector: 'project-counter',
@@ -19,19 +19,18 @@ export class ProjectCounterComponent implements AfterViewInit {
     public transactionHistory : any = [];
     public transactionLength: any = [];
 		 
-	constructor(private txHistory:transactionsHistoryService, private allTx:allTransactionsService, private allBx:allBlockService) {
-		this.subtitle = "This is some text within a card block."
-    }
+  constructor(private allTx: allTransactionsService, private allBx: allBlockService) {
+    this.subtitle = "This is some text within a card block."
+  }
 
 
     
     allBlockList() {
 		this.allBx.getAllBlocks().subscribe(
 			resp => {
-				if (resp.success) {
-                    this.height = resp.blocks[0].height;
-                    //console.log('this.bxLists====',this.bxLists)
-				}
+        if (resp.success) {
+          this.height = resp.blocks[0].height;
+        }
 			},
 			error => {
 				console.log(error)
@@ -43,8 +42,7 @@ export class ProjectCounterComponent implements AfterViewInit {
 		this.allTx.getAllTransactions().subscribe(
 			resp => {
 				if (resp.success) {
-                    this.transactionLength = resp.transactions.length;
-                    //console.log('this.transactionLength=======',this.transactionLength)
+          this.transactionLength = resp.count;
 				}
 			},
 			error => {
@@ -53,25 +51,24 @@ export class ProjectCounterComponent implements AfterViewInit {
 		);
     }
     
-    transactionsHistory() {
+    /* transactionsHistory() {
 		this.txHistory.getTransactionsHistory().subscribe(
 			resp => {
 				if (resp.success) {
-                    this.transactionHistory = resp.trsData;
-                    console.log('this.transactionHistory=======',this.transactionHistory)
+          this.transactionHistory = resp.trsData;
 				}
 			},
 			error => {
 				console.log(error)
 			}
 		);
-    }
+    } */
 
 
     ngAfterViewInit(){
         this.allBlockList();
         this.allTransactionsList();
-        this.transactionsHistory();
+        /* this.transactionsHistory(); */
     }
 
 

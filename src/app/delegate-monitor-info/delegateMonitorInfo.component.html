@@ -6,7 +6,7 @@
                     <h2 class="m-b-0">
                         <i class="mdi mdi-briefcase-check text-info"></i>
                     </h2>
-                    <h3 class="">{{currentBlock - 1}}</h3>
+                    <h3 class="">{{currentHeight - 1}}</h3>
                     <h6 class="card-subtitle m-b-0">Height</h6>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         <i class="mdi mdi-buffer text-warning"></i>
                     </h2>
                     <h3 class="">7.43</h3>
-                    <h6 class="card-subtitle m-b-0">DDK/EUR</h6>
+                    <h6 class="card-subtitle m-b-0">DDK/USD</h6>
                 </div>
             </div>
         </div>
@@ -64,50 +64,62 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Name:</span>
-                                    <span class="col-md-8">{{blockInfo.id}}</span>
+                                    <span class="col-md-8">{{delegateInfo.username}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Address:</span>
-                                    <span class="col-md-8">{{blockInfo.timestamp | timeagofilter}}</span>
+                                    <span class="col-md-8">{{delegateInfo.address}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">Uptime:</span>
-                                    <span class="col-md-8">{{blockInfo.height}}</span>
+                                    <span class="col-md-3">Public Key:</span>
+                                    <span class="col-md-8">{{delegateInfo.publicKey}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Rate:</span>
+                                    <span class="col-md-8">{{delegateInfo.rate}}</span>
                                 </span>
                             </li>
 
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Rank / Status</span>
-                                    <span class="col-md-8">{{blockInfo.previousBlock}}</span>
+                                    <span class="col-md-8">{{delegateInfo.rank}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Approval:</span>
-                                    <span class="col-md-8">{{blockInfo.numberOfTransactions}}</span>
+                                    <span class="col-md-8">{{delegateInfo.approval}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Vote weight:</span>
-                                    <span class="col-md-8">{{blockInfo.totalAmount}}</span>
+                                    <span class="col-md-8">{{delegateInfo.vote/100000000}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Forged:</span>
-                                    <span class="col-md-8">{{blockInfo.totalFee}}</span>
+                                    <span class="col-md-8">{{delegateInfo.producedblocks}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">Blocks:</span>
-                                    <span class="col-md-8">{{blockInfo.payloadHash}}</span>
+                                    <span class="col-md-3">Missed Blocks:</span>
+                                    <span class="col-md-8">{{delegateInfo.missedblocks}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">productivity:</span>
+                                    <span class="col-md-8">{{delegateInfo.productivity}}</span>
                                 </span>
                             </li>
                         </ul>
@@ -121,14 +133,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 info-box">
-                        <span class="heading b-b">Votes 20</span>
+                        <span class="heading b-b">Votes {{ votesCount }}</span>
                         <ul class="next-forgers">
-                            <li>
+                            <li *ngFor="let voters of Voters">
+                                <div *ngIf="voters.username; else elseBlock"><a href="#">{{ voters.username }}</a></div>
+                                <ng-template #elseBlock><a href="#">{{ voters.address }}</a></ng-template>
+                                
+                            </li>
+                           <!--  <li>
                                 <a href="#">will</a>
                             </li>
                             <li>
                                 <a href="#">punkrock</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

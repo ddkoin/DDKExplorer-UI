@@ -45,7 +45,7 @@
                     <h2 class="m-b-0">
                         <i class="mdi mdi-buffer text-warning"></i>
                     </h2>
-                    <h3 class="">{{DDKPrice | 180.729}}</h3>
+                    <h3 class="">{{DDKPrice || 180.729}}</h3>
                     <h6 class="card-subtitle m-b-0">DDK/USD</h6>
                 </div>
             </div>
@@ -154,7 +154,8 @@
                                 <tr *ngFor="let delegate of latestDelegates">
                                     <td>
                                         <!-- <a href="/address/8399757677145070415L">{{delegate.username}}</a> -->
-                                        <a routerLink="/delegate-monitor-info">{{delegate.username}}</a>
+                                        <a (click)="getDelegateInfo(delegate.publicKey)" class="link-hover">{{delegate.username}}</a>
+                                        <!-- <a routerLink="/address/{{delegate.id}}">{{delegate.username}}</a> -->
                                     </td>
                                     <td>
                                         <a class="ellipsis">{{delegate.id}}</a>

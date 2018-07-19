@@ -50,7 +50,7 @@
                                                         <!-- <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i> -->
                                                         <a href="#" class="address-tag">{{sender.recipientId}}</a>
                                                     </td>
-                                                    <td>{{sender.timestamp}}</td>
+                                                    <td>{{sender.timestamp | timeagofilter}} | {{sender.timestamp | timestampFilter}}</td>
                                                     <div *ngIf="sender.type === 8; else elseBlock">
                                                         <td>{{sender.stakedAmount/100000000}} DDK</td>
                                                     </div>

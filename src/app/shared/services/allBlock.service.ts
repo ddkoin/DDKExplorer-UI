@@ -14,7 +14,6 @@ export class allBlockService {
 
     /* For All Transactions List Services */
     getAllBlocks() {
-        //console.log('limit : ', limit);
         return this.http.get(environment.serverUrl + '/api/blocks')
             .map((res: Response) => res.json());
     }

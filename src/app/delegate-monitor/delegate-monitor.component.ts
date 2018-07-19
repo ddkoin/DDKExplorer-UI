@@ -32,7 +32,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public DDKPrice: any;
 	
 
-	constructor(private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
 		
 	}
 	getProductivityInfo(delegatesList) {
@@ -154,6 +154,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 				console.log(error);
 			}
 		);
+	}
+
+	getDelegateInfo(senderId) {
+		this.router.navigate(['/delegate',senderId]);
 	}
 
 	/* getPrice() {

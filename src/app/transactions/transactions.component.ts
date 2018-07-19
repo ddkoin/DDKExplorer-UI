@@ -31,7 +31,6 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	allTransactionsList() {
 		this.allTransaction.getAllTransactions().subscribe(
 			resp => {
-				console.log('resp.count : ', resp.count);
 				if (resp.success) {
 					//this.transactionlist = resp.transactions;
 					//this.dtOptions.data = resp.transactions;

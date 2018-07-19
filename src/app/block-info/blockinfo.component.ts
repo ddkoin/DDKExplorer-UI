@@ -19,7 +19,6 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 
 	constructor(private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
-			console.log('params===', params)
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
 				this.blockId = params.id;
@@ -47,7 +46,6 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		this.blockInfo = [];
 		this.allBxHeight.getBlockHeightDetail(parseInt(this.bxsHight)).subscribe(
 			resp => {
-				console.log('resp============', resp);
 				if (resp.success) {
 					this.blockInfo = resp.blocks[0];
 				}
