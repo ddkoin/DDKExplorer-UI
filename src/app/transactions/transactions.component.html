@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body table-container">
-                <table datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                <table datatable [dtOptions]="dtOptions" class="row-border hover">
                     <thead>
                         <tr>
                             <th>Transactions ID</th>
@@ -12,6 +12,7 @@
                             <th>RecipientId</th>
                             <th>Time</th>
                             <th>Amount</th>
+                            <th>Type</th>
                             <th class="txFee text-muted">[TxFee]</th>
                         </tr>
                     </thead>
@@ -21,7 +22,8 @@
                             <td>
                                 <a (click)="getTxId(transaction.id,'transactionId')" class="address-tag link-hover">{{transaction.id}}</a>
                             </td>
-                            <td><a>{{transaction.height}}</a>
+                            <td>
+                                <a>{{transaction.height}}</a>
                             </td>
                             <td>
                                 <a (click)="getBlockId(transaction.blockId,'blockId')" class="address-tag link-hover">{{transaction.blockId}}</a>
@@ -33,7 +35,13 @@
                                 <a (click)="getSenderId(transaction.recipientId,'recipientId')" class="address-tag">{{transaction.recipientId}}</a>
                             </td>
                             <td>{{transaction.timestamp | timeagofilter}}</td>
-                            <td>{{transaction.amount/100000000}}</td>
+                            <div *ngIf="transaction.type === 8; else elseBlock">
+                                <td>{{transaction.stakedAmount/100000000}}</td>
+                            </div>
+                            <ng-template #elseBlock>
+                                <td>{{transaction.amount/100000000}}</td>
+                            </ng-template>
+                            <td>{{transaction.trsName}}</td>
                             <td class="font-11 text-muted">{{transaction.fee/100000000}} DDK</td>
                         </tr>
                     </tbody>

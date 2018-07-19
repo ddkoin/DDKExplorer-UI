@@ -33,7 +33,7 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Timestamp:</span>
-                                    <span class="col-md-8">{{transactionInfo.timestamp | timeagofilter}}</span>
+                                    <span class="col-md-8">{{transactionInfo.timestamp | timeagofilter}} |  {{transactionInfo.timestamp | timestampFilter}}</span>
                                 </span>
                             </li>
                             <li>
@@ -55,8 +55,16 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Amount:</span>
-                                    <span class="col-md-8">{{transactionInfo.amount}}
-                                    </span>
+                                    <div *ngIf="transactionInfo.type === 8; else elseBlock">
+                                        <span class="col-md-8">{{transactionInfo.stakedAmount/100000000}}
+                                        </span>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        <span class="col-md-8">{{transactionInfo.amount/100000000}}
+                                        </span>
+                                    </ng-template>
+                                   <!--  <span class="col-md-8">{{transactionInfo.amount/100000000}}
+                                    </span> -->
                                 </span>
                             </li>
                             <li>

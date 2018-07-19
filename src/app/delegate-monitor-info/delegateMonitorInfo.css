@@ -1,0 +1,81 @@
+/* Table layout css */
+.default-table-layout  thead{
+    background: #F9F9F9;
+}
+.default-table-layout  thead tr th{ 
+    border-top: #E1E1E1 1px solid !important;
+    border-bottom: #E1E1E1 1px solid !important;
+    font-size: 14px;
+    padding: 10px 18px 10px 10px;
+}
+.default-table-layout tbody tr td{
+    border-bottom: #E1E1E1 1px solid;
+    font-size: 14px;
+    border-top: none;
+    color: #464646;
+    font-weight: 400;
+}
+.default-table-layout.dataTable.no-footer,.default-table-layout.dataTable thead th{
+    border-bottom: none;
+}
+.dataTables_wrapper .dataTables_info{
+    font-size: 14px !important;
+}
+.table-container .container-fluid{
+    padding: 0;
+}
+.info-box .heading{
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.blog-info{
+    padding: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+.blog-info li{
+    margin-bottom: 7px;
+    padding-bottom: 7px;
+}
+.blog-info li:last-child{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.info-summary{
+    font-size: 15px;
+}
+.info-summary .col-md-3{
+    color: black;
+    font-weight: 400;
+}
+.info-summary .col-md-8 a{
+  color: #398bf7;
+}
+
+.address-tag{
+    display: inline-block;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 132px;
+    white-space: nowrap;
+}
+
+.p-t-em{
+    padding-top: 1.25em;
+}
+
+
+
+.next-forgers{
+    list-style: square;
+    padding-left: 18px;
+}
+.next-forgers li{
+    float: left;
+    margin-right: 25px;
+}

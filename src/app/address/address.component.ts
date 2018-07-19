@@ -16,7 +16,6 @@ export class AddressComponent implements AfterViewInit {
 	show = false;
 
 	showComments($event) {
-		console.log($event.activeId);
 		if ($event.activeId == "tab-selectbyid1") {
 			this.show = true;
 			this.loadCommenents();

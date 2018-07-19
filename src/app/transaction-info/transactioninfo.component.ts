@@ -18,7 +18,6 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 
 	constructor(private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) { 
 		this.activatedRoute.params.subscribe((params: Params) => {
-			console.log('params===', params)
 			this.typeId = params.name;
 			 if (this.typeId == 'transactionId') {
 				this.txsId = params.id;

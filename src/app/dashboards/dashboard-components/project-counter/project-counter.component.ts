@@ -6,6 +6,7 @@ const data: any = require('./data.json');
 
 import { allBlockService } from '../../../shared/services/allBlock.service'
 import { allTransactionsService } from '../../../shared/services/allTransactions.service';
+//import { transactionsHistoryService } from '../../../shared/services/transactionsHistory.service'
 
 @Component({
     selector: 'project-counter',
@@ -15,19 +16,21 @@ export class ProjectCounterComponent implements AfterViewInit {
 
     subtitle:string;
     public height : any = [];
+    public transactionHistory : any = [];
     public transactionLength: any = [];
 		 
-	constructor(private allTx:allTransactionsService, private allBx:allBlockService) {
-		this.subtitle = "This is some text within a card block."
-    }
+  constructor(private allTx: allTransactionsService, private allBx: allBlockService) {
+    this.subtitle = "This is some text within a card block."
+  }
+
+
     
     allBlockList() {
 		this.allBx.getAllBlocks().subscribe(
 			resp => {
-				if (resp.success) {
-                    this.height = resp.blocks[0].height;
-                    //console.log('this.bxLists====',this.bxLists)
-				}
+        if (resp.success) {
+          this.height = resp.blocks[0].height;
+        }
 			},
 			error => {
 				console.log(error)
@@ -39,15 +42,35 @@ export class ProjectCounterComponent implements AfterViewInit {
 		this.allTx.getAllTransactions().subscribe(
 			resp => {
 				if (resp.success) {
-                    this.transactionLength = resp.transactions.length;
-                    //console.log('this.transactionLength=======',this.transactionLength)
+          this.transactionLength = resp.count;
 				}
 			},
 			error => {
 				console.log(error)
 			}
 		);
-	}
+    }
+    
+    /* transactionsHistory() {
+		this.txHistory.getTransactionsHistory().subscribe(
+			resp => {
+				if (resp.success) {
+          this.transactionHistory = resp.trsData;
+				}
+			},
+			error => {
+				console.log(error)
+			}
+		);
+    } */
+
+
+    ngAfterViewInit(){
+        this.allBlockList();
+        this.allTransactionsList();
+        /* this.transactionsHistory(); */
+    }
+
 
 	public lineChartData: Array<any> = [
         { data: [0, 50, 30, 60, 90, 120, 100, 80], label: 'Sales ' }
@@ -75,12 +98,13 @@ export class ProjectCounterComponent implements AfterViewInit {
           xAxes: [{
             gridLines: {
               color: "rgba(0, 0, 0, 0.1)"
-            },
-          }]
+            }
+          }],
         },
         lineTension:10,
         responsive: true,
         maintainAspectRatio: false,
+        
         
         
     };
@@ -115,11 +139,7 @@ export class ProjectCounterComponent implements AfterViewInit {
     public doughnutChartType: string = 'doughnut';
     public doughnutChartLegend: boolean = false;
     
-	ngAfterViewInit(){
-        this.allBlockList();
-        this.allTransactionsList();
 
-    }
 
 	
 }

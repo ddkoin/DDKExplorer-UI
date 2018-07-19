@@ -20,7 +20,8 @@ export const Approutes: Routes = [
         { path: 'address', loadChildren: './address/address.module#AddressModule' },
         { path: 'charts', loadChildren: './charts/charts.module#ChartModule' },
         { path: 'apps', loadChildren: './apps/apps.module#AppsModule' },
-        { path: 'delegate-monitor', loadChildren: './delegate-monitor/delegate-monitor.module#DelegateMonitorModule' }
+        { path: 'delegate-monitor', loadChildren: './delegate-monitor/delegate-monitor.module#DelegateMonitorModule' },
+        { path: 'delegate/:publicKey', loadChildren: './delegate-monitor-info/delegateMonitorInfo.module#DelegateMonitorInfoModule' }
         
     ]
 },
