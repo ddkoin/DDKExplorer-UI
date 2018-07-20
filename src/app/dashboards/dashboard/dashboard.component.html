@@ -23,7 +23,7 @@
                     </div>
                     <div class="ml-left block-info-details pull-left">
                         <div class="overflow-h">Generator By
-                            <a class="address-tag link-hover" (click)="getGeneratorId(bxList.generatorId,'generatorId')">{{bxList.generatorId}}</a>
+                            <a class="address-tag link-hover" (click)="getGeneratorId(bxList.generatorId)">{{bxList.generatorId}}</a>
                             <p class="txns-time">
                                 <a class="link-hover">
                                     <b>{{bxList.numberOfTransactions}} txns</b>
@@ -52,9 +52,9 @@
                             <span class="pull-right">{{txList.timestamp | timeagofilter }}</span>
                         </span>
                         <p>
-                            From <a class="address-tag link-hover" (click)="getSenderId(txList.senderId,'senderId')">{{txList.senderId}}</a>
+                            From <a class="address-tag link-hover" (click)="getSenderId(txList.senderId)">{{txList.senderId}}</a>
                             <span *ngIf="txList.recipientId!==null">
-                            To <a class="address-tag link-hover" (click)="getSenderId(txList.recipientId,'recipientId')">{{txList.recipientId}}</a></span>
+                            To <a class="address-tag link-hover" (click)="getSenderId(txList.recipientId)">{{txList.recipientId}}</a></span>
                         </p>
                         <div *ngIf="txList.type === 8; else elseBlock"><p>Amount {{txList.stakedAmount/100000000}} DDK</p></div>
                         <ng-template #elseBlock><p>Amount {{txList.amount/100000000}} DDK</p></ng-template>

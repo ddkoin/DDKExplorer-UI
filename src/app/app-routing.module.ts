@@ -16,7 +16,7 @@ export const Approutes: Routes = [
         { path: 'block-info', loadChildren: './block-info/blockinfo.module#BlockInfoModule' },           
         { path: 'transactions', loadChildren: './transactions/transactions.module#TransactionsModule' },
         { path: 'transaction-info/:name/:id',  loadChildren: './transaction-info/transactioninfo.module#TransactionInfoModule' },
-        { path: 'user-info/:name/:id', loadChildren: './user-info/user-info.module#UserInfoModule' },
+        { path: 'user-info/:id', loadChildren: './user-info/user-info.module#UserInfoModule' },
         { path: 'address', loadChildren: './address/address.module#AddressModule' },
         { path: 'charts', loadChildren: './charts/charts.module#ChartModule' },
         { path: 'apps', loadChildren: './apps/apps.module#AppsModule' },

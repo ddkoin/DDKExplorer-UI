@@ -45,7 +45,7 @@
                     <h2 class="m-b-0">
                         <i class="mdi mdi-buffer text-warning"></i>
                     </h2>
-                    <h3 class="">{{DDKPrice || 180.729}}</h3>
+                    <h3 class="">{{ DDKPrice || 180.513 }}</h3>
                     <h6 class="card-subtitle m-b-0">DDK/USD</h6>
                 </div>
             </div>
@@ -66,7 +66,9 @@
                     <div class="col-md-4 m-b-30 delegates-info">
                         <h3>Last Block By</h3>
                         <span class="btn-block">
-                            <a href="#">{{lastBlock.generatorId}}</a>
+                                <div *ngIf="lastBlock.username; else elseBlock"><a (click)="getDelegateInfo(lastBlock.generatorPublicKey)" class="link-hover">{{lastBlock.username}}</a></div>
+                                <ng-template #elseBlock><a (click)="getDelegateInfo(lastBlock.generatorPublicKey)" class="link-hover">{{lastBlock.generatorId}}</a></ng-template>
+                            
                         </span>
                         <span class="btn-block">
                             <a href="#">{{lastBlock.id}}</a>
@@ -78,19 +80,20 @@
 
                     <div class="col-md-4 m-b-30 delegates-info">
                         <h3>Next Forgers</h3>
-                        <span class="btn-block">
-                            <a>{{nextForgersList[0]}}</a>
+                        <span class="btn-block" *ngFor="let delegate of nextForgersList;let i=index">
+                            <a *ngIf="i < 1">{{nextForgersList[0].username}}</a>
                         </span>
                         <ul class="next-forgers">
                             <li *ngFor="let delegate of nextForgersList | slice:1">
-                                <a href="#">{{delegate}}</a>
+                                <!-- <a href="#">{{delegate}}</a> -->
+                                <a (click)="getDelegateInfo(delegate.publicKey)" class="link-hover">{{delegate.username}}</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-4 delegates-info">
                         <h3>Best Forgers</h3>
                         <span class="btn-block">
-                            <a href="#">{{bestForger.username}}</a>
+                            <a (click)="getDelegateInfo(bestForger.publicKey)" class="link-hover">{{bestForger.username}}</a>
                         </span>
                         <span class="btn-block">{{bestForger.producedblocks}} Blocks Forged</span>
                         <span class="btn-block">since registration</span>
@@ -99,14 +102,14 @@
                         <h3>Best Productivity</h3>
                         <span class="btn-block">{{bestProductivity.productivity}}%</span>
                         <span class="btn-block">
-                            <a href="#">by {{bestProductivity.username}}</a>
+                            <a (click)="getDelegateInfo(bestProductivity.publicKey)" class="link-hover">by {{bestProductivity.username}}</a>
                         </span>
                     </div>
                     <div class="col-md-4 delegates-info">
                         <h3>Worst Productivity</h3>
                         <span class="btn-block">{{worstProductivity.productivity}}%</span>
                         <span class="btn-block">
-                            <a href="#">by {{worstProductivity.username}}</a>
+                            <a (click)="getDelegateInfo(worstProductivity.publicKey)" class="link-hover">by {{worstProductivity.username}}</a>
                         </span>
                     </div>
                 </div>
@@ -125,7 +128,7 @@
                             <tbody>
                                 <tr *ngFor="let voters of latestVotes">
                                     <td>
-                                        <a href="/address/{{voters.senderId}}">{{voters.senderId}}</a>
+                                        <a (click)="getAddressInfo(voters.senderId)" class="link-hover">{{voters.senderId}}</a>
                                     </td>
                                     <td>
                                         <a class="ellipsis">{{voters.id}}</a>
@@ -146,8 +149,9 @@
                             <thead>
                                 <tr>
                                     <th>Delegate</th>
-                                    <th>Transaction</th>
-                                    <th>Time</th>
+                                    <th>Address</th>
+                                    <th>Produced Blocks</th>
+                                    <th>Missed Blocks</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -158,11 +162,14 @@
                                         <!-- <a routerLink="/address/{{delegate.id}}">{{delegate.username}}</a> -->
                                     </td>
                                     <td>
-                                        <a class="ellipsis">{{delegate.id}}</a>
+                                        <a class="ellipsis">{{delegate.address}}</a>
                                     </td>
                                     <td class="time-ago">
-                                        <span class="text-muted">{{delegate.timestamp | timeagofilter }} | {{delegate.timestamp | timestampFilter }}</span>
+                                        <span class="text-muted">{{delegate.producedblocks}}</span>
                                     </td>
+                                    <td class="time-ago">
+                                            <span class="text-muted">{{delegate.missedblocks}}</span>
+                                        </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -29,10 +29,10 @@
                                 <a (click)="getBlockId(transaction.blockId,'blockId')" class="address-tag link-hover">{{transaction.blockId}}</a>
                             </td>
                             <td>
-                                <a (click)="getSenderId(transaction.senderId,'senderId')" class="address-tag link-hover">{{transaction.senderId}}</a>
+                                <a (click)="getSenderId(transaction.senderId)" class="address-tag link-hover">{{transaction.senderId}}</a>
                             </td>
                             <td>
-                                <a (click)="getSenderId(transaction.recipientId,'recipientId')" class="address-tag">{{transaction.recipientId}}</a>
+                                <a (click)="getSenderId(transaction.recipientId)" class="address-tag">{{transaction.recipientId}}</a>
                             </td>
                             <td>{{transaction.timestamp | timeagofilter}}</td>
                             <div *ngIf="transaction.type === 8; else elseBlock">

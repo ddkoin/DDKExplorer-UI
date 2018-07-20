@@ -60,8 +60,8 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	}
 
 	/* For Amount Detail By Address */
-	getSenderId(senderId,name) {
-		this.router.navigate(['/user-info',name, senderId]);
+	getSenderId(senderId) {
+		this.router.navigate(['/user-info', senderId]);
 	}
 
 

@@ -49,13 +49,13 @@ export class DashboardComponent implements AfterViewInit {
 	}
 
 	/* For Amount Detail By Address */
-	getGeneratorId(generatorId,name) {
-		this.router.navigate(['/user-info',name, generatorId]);
+	getGeneratorId(generatorId) {
+		this.router.navigate(['/user-info', generatorId]);
 	}
 
 	/* For Amount Detail By Address */
-	getSenderId(senderId,name) {
-		this.router.navigate(['/user-info',name, senderId]);
+	getSenderId(senderId) {
+		this.router.navigate(['/user-info', senderId]);
 	}
 
 	ngAfterViewInit() {

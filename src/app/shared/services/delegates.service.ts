@@ -71,10 +71,10 @@ export class DelegatesService {
     });
   } */
 
-  /* getPrice() {
-    return this.http.get('http://bcmy.io/price/price-ddk-api.php?com=sell')
+  getPrice() {
+    return this.http.get('http://ddkoin.com/price/price-ddk-api.php?com=sell')
     .map((res: Response) => res.json());
-  } */
+  }
 
   
 }

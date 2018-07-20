@@ -25,7 +25,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public publicKey: any;
 	
 
-	constructor(private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
@@ -94,12 +94,17 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 				if(resp.success) {
 					this.Voters = resp.accounts;
 					this.votesCount = resp.accounts.length;
+					console.log('this.Voters : ', this.Voters)
 				}
 			},
 			error => {
 				console.log(error);
 			}
 		);
+	}
+
+	getAddressInfo(address) {
+		this.router.navigate(['/user-info', address]);
 	}
 
 	ngOnInit() {

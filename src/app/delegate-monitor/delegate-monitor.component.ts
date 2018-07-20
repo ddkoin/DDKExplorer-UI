@@ -91,7 +91,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		var self = this;
 		this.delegatesInfo.forEach(function(delegate) {
 			if(publicKey == delegate.publicKey) {
-				self.nextForgersList.push(delegate.username);
+				self.nextForgersList.push({
+					username: delegate.username,
+					publicKey: delegate.publicKey
+				});
 			}
 		});
 	}
@@ -108,7 +111,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 						self.getdelegateName(publicKey);
 					});
 					this.currentBlock = resp.currentBlock;
-					this.getLastBlock(this.currentBlock - 1);
+					this.getLastBlock(this.currentBlock);
 				}
 			},
 			error => {
@@ -121,7 +124,13 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.BlockDetails.getBlockHeightDetail(currentBlockHeight).subscribe(
 			resp => {
 				if(resp.success) {
+					let self = this;
 					this.lastBlock = resp.blocks[0];
+					this.delegatesInfo.forEach(function(delegate) {
+						if(self.lastBlock.generatorPublicKey == delegate.publicKey) {
+							self.lastBlock.username = delegate.username;
+						}
+					});
 				}
 			},
 			error => {
@@ -156,11 +165,15 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	getDelegateInfo(senderId) {
-		this.router.navigate(['/delegate',senderId]);
+	getDelegateInfo(publicKey) {
+		this.router.navigate(['/delegate', publicKey]);
 	}
 
-	/* getPrice() {
+	getAddressInfo(address) {
+		this.router.navigate(['/user-info', address]);
+	}
+
+	getPrice() {
 		this.delegateService.getPrice().subscribe(
 			resp => {
 				if(resp.success) {
@@ -171,7 +184,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 				console.log(error);
 			}
 		);
-	} */
+	}
 	
 	
 
