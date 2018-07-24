@@ -14,7 +14,7 @@ export class DashboardComponent implements AfterViewInit {
 	constructor(private router: Router, private allTx:allTransactionsService, private allBx:allBlockService) {}
 
 	allTransactionsList() {
-		this.allTx.getAllTransactions().subscribe(
+		this.allTx.getAllTransactions(25, 10).subscribe(
 			resp => {
 				if (resp.success) {
 					this.txLists = resp.transactions;

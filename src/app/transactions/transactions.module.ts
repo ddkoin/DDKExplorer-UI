@@ -6,6 +6,8 @@ import { TransactionsComponent } from './transactions.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from './../shared/shared.module'
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 const routes: Routes = [{
 	path: '',
 	data: {
@@ -21,7 +23,8 @@ const routes: Routes = [{
     	CommonModule, 
 		RouterModule.forChild(routes),
 		DataTablesModule,
-		SharedModule
+		SharedModule,
+		NgxDatatableModule
     ],
 	declarations: [TransactionsComponent]
 })

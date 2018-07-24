@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { BlockComponent } from './block.component';
 import { DataTablesModule } from 'angular-datatables';
-import { SharedModule } from './../shared/shared.module'
+import { SharedModule } from './../shared/shared.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [{
 	path: '',
@@ -19,8 +21,9 @@ const routes: Routes = [{
     	CommonModule, 
 		RouterModule.forChild(routes),
 		DataTablesModule,
-		SharedModule
-		
+		SharedModule,
+		NgxDatatableModule,
+		FormsModule
     ],
 	declarations: [BlockComponent]
 })
