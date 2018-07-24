@@ -13,9 +13,25 @@ export class allTransactionsService {
     constructor(private http: Http) { }
 
     /* For All Transactions List Services */
-    getAllTransactions() {
-        return this.http.get(environment.serverUrl + '/api/transactions?orderBy=timestamp:desc&limit=10')
-            .map((res: Response) => res.json());
+    getAllTransactions(limit, offset) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                limit: limit,
+                offset: offset,
+                orderBy: 'timestamp:desc'
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
+    getTransactionsBasedOnHeight(height) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                fromHeight: height,
+                orderBy: 'height:desc'
+            }
+        })
+        .map((res: Response) => res.json());
     }
 
 }

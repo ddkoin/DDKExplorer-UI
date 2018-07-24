@@ -39,7 +39,7 @@ export class ProjectCounterComponent implements AfterViewInit {
     }
     
     allTransactionsList() {
-		this.allTx.getAllTransactions().subscribe(
+		this.allTx.getAllTransactions(25, 0).subscribe(
 			resp => {
 				if (resp.success) {
           this.transactionLength = resp.count;

@@ -1,8 +1,8 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body table-container">
-                <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                <ngx-datatable class="row-border hover">
                     <thead>
                         <tr>
                             <th>Transactions ID</th>
@@ -18,7 +18,6 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let transaction of transactionlist">
-                            <!-- <td><a (click)="getTransactionId(transaction.id)" class="address-tag">{{transaction.id}}</a></td> -->
                             <td>
                                 <a (click)="getTxId(transaction.id,'transactionId')" class="address-tag link-hover">{{transaction.id}}</a>
                             </td>
@@ -45,7 +44,61 @@
                             <td class="font-11 text-muted">{{transaction.fee/100000000}} DDK</td>
                         </tr>
                     </tbody>
-                </table>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="search-container">
+                    <input type='text' class="search-box" placeholder='Search...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)" />
+                    <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button>
+                </div>
+
+                <ngx-datatable #table class="material bootstrap" [rows]="transactionlist" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                    [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
+                    [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
+                </ngx-datatable>
+                <ng-template #transactionId let-row="row">
+                    <a (click)="getTxId(row.id,'transactionId')" class="address-tag link-hover">{{row.id}}</a>
+                </ng-template>
+
+                <ng-template let-row="row">
+                    {{ row.trsName }}
+                </ng-template>
+
+                <ng-template let-row="row">
+                    {{ row.height }}
+                </ng-template>
+
+                <ng-template #blockId let-row="row">
+                    <a (click)="getBlockId(row.blockId,'blockId')" class="address-tag link-hover">{{row.blockId}}</a>
+                </ng-template>
+
+                <ng-template #senderId let-row="row">
+                    <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                </ng-template>
+
+                <ng-template #recipientId let-row="row">
+                    <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
+                </ng-template>
+
+                <ng-template #timestamp let-row="row">
+                    {{row.timestamp | timeagofilter }}
+                </ng-template>
+
+                <ng-template #amount let-row="row">
+                    {{ row.amount/100000000 }}
+                </ng-template>
+
+                <ng-template #fee let-row="row">
+                    {{ row.fee/100000000 }}
+                </ng-template>
             </div>
         </div>
     </div>

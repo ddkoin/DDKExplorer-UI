@@ -1,39 +1,71 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { allTransactionsService } from '../shared/services/allTransactions.service';
+import { allBlockService } from '../shared/services/allBlock.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { DataTablesModule } from 'angular-datatables';
 import { transition } from '@angular/animations';
-import { Subject } from 'rxjs';
 
 declare var require: any;
+declare var jquery: any;
+declare var $: any;
 
-class DataTablesResponse {
-	data: any[];
-	draw: number;
-	recordsFiltered: number;
-	recordsTotal: number;
-}
 @Component({
 	templateUrl: './transactions.component.html',
 	styleUrls: ['./transactions.css']
 })
 export class TransactionsComponent implements OnInit,  AfterViewInit {
-	dtOptions: DataTables.Settings = {};
-	dtTrigger: Subject<any> = new Subject();
+	rows = [];
+	columns = [];
+	offset: any;
+	temp = [];
+	public page: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public timeout: any = 100;
+	@ViewChild('transactionId') transactionId: TemplateRef<any>;
+	@ViewChild('blockId') blockId: TemplateRef<any>;
+	@ViewChild('senderId') senderId: TemplateRef<any>;
+	@ViewChild('recipientId') recipientId: TemplateRef<any>;
+	@ViewChild('timestamp') timestamp: TemplateRef<any>;
+	@ViewChild('amount') amount: TemplateRef<any>;
+	@ViewChild('fee') fee: TemplateRef<any>;
 	public transactionlist: any = [];
 	public transactionInfo: any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 
-	constructor(private router: Router, private allTransaction: allTransactionsService, private http: HttpClient) { }
+	constructor(private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService) { }
 
-	allTransactionsList() {
-		this.allTransaction.getAllTransactions().subscribe(
+	filterData(event) {
+		if (event) {
+			clearTimeout(this.timeout);
+			const that = this;
+			this.timeout = setTimeout(function() {
+				var searchValue = event.target.value;
+				if(searchValue !== '') {
+					if (!isNaN(searchValue)) {
+						that.allTransaction.getTransactionsBasedOnHeight(searchValue).subscribe(
+							resp => {
+								if(resp.success) {
+									that.transactionlist = resp.transactions;
+									that.page.totalElements = resp.count;
+								}
+							}
+						);
+					} else {
+						//implement string based search here
+					}
+				} else {
+					that.allTransactionsList(that.page.size, that.page.offset);
+				}
+			}, 1000);
+		}
+	}
+
+	allTransactionsList(limit, offset) {
+		this.allTransaction.getAllTransactions(limit, offset).subscribe(
 			resp => {
 				if (resp.success) {
-					//this.transactionlist = resp.transactions;
-					//this.dtOptions.data = resp.transactions;
+					this.transactionlist = resp.transactions;
+					this.page.totalElements = resp.count;
 				}
 			},
 			error => {
@@ -46,7 +78,6 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		localStorage.setItem('transactionId', id);
 		this.router.navigate(['/transaction-info', id]);
 	}
-
 
 
 	/* For Transactions Detail By ID */
@@ -64,33 +95,28 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		this.router.navigate(['/user-info', senderId]);
 	}
 
+	setPage(event) {
+		this.page.offset = this.page.size * event.offset;
+		this.allTransactionsList(this.page.size, this.page.offset);
+	}
 
 	ngAfterViewInit() {
-		//this.allTransactionsList();
-		
 	}
 
 	ngOnInit(){
 		this.transactionlist = [];
-		var that = this;
-		this.dtOptions = {
-			serverSide: true,
-			processing: true,
-			ajax: (dataTablesParameters: any, callback) => {
-				that.http
-					.get(
-					environment.serverUrl + '/api/transactions?orderBy=timestamp:desc&limit=100',
-				).subscribe(resp => {
-					this.transactionlist = resp['transactions'];
-					callback({
-						recordsTotal: resp['count'],
-						recordsFiltered: resp['count'],
-						data: []
-					});
-				});
-			},
-			columns: [{ data: 'transactionId' }, { data: 'height' }, { data: 'blockId' }, { data: 'senderId' }, { data: 'recipientId' }, { data: 'timestamp' }, { data: 'amount' }, { data: 'fee' }]
-		};
+		this.columns = [
+			{ name: 'Transation ID', prop: 'id', width: '200', cellTemplate: this.transactionId },
+			{ name: 'Transaction Type', prop: 'trsName' },
+			{ name: 'Height', prop: 'height' },
+			{ name: 'Block ID', prop: 'blockId', width: '200', cellTemplate: this.blockId },
+			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
+			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
+			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
+			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount },
+			{ name: 'Tx Fee', prop: 'fee', cellTemplate: this.fee }
+		];
+		this.setPage({ offset: 0 });
 	}
 }
 

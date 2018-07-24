@@ -13,8 +13,23 @@ export class allBlockService {
     constructor(private http: Http) { }
 
     /* For All Transactions List Services */
-    getAllBlocks() {
-        return this.http.get(environment.serverUrl + '/api/blocks')
-            .map((res: Response) => res.json());
+    getAllBlocks(limit, offset) {
+        return this.http.get(environment.serverUrl + '/api/blocks', {
+            params: {
+                limit: limit,
+                offset: offset,
+                orderBy: 'timestamp:desc'
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
+    getBlocksBasedOnHeight(height) {
+        return this.http.get(environment.serverUrl + '/api/blocks', {
+            params: {
+                height: height
+            }
+        })
+        .map((res: Response) => res.json());
     }
 }
