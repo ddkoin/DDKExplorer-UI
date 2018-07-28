@@ -26,7 +26,7 @@ export class ProjectCounterComponent implements AfterViewInit {
 
     
     allBlockList() {
-		this.allBx.getAllBlocks().subscribe(
+		this.allBx.getAllBlocks(25, 0).subscribe(
 			resp => {
         if (resp.success) {
           this.height = resp.blocks[0].height;
