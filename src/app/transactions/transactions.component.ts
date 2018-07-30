@@ -28,6 +28,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	@ViewChild('timestamp') timestamp: TemplateRef<any>;
 	@ViewChild('amount') amount: TemplateRef<any>;
 	@ViewChild('fee') fee: TemplateRef<any>;
+	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
 	public transactionlist: any = [];
 	public transactionInfo: any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
@@ -65,6 +66,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.transactionlist = resp.transactions;
+					console.log('this.transactionlist : ', this.transactionlist);
 					this.page.totalElements = resp.count;
 				}
 			},

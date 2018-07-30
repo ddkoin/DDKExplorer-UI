@@ -93,7 +93,10 @@
                 </ng-template>
 
                 <ng-template #amount let-row="row">
-                    {{ row.amount/100000000 }}
+                    <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
+                    <ng-template #stakedAmount>
+                        {{ row.stakedAmount/100000000}}
+                    </ng-template>
                 </ng-template>
 
                 <ng-template #fee let-row="row">
