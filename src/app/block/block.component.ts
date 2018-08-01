@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { allBlockService } from '../shared/services/allBlock.service';
+import { AddressDetailService } from '../shared/services/addressDetail.service';
 
 
 
@@ -24,11 +25,10 @@ export class BlockComponent implements OnInit, AfterViewInit {
 	@ViewChild('fee') fee: TemplateRef<any>;
 	@ViewChild('timestamp') timestamp: TemplateRef<any>;
 	@ViewChild('previousBlock') previousBlock: TemplateRef<any>;
-	//dtOptions: DataTables.Settings = {};
 	public blocklist : any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 
-	constructor(private router: Router, private allBlocks :allBlockService) { }
+	constructor(private router: Router, private allBlocks :allBlockService, private userService: AddressDetailService) { }
 
 	allBlockList(limit, offset) {
 		this.allBlocks.getAllBlocks(limit, offset).subscribe(
@@ -54,14 +54,49 @@ export class BlockComponent implements OnInit, AfterViewInit {
 					if (!isNaN(searchValue)) {
 						that.allBlocks.getBlocksBasedOnHeight(searchValue).subscribe(
 							resp => {
-								if(resp.success) {
-									that.blocklist = resp.blocks;
-									that.page.totalElements = resp.count;
+								if(parseInt(resp.count) !== 0) {
+									if(resp.success) {
+										that.blocklist = resp.blocks;
+										that.page.totalElements = resp.count;
+									}
+								} else {
+									that.allBlocks.getBlocksBasedOnblockId(searchValue).subscribe(
+										resp => {
+											if(resp.success) {
+												that.blocklist = [];
+												that.blocklist.push(resp.block);
+												that.page.totalElements = 1;
+											}else {
+												that.blocklist = [];
+												that.page.totalElements = 0;
+											}
+										}
+									);
 								}
 							}
 						);
 					} else {
-						//implement string based search here
+						that.userService.getAddressDetail(searchValue).subscribe(
+							resp => {
+								if (resp.success) {
+									that.allBlocks.getBlocksBasedOnpublicKey(resp.account.publicKey).subscribe(
+										resp => {
+											if(resp.success) {
+												that.blocklist = resp.blocks;
+												that.page.totalElements = resp.count;
+											} else {
+												that.blocklist = [];
+												that.page.totalElements = 0;
+											}
+										}
+									);
+									
+								} else {
+									that.blocklist = [];
+									that.page.totalElements = 0;
+								}
+							}
+						);
 					}
 				} else {
 					that.allBlockList(that.page.size, that.page.offset);

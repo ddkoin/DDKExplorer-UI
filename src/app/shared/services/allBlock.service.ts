@@ -32,4 +32,22 @@ export class allBlockService {
         })
         .map((res: Response) => res.json());
     }
+
+    getBlocksBasedOnblockId(blockId) {
+        return this.http.get(environment.serverUrl + '/api/blocks/get', {
+            params: {
+                id: blockId
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
+    getBlocksBasedOnpublicKey(publicKey) {
+        return this.http.get(environment.serverUrl + '/api/blocks', {
+            params: {
+                generatorPublicKey: publicKey
+            }
+        })
+        .map((res: Response) => res.json());
+    }
 }

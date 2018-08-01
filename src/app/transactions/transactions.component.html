@@ -81,11 +81,17 @@
                 </ng-template>
 
                 <ng-template #senderId let-row="row">
-                    <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                    <span *ngIf="row.senderName; else elseBlock"><a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a></span>
+                    <ng-template #elseBlock>
+                            <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                    </ng-template>
                 </ng-template>
 
                 <ng-template #recipientId let-row="row">
-                    <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
+                    <span *ngIf="row.recipientName; else elseBlock"><a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a></span>
+                    <ng-template #elseBlock>
+                        <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
+                    </ng-template>
                 </ng-template>
 
                 <ng-template #timestamp let-row="row">

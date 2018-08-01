@@ -9,6 +9,7 @@ import { transition } from '@angular/animations';
 declare var require: any;
 declare var jquery: any;
 declare var $: any;
+const transactionTypes: any = require('../../assets/json/transactionTypes.js');
 
 @Component({
 	templateUrl: './transactions.component.html',
@@ -43,16 +44,59 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 				var searchValue = event.target.value;
 				if(searchValue !== '') {
 					if (!isNaN(searchValue)) {
-						that.allTransaction.getTransactionsBasedOnHeight(searchValue).subscribe(
+						that.allTransaction.getTransactionsBasedOnId(searchValue).subscribe(
 							resp => {
-								if(resp.success) {
-									that.transactionlist = resp.transactions;
-									that.page.totalElements = resp.count;
+								if(parseInt(resp.count) !== 0) {
+									if (resp.success) {
+										that.transactionlist = resp.transactions;
+										that.page.totalElements = resp.count;
+									}
+								} else {
+									that.allTransaction.getTransactionsBasedOnHeight(searchValue).subscribe(
+										resp => {
+											if(resp.success) {
+												that.transactionlist = resp.transactions;
+												that.page.totalElements = resp.count;
+											}else {
+												that.transactionlist = [];
+												that.page.totalElements = 0;
+											}
+										}
+									);
 								}
 							}
 						);
 					} else {
-						//implement string based search here
+						if(searchValue.toUpperCase().indexOf('DDK') !== -1 ) {
+							that.allTransaction.getTransactionsBasedOnSender(searchValue).subscribe(
+								resp => {
+									if(resp.success) {
+										that.transactionlist = resp.transactions;
+										that.page.totalElements = resp.count;
+									}else {
+										that.transactionlist = [];
+										that.page.totalElements = 0;
+									}
+								}
+							);
+						}else {
+							if(transactionTypes[searchValue.toUpperCase()] !== undefined) {
+								that.allTransaction.getTransactionsBasedOnType(transactionTypes[searchValue.toUpperCase()]).subscribe(
+									resp => {
+										if(resp.success) {
+											that.transactionlist = resp.transactions;
+											that.page.totalElements = resp.count;
+										}else {
+											that.transactionlist = [];
+											that.page.totalElements = 0;
+										}
+									}
+								);
+							} else {
+								that.transactionlist = [];
+								that.page.totalElements = 0;
+							}
+						}
 					}
 				} else {
 					that.allTransactionsList(that.page.size, that.page.offset);
@@ -66,7 +110,6 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.transactionlist = resp.transactions;
-					console.log('this.transactionlist : ', this.transactionlist);
 					this.page.totalElements = resp.count;
 				}
 			},

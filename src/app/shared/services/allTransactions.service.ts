@@ -34,4 +34,31 @@ export class allTransactionsService {
         .map((res: Response) => res.json());
     }
 
+    getTransactionsBasedOnId(id) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                id: id
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
+    getTransactionsBasedOnSender(senderId) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                senderId: senderId
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
+    getTransactionsBasedOnType(type) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                type: type
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
 }
