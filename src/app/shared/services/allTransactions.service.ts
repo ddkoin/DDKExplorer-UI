@@ -27,7 +27,7 @@ export class allTransactionsService {
     getTransactionsBasedOnHeight(height) {
         return this.http.get(environment.serverUrl + '/api/transactions', {
             params: {
-                fromHeight: height,
+                height: height,
                 orderBy: 'height:desc'
             }
         })

@@ -94,7 +94,6 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 				if(resp.success) {
 					this.Voters = resp.accounts;
 					this.votesCount = resp.accounts.length;
-					console.log('this.Voters : ', this.Voters)
 				}
 			},
 			error => {
