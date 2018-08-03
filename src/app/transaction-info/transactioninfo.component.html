@@ -21,7 +21,7 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">BlockId:</span>
-                                    <span class="col-md-8">{{transactionInfo.blockId}}</span>
+                                    <span class="col-md-8"><a (click)="getBlockId(transactionInfo.blockId,'blockId')" class="link-hover">{{transactionInfo.blockId}}</a></span>
                                 </span>
                             </li>
                             <li>
@@ -40,7 +40,7 @@
                                 <span class="row info-summary">
                                     <span class="col-md-3">SenderId:</span>
                                     <span class="col-md-8">
-                                        <a>{{transactionInfo.senderId}}</a>
+                                        <a (click)="getSenderId(transactionInfo.senderId)" class="link-hover">{{transactionInfo.senderId}}</a>
                                     </span>
                                 </span>
                             </li>
@@ -48,7 +48,7 @@
                                 <span class="row info-summary">
                                     <span class="col-md-3">RecipientId:</span>
                                     <span class="col-md-8">
-                                        <a>{{transactionInfo.recipientId}}</a>
+                                        <a (click)="getSenderId(transactionInfo.recipientId)" class="link-hover">{{transactionInfo.recipientId}}</a>
                                     </span>
                                 </span>
                             </li>
@@ -63,8 +63,6 @@
                                         <span class="col-md-8">{{transactionInfo.amount/100000000}}
                                         </span>
                                     </ng-template>
-                                   <!--  <span class="col-md-8">{{transactionInfo.amount/100000000}}
-                                    </span> -->
                                 </span>
                             </li>
                             <li>

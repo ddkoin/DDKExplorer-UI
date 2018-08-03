@@ -17,7 +17,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public typeId: any;
 	
 
-	constructor(private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService) {
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
@@ -28,9 +28,9 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	blockDetail() {
+	blockDetail(blockId) {
 		this.blockInfo = [];
-		this.BlockDetails.getBlockDetail(this.blockId).subscribe(
+		this.BlockDetails.getBlockDetail(blockId).subscribe(
 			resp => {
 				if (resp.success) {
 					this.blockInfo = resp.block;
@@ -56,9 +56,29 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
+	getBlockId(id, name) {
+		this.router.navigate(['/block-info', name, id]);
+		this.blockDetail(id);
+	}
+
+	showBlock(block) {
+		//show transactions here for a particular block
+		this.BlockDetails.getTransactions(block.id).subscribe(
+			resp => {
+				if(resp.success) {
+					console.log('transactions in a block : ', resp.transactions);
+				}
+				else {
+					console.log('error : ', resp);
+				}
+			}
+		)
+	}
+
 	ngOnInit() {
 		if (this.typeId == 'blockId') {
-			this.blockDetail();
+			var blockId = window.location.href.split('/blockId/')[1]
+			this.blockDetail(blockId);
 		} else {
 			this.blockHeight();
 		}

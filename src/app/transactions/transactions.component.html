@@ -83,7 +83,7 @@
                 <ng-template #senderId let-row="row">
                     <span *ngIf="row.senderName; else elseBlock"><a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a></span>
                     <ng-template #elseBlock>
-                            <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                        <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
                     </ng-template>
                 </ng-template>
 

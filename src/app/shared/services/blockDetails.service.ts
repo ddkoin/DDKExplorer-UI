@@ -18,5 +18,14 @@ export class BlockDetailsService {
             .map((res: Response) => res.json());
     }
 
+    getTransactions(blockId) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                blockId: blockId
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
 
 }

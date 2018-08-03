@@ -16,7 +16,7 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	public txsId:any;
 	public txsBlockId:any;
 
-	constructor(private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) { 
+	constructor(private router: Router, private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) { 
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
 			 if (this.typeId == 'transactionId') {
@@ -52,6 +52,15 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 				console.log(error)
 			}
 		);
+	}
+
+	/* For Block ID By Height */
+	getBlockId(id,name) {
+		this.router.navigate(['/block-info', name, id]);
+	}
+
+	getSenderId(senderId) {
+		this.router.navigate(['/user-info', senderId]);
 	}
 
 	ngOnInit(){

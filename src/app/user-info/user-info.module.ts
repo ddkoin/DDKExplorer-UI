@@ -6,6 +6,7 @@ import { UserInfoComponent } from './user-info.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './../shared/shared.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 declare var jquery:any;
 declare var $ :any;
 
@@ -28,7 +29,8 @@ const routes: Routes = [{
 		RouterModule.forChild(routes),
 		DataTablesModule,
 		NgbModule,
-		SharedModule
+		SharedModule,
+		NgxDatatableModule
     ],
 	declarations: [UserInfoComponent]
 })

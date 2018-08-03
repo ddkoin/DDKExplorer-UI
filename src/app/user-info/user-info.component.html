@@ -32,7 +32,7 @@
                             <ngb-tab id="tab-selectbyid1" title="Transactions">
                                 <ng-template ngbTabContent>
                                     <div class="table-container p-t-em">
-                                        <table ng-if="senderInfo" datatable="ng" datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
+                                        <!-- <table ng-if="senderInfo" datatable="ng" datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
                                             <thead>
                                                 <tr>
                                                     <th>Sender</th>
@@ -47,7 +47,6 @@
                                                         <a href="#" class="address-tag">{{sender.senderId}}</a>
                                                     </td>
                                                     <td>
-                                                        <!-- <i class="fa fa-file-text-o m-r-0" rel="tooltip" data-placement="bottom" title="Contract"></i> -->
                                                         <a href="#" class="address-tag">{{sender.recipientId}}</a>
                                                     </td>
                                                     <td>{{sender.timestamp | timeagofilter}} | {{sender.timestamp | timestampFilter}}</td>
@@ -59,7 +58,54 @@
                                                     </ng-template>
                                                 </tr>
                                             </tbody>
-                                        </table>
+                                        </table> -->
+                                        <div class="search-container">
+                                            <input type='text' class="search-box" placeholder='Search...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)"
+                                            />
+                                            <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button>
+                                        </div>
+                                        
+                                        <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                                            [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+                                            [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
+                                        </ngx-datatable>
+                                        
+                                        <ng-template #senderId let-row="row">
+                                            <span *ngIf="row.senderName; else elseBlock">
+                                                <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
+                                            </span>
+                                            <ng-template #elseBlock>
+                                                <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                                            </ng-template>
+                                        </ng-template>
+                                        
+                                        <ng-template #recipientId let-row="row">
+                                            <span *ngIf="row.recipientName; else elseBlock">
+                                                <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
+                                            </span>
+                                            <ng-template #elseBlock>
+                                                <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
+                                            </ng-template>
+                                        </ng-template>
+                                        
+                                        <ng-template let-row="row">
+                                            {{ row.trsName }}
+                                        </ng-template>
+                                        
+                                        <ng-template #timestamp let-row="row">
+                                            {{row.timestamp | timeagofilter }}
+                                        </ng-template>
+                                        
+                                        <ng-template #amount let-row="row">
+                                            <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
+                                            <ng-template #stakedAmount>
+                                                {{ row.stakedAmount/100000000}}
+                                            </ng-template>
+                                        </ng-template>
+                                        
+                                        <ng-template #fee let-row="row">
+                                            {{ row.fee/100000000 }}
+                                        </ng-template>
                                     </div>
                                 </ng-template>
                             </ngb-tab>
@@ -75,3 +121,53 @@
         </div>
     </div>
 </div>
+
+
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="search-container">
+                    <input type='text' class="search-box" placeholder='Search...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)"
+                    />
+                    <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button>
+                </div>
+
+                <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                    [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
+                    [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
+                </ngx-datatable>
+
+                <ng-template #senderId let-row="row">
+                    <span *ngIf="row.senderName; else elseBlock">
+                        <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
+                    </span>
+                    <ng-template #elseBlock>
+                        <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                    </ng-template>
+                </ng-template>
+
+                <ng-template #recipientId let-row="row">
+                    <span *ngIf="row.recipientName; else elseBlock">
+                        <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
+                    </span>
+                    <ng-template #elseBlock>
+                        <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
+                    </ng-template>
+                </ng-template>
+                
+                <ng-template #amount let-row="row">
+                    <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
+                    <ng-template #stakedAmount>
+                        {{ row.stakedAmount/100000000}}
+                    </ng-template>
+                </ng-template>
+
+                <ng-template #timestamp let-row="row">
+                    {{row.timestamp | timeagofilter }}
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div> -->
+

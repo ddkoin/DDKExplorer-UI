@@ -13,8 +13,15 @@ export class SenderidDetailService {
     constructor(private http: Http) { }
 
     /* For All Transactions List Services */
-    getSenderidDetail(senderId) {
-        return this.http.get(environment.serverUrl + '/api/transactions?senderId='+senderId)
+    getSenderidDetail(limit, offset, senderId) {
+        return this.http.get(environment.serverUrl + '/api/transactions', {
+            params: {
+                limit: limit,
+                offset: offset,
+                senderId: senderId,
+                orderBy: 'timestamp:desc'
+            }
+        })
             .map((res: Response) => res.json());
     }
 }

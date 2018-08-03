@@ -106,9 +106,9 @@ export class BlockComponent implements OnInit, AfterViewInit {
 	}
 
 	/* For Block ID By Height */
-	getBlockId(id,name) {
+	getBlockId(id, name) {
 		this.router.navigate(['/block-info', name, id]);
-		 this.blocklist= [];
+		this.blocklist = [];
 	}
 	/* For Block Detail By Height */
 	getBlockHeight(height,name) {

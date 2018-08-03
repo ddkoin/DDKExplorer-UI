@@ -1,5 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { DataTablesModule } from 'angular-datatables';
+import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ContentChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import{ AddressDetailService } from '../shared/services/addressDetail.service';
 
@@ -12,11 +11,21 @@ declare var $: any;
 	templateUrl: './user-info.component.html',
 	styleUrls: ['./user-info.css']
 })
-export class UserInfoComponent implements AfterViewInit {
-	dtOptions: DataTables.Settings = {};
-	public addressInfo:any = [];
+export class UserInfoComponent implements OnInit, AfterViewInit {
+	rows = [];
+	columns = [];
+	offset: any;
+	temp = [];
+	public page: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public timeout: any = 100;
+	@ViewChild('senderId') senderId: TemplateRef<any>;
+	@ViewChild('recipientId') recipientId: TemplateRef<any>;
+	@ViewChild('timestamp') timestamp: TemplateRef<any>;
+	@ViewChild('amount') amount: TemplateRef<any>;
+	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
+	public addressInfo: any = [];
 	public typeId:any;
-	public senderInfo:any = [];
+	public senderInfo: any = [];
 	public explorerServer = "http://159.65.139.248:7003";
 
 	constructor(private senderidDetail:SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail:AddressDetailService) {
@@ -53,11 +62,13 @@ export class UserInfoComponent implements AfterViewInit {
 		);
 	}
 
-	senderIdDetail() {
-		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
+	senderIdDetail(limit, offset) {
+		this.senderidDetail.getSenderidDetail(limit, offset, this.typeId).subscribe(
 			resp => {
 				if (resp.success) {
 					this.senderInfo = resp.transactions;
+					console.log('this.senderInfo : ', this.senderInfo);
+					this.page.totalElements = resp.count;
 				}
 			},
 			error => {
@@ -66,12 +77,27 @@ export class UserInfoComponent implements AfterViewInit {
 		);
 	}
 
+	setPage(event) {
+		this.page.offset = this.page.size * event.offset;
+		this.senderIdDetail(this.page.size, this.page.offset);
+	}
+
+	getSenderId(senderId){
+		console.log("his is working")
+	}
+
 	ngAfterViewInit() {
 		this.AddressDetail();
-		this.senderIdDetail();
-		this.dtOptions = {
-			pagingType: 'full_numbers'
-		};
+	}
+	ngOnInit() {
+		this.columns = [
+			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
+			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
+			{ name: 'Transaction Type', prop: 'trsName' },
+			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
+			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount }
+		];
+		this.setPage({ offset: 0 });
 	}
 
 	loadCommenents(userInfo, explorerServer) {

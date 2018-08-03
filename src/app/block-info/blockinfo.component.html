@@ -28,13 +28,13 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Previous Block:</span>
-                                    <span class="col-md-8">{{blockInfo.previousBlock}}</span>
+                                    <span class="col-md-8"><a (click)="getBlockId(blockInfo.previousBlock,'blockId')" class="link-hover">{{blockInfo.previousBlock}}</a></span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Number Of Transactions:</span>
-                                    <span class="col-md-8">{{blockInfo.numberOfTransactions}}</span>
+                                    <span class="col-md-8"><a class="link-hover" (click)="showBlock(blockInfo)">{{blockInfo.numberOfTransactions}}</a></span>
                                 </span>
                             </li>
                             <li>
