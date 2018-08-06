@@ -1,5 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { DataTablesModule } from 'angular-datatables';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DelegatesService } from '../shared/services/delegates.service';
@@ -12,7 +11,29 @@ import {Observable} from 'rxjs/Rx'
 	styleUrls: ['./delegate-monitor.css']
 })
 export class DelegateMonitorComponent implements OnInit, AfterViewInit {
-	dtOptions: DataTables.Settings = {};
+	rows = [];
+	columns1 = [];
+	columns2 = [];
+	columns3 = [];
+	columns4 = [];
+	offset: any;
+	temp = [];
+	public page1: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public page2: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public page3: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public page4: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public timeout: any = 100;
+	@ViewChild('voters') voters: TemplateRef<any>;
+	@ViewChild('transactionId') transactionId: TemplateRef<any>;
+	@ViewChild('timestamp') timestamp: TemplateRef<any>;
+	@ViewChild('name') name: TemplateRef<any>;
+	@ViewChild('address') addresss: TemplateRef<any>;
+	@ViewChild('producedBlocks') producedBlocks: TemplateRef<any>;
+	@ViewChild('missedBlocks') missedBlocks: TemplateRef<any>;
+	@ViewChild('rank') rank: TemplateRef<any>;
+	@ViewChild('status') status: TemplateRef<any>;
+	@ViewChild('productivity') productivity: TemplateRef<any>;
+	@ViewChild('missedBlocks') approval: TemplateRef<any>;
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 	public lastBlock: any = {};
 	public bestProductivity: any = {};
@@ -30,6 +51,8 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public delegateCount: any;
 	public currentBlock: any;
 	public DDKPrice: any;
+	tab1 = true;
+  	tab2 = false;
 	
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
@@ -56,11 +79,12 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		})
 	}
 
-	getStandbyDelegates() {
-		this.delegateService.getStandbyDelegates(this.activeDelegates).subscribe(
+	getStandbyDelegates(limit, offset) {
+		this.delegateService.getStandbyDelegates(limit, this.activeDelegates + offset).subscribe(
 			resp => {
 				if(resp.success) {
 					this.standbyDelegates = resp.delegates;
+					this.page4.totalElements = resp.totalCount - this.activeDelegates;
 				}
 			},
 			error => {
@@ -69,16 +93,17 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	getDelegatesDetail() {
-		this.delegateService.getDelegatesDetail().subscribe(
+	getDelegatesDetail(limit, offset) {
+		this.delegateService.getDelegatesDetail(limit, offset).subscribe(
 			resp => {
 				if(resp.success) {
 					this.delegatesInfo = [];
 					this.delegatesInfo = resp.delegates;
+					this.page3.totalElements = this.activeDelegates;
 					this.delegateCount = resp.totalCount;
 					this.totalActiveForged = this.delegatesInfo.length;
 					this.getProductivityInfo(this.delegatesInfo);
-					this.getStandbyDelegates();
+					this.getStandbyDelegates(this.page4.size, this.page4.offset);
 				}
 			},
 			error => {
@@ -99,9 +124,9 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	getNextForgers() {
+	getNextForgers(limit) {
 		this.nextForgersList = [];
-		this.delegateService.getNextForgers().subscribe(
+		this.delegateService.getNextForgers(limit).subscribe(
 			resp => {
 				if(resp.success) {
 					var self = this;
@@ -139,11 +164,12 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	getLatestVotes() {
-		this.delegateService.getLatestVotes().subscribe(
+	getLatestVotes(limit) {
+		this.delegateService.getLatestVotes(limit).subscribe(
 			resp => {
 				if(resp.success) {
 					this.latestVotes = resp.voters;
+					this.page1.totalElements = resp.voters.length;
 				}
 			},
 			error => {
@@ -152,11 +178,12 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	getLatestDelegates() {
-		this.delegateService.getLatestDelegates().subscribe(
+	getLatestDelegates(limit) {
+		this.delegateService.getLatestDelegates(limit).subscribe(
 			resp => {
 				if(resp.success) {
 					this.latestDelegates = resp.delegates;
+					this.page2.totalElements = resp.delegates.length;
 				}
 			},
 			error => {
@@ -185,27 +212,72 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 			}
 		);
 	}
-	
-	
 
-  /* Observable.interval(2000 * 60).subscribe(x => {
-    doSomething();
-  }); */
+	showStandbyDelegates() {
+		this.tab1 = false;
+		this.tab2 = true;
+	}
+
+	showActiveDelegates() {
+		this.tab1 = true;
+		this.tab2 = false;
+	}
+	
+	setPage(event) {
+		this.page1.offset = this.page1.size * event.offset;
+		this.page2.offset = this.page2.size * event.offset;
+		this.page3.offset = this.page3.size * event.offset;
+		this.page4.offset = this.page4.size * event.offset;
+		if(this.tab1) {
+			this.getDelegatesDetail(this.page3.size, this.page3.offset);
+		} else {
+			this.getStandbyDelegates(this.page4.size, this.page4.offset);
+		}
+	}
+
 	ngOnInit() {
+		this.columns1 = [
+			{ name: 'Voter', prop: 'senderId', cellTemplate: this.voters },
+			{ name: 'Transaction', prop: 'id', cellTemplate: this.transactionId },
+			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp }
+		];
 
+		this.columns2 = [
+			{ name: 'Delegate', prop: 'username', cellTemplate: this.name },
+			{ name: 'Address', prop: 'address', cellTemplate: this.addresss },
+			{ name: 'Produced Blocks', prop: 'producedblocks', cellTemplate: this.producedBlocks },
+			{ name: 'Missed Blocks', prop: 'missedblocks', cellTemplate: this.missedBlocks }
+		]
+
+		this.columns3 = [
+			{ name: 'Rank', prop: 'rank', cellTemplate: this.rank },
+			{ name: 'Address', prop: 'address', cellTemplate: this.addresss },
+			{ name: 'Status', cellTemplate: this.status },
+			{ name: 'Productivity', prop: 'productivity', cellTemplate: this.productivity },
+			{ name: 'Approval', prop: 'approval', cellTemplate: this.approval }
+		]
+
+		this.columns4 = [
+			{ name: 'Rank', prop: 'rank', cellTemplate: this.rank },
+			{ name: 'Address', prop: 'address', cellTemplate: this.addresss },
+			{ name: 'Status', cellTemplate: this.status },
+			{ name: 'Productivity', prop: 'productivity', cellTemplate: this.productivity },
+			{ name: 'Approval', prop: 'approval', cellTemplate: this.approval }
+		]
+
+		this.setPage({ offset: 0 });
 	}
 
 	ngAfterViewInit() {
-		//this.getPrice();
-		this.getDelegatesDetail();
-		this.getNextForgers();
-		this.getLatestVotes();
-		this.getLatestDelegates();
+		this.getPrice();
+		this.getDelegatesDetail(this.activeDelegates, 0);
+		this.getNextForgers(this.page1.size);
+		this.getLatestVotes(this.page1.size);
+		this.getLatestDelegates(this.page2.size);
 		Observable.interval(10000).subscribe(x => {
-			this.getDelegatesDetail();
-			this.getNextForgers();
-			this.getLatestVotes();
-			this.getLatestDelegates();
+			this.getNextForgers(this.page1.size);
+			this.getLatestVotes(this.page1.size);
+			this.getLatestDelegates(this.page2.size);
 		});
 	}
 }

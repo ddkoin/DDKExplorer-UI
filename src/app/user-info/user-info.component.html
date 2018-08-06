@@ -2,172 +2,74 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12 info-box">
-                        <span class="heading b-b">Overview</span>
-                        <ul class="blog-info">
-                            <li>
-                                <span class="row info-summary">
-                                    <span class="col-md-3">Address:</span>
-                                    <span class="col-md-8">{{addressInfo.address}}</span>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="row info-summary">
-                                    <span class="col-md-3">Balance:</span>
-                                    <span class="col-md-8">{{(addressInfo.balance - addressInfo.totalFrozeAmount)/100000000}}</span>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="row info-summary">
-                                    <span class="col-md-3">PublicKey:</span>
-                                    <span class="col-md-8">{{addressInfo.publicKey}}</span>
-                                </span>
-                            </li>
-                        </ul>
+                <div class="col-md-12 info-box">
+                    <span class="heading b-b">Overview</span>
+                    <ul class="blog-info">
+                        <li>
+                            <span class="row info-summary">
+                                <span class="col-md-3">Address:</span>
+                                <span class="col-md-8">{{addressInfo.address}}</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="row info-summary">
+                                <span class="col-md-3">Balance:</span>
+                                <span class="col-md-8">{{(addressInfo.balance - addressInfo.totalFrozeAmount)/100000000}}</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="row info-summary">
+                                <span class="col-md-3">PublicKey:</span>
+                                <span class="col-md-8">{{addressInfo.publicKey}}</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 default-tab-layout m-t-20">
+                    <div>
+                        <button type="button" (click)="showTransactions()">Transactions</button>
+                        <button type="button" (click)="showComments()">Commets</button>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-12 default-tab-layout m-t-20">
-                        <ngb-tabset #t="ngbTabset" (tabChange)="showComments($event)">
-                            <ngb-tab id="tab-selectbyid1" title="Transactions">
-                                <ng-template ngbTabContent>
-                                    <div class="table-container p-t-em">
-                                        <!-- <table ng-if="senderInfo" datatable="ng" datatable [dtOptions]="dtOptions" class="row-border hover default-table-layout">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sender</th>
-                                                    <th>Recipient</th>
-                                                    <th>Time</th>
-                                                    <th>Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let sender of senderInfo">
-                                                    <td>
-                                                        <a href="#" class="address-tag">{{sender.senderId}}</a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#" class="address-tag">{{sender.recipientId}}</a>
-                                                    </td>
-                                                    <td>{{sender.timestamp | timeagofilter}} | {{sender.timestamp | timestampFilter}}</td>
-                                                    <div *ngIf="sender.type === 8; else elseBlock">
-                                                        <td>{{sender.stakedAmount/100000000}} DDK</td>
-                                                    </div>
-                                                    <ng-template #elseBlock>
-                                                        <td>{{sender.amount/100000000}} DDK</td>
-                                                    </ng-template>
-                                                </tr>
-                                            </tbody>
-                                        </table> -->
-                                        <div class="search-container">
-                                            <input type='text' class="search-box" placeholder='Search...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)"
-                                            />
-                                            <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button>
-                                        </div>
-                                        
-                                        <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
-                                            [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
-                                            [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
-                                        </ngx-datatable>
-                                        
-                                        <ng-template #senderId let-row="row">
-                                            <span *ngIf="row.senderName; else elseBlock">
-                                                <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
-                                            </span>
-                                            <ng-template #elseBlock>
-                                                <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
-                                            </ng-template>
-                                        </ng-template>
-                                        
-                                        <ng-template #recipientId let-row="row">
-                                            <span *ngIf="row.recipientName; else elseBlock">
-                                                <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
-                                            </span>
-                                            <ng-template #elseBlock>
-                                                <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
-                                            </ng-template>
-                                        </ng-template>
-                                        
-                                        <ng-template let-row="row">
-                                            {{ row.trsName }}
-                                        </ng-template>
-                                        
-                                        <ng-template #timestamp let-row="row">
-                                            {{row.timestamp | timeagofilter }}
-                                        </ng-template>
-                                        
-                                        <ng-template #amount let-row="row">
-                                            <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
-                                            <ng-template #stakedAmount>
-                                                {{ row.stakedAmount/100000000}}
-                                            </ng-template>
-                                        </ng-template>
-                                        
-                                        <ng-template #fee let-row="row">
-                                            {{ row.fee/100000000 }}
-                                        </ng-template>
-                                    </div>
-                                </ng-template>
-                            </ngb-tab>
-                            <ngb-tab id="tab-selectbyid2">
-                                <ng-template ngbTabTitle>Comments</ng-template>
-                                <ng-template ngbTabContent> </ng-template>
-                            </ngb-tab>
-                        </ngb-tabset>
-                        <div *ngIf="show" id="comments-container"></div>
+                    <div [hidden]="!tab1">
+                        <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
+                            [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
+                        </ngx-datatable>
+
+                        <ng-template #senderId let-row="row">
+                            <span *ngIf="row.senderName; else elseBlock">
+                                <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
+                            </span>
+                            <ng-template #elseBlock>
+                                <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
+                            </ng-template>
+                        </ng-template>
+
+                        <ng-template #recipientId let-row="row">
+                            <span *ngIf="row.recipientName; else elseBlock">
+                                <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
+                            </span>
+                            <ng-template #elseBlock>
+                                <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
+                            </ng-template>
+                        </ng-template>
+
+                        <ng-template #amount let-row="row">
+                            <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
+                            <ng-template #stakedAmount>
+                                {{ row.stakedAmount/100000000}}
+                            </ng-template>
+                        </ng-template>
+
+                        <ng-template #timestamp let-row="row">
+                            {{row.timestamp | timeagofilter }}
+                        </ng-template>
+                    </div>
+                    <div [hidden]="!tab2" id="comments-container">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="search-container">
-                    <input type='text' class="search-box" placeholder='Search...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)"
-                    />
-                    <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button>
-                </div>
-
-                <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
-                    [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
-                    [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
-                </ngx-datatable>
-
-                <ng-template #senderId let-row="row">
-                    <span *ngIf="row.senderName; else elseBlock">
-                        <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
-                    </span>
-                    <ng-template #elseBlock>
-                        <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
-                    </ng-template>
-                </ng-template>
-
-                <ng-template #recipientId let-row="row">
-                    <span *ngIf="row.recipientName; else elseBlock">
-                        <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
-                    </span>
-                    <ng-template #elseBlock>
-                        <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
-                    </ng-template>
-                </ng-template>
-                
-                <ng-template #amount let-row="row">
-                    <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
-                    <ng-template #stakedAmount>
-                        {{ row.stakedAmount/100000000}}
-                    </ng-template>
-                </ng-template>
-
-                <ng-template #timestamp let-row="row">
-                    {{row.timestamp | timeagofilter }}
-                </ng-template>
-            </div>
-        </div>
-    </div>
-</div> -->
-

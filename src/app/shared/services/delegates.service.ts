@@ -10,32 +10,49 @@ export class DelegatesService {
   constructor(private http: Http) { }
 
   /* For All Delegate List Services */
-  getDelegatesDetail() {
-    return this.http.get(environment.serverUrl + '/api/delegates')
+  getDelegatesDetail(limit, offset) {
+    return this.http.get(environment.serverUrl + '/api/delegates', {
+      params: {
+        limit: limit,
+        offset: offset
+      }
+    })
       .map((res: Response) => res.json());
   }
 
-  getStandbyDelegates(offset) {
-    return this.http.get(environment.serverUrl + '/api/delegates?offset=' + offset)
-      .map((res: Response) => res.json());
+  getStandbyDelegates(limit, offset) {
+    return this.http.get(environment.serverUrl + '/api/delegates', {
+      params: {
+        offset: offset
+      }
+    })
+    .map((res: Response) => res.json());
   }
 
-  getNextForgers() {
-    return this.http.get(environment.serverUrl + '/api/delegates/getNextForgers?limit=10')
+  getNextForgers(limit) {
+    return this.http.get(environment.serverUrl + '/api/delegates/getNextForgers', {
+      params: {
+        limit: limit
+      }
+    })
       .map((res: Response) => res.json());
 
   }
 
-  getLatestVotes() {
-    return this.http.get(environment.serverUrl + '/api/delegates/getLatestVoters?limit=5')
+  getLatestVotes(limit) {
+    return this.http.get(environment.serverUrl + '/api/delegates/getLatestVoters', {
+      params: {
+        limit: limit
+      }
+    })
       .map((res: Response) => res.json());
 
   }
 
-  getLatestDelegates() {
+  getLatestDelegates(limit) {
     return this.http.get(environment.serverUrl + '/api/delegates/getLatestDelegates', {
       params: {
-        limit: 5
+        limit: limit
       }
     })
     .map((res: Response) => res.json());

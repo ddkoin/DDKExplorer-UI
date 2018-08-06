@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { DelegateMonitorComponent } from './delegate-monitor.component';
-import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SharedModule } from './../shared/shared.module'
+import { SharedModule } from './../shared/shared.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const routes: Routes = [{
 	path: '',
@@ -19,9 +19,9 @@ const routes: Routes = [{
 	imports: [
     	CommonModule, 
 		RouterModule.forChild(routes),
-		DataTablesModule,
 		NgbModule,
-		SharedModule
+		SharedModule,
+		NgxDatatableModule
     ],
 	declarations: [DelegateMonitorComponent]
 })

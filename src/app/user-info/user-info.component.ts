@@ -28,6 +28,9 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	public senderInfo: any = [];
 	public explorerServer = "http://159.65.139.248:7003";
 
+	tab1 = true;
+  	tab2 = false;
+
 	constructor(private senderidDetail:SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail:AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.id;
@@ -35,13 +38,15 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	 }
 	show = false;
 
-	showComments($event) {
-		if ($event.activeId == "tab-selectbyid1") {
-			this.show = true;
-			this.loadCommenents(this.addressInfo, this.explorerServer);
-		} else {
-			this.show = false;
-		}
+	showTransactions() {
+		this.tab1 = true;
+		this.tab2 = false;
+	}
+
+	showComments() {
+		this.tab1 = false;
+		this.tab2 = true;
+		this.loadCommenents(this.addressInfo, this.explorerServer);
 	}
 
 	saveComment() {
