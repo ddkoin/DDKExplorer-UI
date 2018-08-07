@@ -24,6 +24,17 @@ export class allTransactionsService {
         .map((res: Response) => res.json());
     }
 
+    getUnconfirmedTransactions(limit, offset) {
+        return this.http.get(environment.serverUrl + '/api/transactions/unconfirmed', {
+            params: {
+                limit: limit,
+                offset: offset,
+                orderBy: 'timestamp:desc'
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
     getTransactionsBasedOnHeight(height) {
         return this.http.get(environment.serverUrl + '/api/transactions', {
             params: {

@@ -98,7 +98,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.columns = [
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
 			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
-			{ name: 'Transaction Type', prop: 'trsName' },
+			{ name: 'Tx Type', prop: 'trsName' },
 			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
 			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount }
 		];

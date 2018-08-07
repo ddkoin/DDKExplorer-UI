@@ -106,17 +106,33 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	}
 
 	allTransactionsList(limit, offset) {
-		this.allTransaction.getAllTransactions(limit, offset).subscribe(
-			resp => {
-				if (resp.success) {
-					this.transactionlist = resp.transactions;
-					this.page.totalElements = resp.count;
+		let trsType = window.location.href.split('/')[4];
+		if(trsType === 'transactions') {
+			this.allTransaction.getAllTransactions(limit, offset).subscribe(
+				resp => {
+					if (resp.success) {
+						this.transactionlist = resp.transactions;
+						this.page.totalElements = resp.count;
+					}
+				},
+				error => {
+					console.log(error)
 				}
-			},
-			error => {
-				console.log(error)
-			}
-		);
+			);
+		} else {
+			this.allTransaction.getUnconfirmedTransactions(limit, offset).subscribe(
+				resp => {
+					if (resp.success) {
+						this.transactionlist = resp.transactions;
+						this.page.totalElements = resp.count;
+					}
+				},
+				error => {
+					console.log(error)
+				}
+			);
+		}
+		
 	}
 
 	getTransactionId(id) {
@@ -152,7 +168,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		this.transactionlist = [];
 		this.columns = [
 			{ name: 'Transation ID', prop: 'id', width: '200', cellTemplate: this.transactionId },
-			{ name: 'Transaction Type', prop: 'trsName' },
+			{ name: 'Tx Type', prop: 'trsName' },
 			{ name: 'Height', prop: 'height' },
 			{ name: 'Block ID', prop: 'blockId', width: '200', cellTemplate: this.blockId },
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },

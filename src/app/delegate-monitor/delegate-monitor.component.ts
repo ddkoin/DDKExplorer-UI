@@ -227,7 +227,13 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.page1.offset = this.page1.size * event.offset;
 		this.page2.offset = this.page2.size * event.offset;
 		this.page3.offset = this.page3.size * event.offset;
-		this.page4.offset = this.page4.size * event.offset;
+		if(this.page4.size > this.activeDelegates) {
+			this.page4.size = this.activeDelegates;
+			this.page4.offset = this.page4.size * event.offset;
+		} else {
+			this.page4.offset = this.page4.size * event.offset;
+		}
+		
 		if(this.tab1) {
 			this.getDelegatesDetail(this.page3.size, this.page3.offset);
 		} else {

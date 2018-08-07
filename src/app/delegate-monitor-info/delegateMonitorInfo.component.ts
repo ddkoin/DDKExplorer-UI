@@ -64,7 +64,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 	getLatestHeight() {
-		this.delegateService.getNextForgers().subscribe(
+		this.delegateService.getNextForgers(10).subscribe(
 			resp => {
 				if(resp.success) {
 					this.currentHeight = resp.currentBlock;
