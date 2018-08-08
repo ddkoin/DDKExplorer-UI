@@ -4,6 +4,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BlockDetailsService } from '../shared/services/blockDetails.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
 
+import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
 	templateUrl: './blockinfo.component.html',
 	styleUrls: ['./blockinfo.css']
@@ -15,9 +17,11 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public blockId: any;
 	public bxsHight: any;
 	public typeId: any;
-	
+	closeResult: string;
+	public traxList: any;
+	public traxlength: any;
 
-	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService) {
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private modalService: NgbModal) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
@@ -27,6 +31,43 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 			}
 		});
 	}
+
+	ngOnInit() {
+		if (this.typeId == 'blockId') {
+			var blockId = window.location.href.split('/blockId/')[1]
+			this.blockDetail(blockId);
+		} else {
+			this.blockHeight();
+		}
+
+
+	}
+
+	ngAfterViewInit() {
+		let flag:any = true
+		window.localStorage.setItem('flag',flag)
+		this.dtOptions = {
+			pagingType: 'full_numbers'
+		};
+	}
+	
+	numOfTrxs(content) { 
+		this.modalService.open(content,{ size: 'lg', backdrop: 'static' }).result.then((result) => {
+			this.closeResult = `Closed with: ${result}`;
+		}, (reason) => {
+			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+		});
+	};
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+		  return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+		  return 'by clicking on a backdrop';
+		} else {
+		  return  `with: ${reason}`;
+		}
+	  }
 
 	blockDetail(blockId) {
 		this.blockInfo = [];
@@ -66,7 +107,9 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		this.BlockDetails.getTransactions(block.id).subscribe(
 			resp => {
 				if(resp.success) {
-					console.log('transactions in a block : ', resp.transactions);
+					//console.log('transactions in a block : ', resp.transactions);
+					this.traxList = resp.transactions;
+					this.traxlength = resp.transactions.length;
 				}
 				else {
 					console.log('error : ', resp);
@@ -75,24 +118,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		)
 	}
 
-	ngOnInit() {
-		if (this.typeId == 'blockId') {
-			var blockId = window.location.href.split('/blockId/')[1]
-			this.blockDetail(blockId);
-		} else {
-			this.blockHeight();
-		}
-
-
-	}
-
-	ngAfterViewInit() {
-		let flag:any = true
-		window.localStorage.setItem('flag',flag)
-		this.dtOptions = {
-			pagingType: 'full_numbers'
-		};
-	}
+	
 }
 
 

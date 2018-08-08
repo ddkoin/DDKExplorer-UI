@@ -10,9 +10,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 declare var jquery:any;
 declare var $ :any;
 
-
-
-
 const routes: Routes = [{
 	path: '',
 	data: {

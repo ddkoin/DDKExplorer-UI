@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ContentChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import{ AddressDetailService } from '../shared/services/addressDetail.service';
+import { AddressDetailService } from '../shared/services/addressDetail.service';
 
 import { SenderidDetailService } from '../shared/services/senderidDetail.service'
 
@@ -24,18 +24,18 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	@ViewChild('amount') amount: TemplateRef<any>;
 	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
 	public addressInfo: any = [];
-	public typeId:any;
+	public typeId: any;
 	public senderInfo: any = [];
 	public explorerServer = "http://159.65.139.248:7003";
 
 	tab1 = true;
-  	tab2 = false;
+	tab2 = false;
 
-	constructor(private senderidDetail:SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail:AddressDetailService) {
+	constructor(private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.id;
 		});
-	 }
+	}
 	show = false;
 
 	showTransactions() {
@@ -48,11 +48,6 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.tab2 = true;
 		this.loadCommenents(this.addressInfo, this.explorerServer);
 	}
-
-	saveComment() {
-
-	}
-
 
 	AddressDetail() {
 		this.addressDetail.getAddressDetail(this.typeId).subscribe(
@@ -87,7 +82,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
-	getSenderId(senderId){
+	getSenderId(senderId) {
 		console.log("his is working")
 	}
 
@@ -109,50 +104,50 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		$(document).ready(function () {
 			$('#comments-container').comments({
 				profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
-				getComments: function(success, error) {
+				getComments: function (success, error) {
 					$.ajax({
 						type: 'get',
 						url: explorerServer + '/api/comments/',
-						success: function(commentsArray) {
+						success: function (commentsArray) {
 							success(commentsArray)
 						},
 						error: error
 					});
 				},
-				getUsers: function(success, error) {
+				getUsers: function (success, error) {
 					$.ajax({
 						type: 'get',
 						url: explorerServer + '/api/users/',
-						success: function(userArray) {
+						success: function (userArray) {
 							success(userArray)
 						},
 						error: error
 					});
 				},
-				postComment: function(commentJSON, success, error) {
+				postComment: function (commentJSON, success, error) {
 					commentJSON.fullname = userInfo.address;
 					$.ajax({
 						type: 'post',
 						url: explorerServer + '/api/comments/',
 						data: commentJSON,
-						success: function(comment) {
+						success: function (comment) {
 							success(comment)
 						},
 						error: error
 					});
 				},
-				putComment: function(commentJSON, success, error) {
+				putComment: function (commentJSON, success, error) {
 					$.ajax({
 						type: 'put',
 						url: explorerServer + '/api/comments/' + commentJSON.id,
 						data: commentJSON,
-						success: function(comment) {
+						success: function (comment) {
 							success(comment)
 						},
 						error: error
 					});
 				},
-				deleteComment: function(commentJSON, success, error) {
+				deleteComment: function (commentJSON, success, error) {
 					$.ajax({
 						type: 'delete',
 						url: explorerServer + '/api/comments/' + commentJSON.id,
@@ -160,7 +155,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 						error: error
 					});
 				},
-				upvoteComment: function(commentJSON, success, error) {
+				upvoteComment: function (commentJSON, success, error) {
 					var commentURL = explorerServer + '/api/comments/' + commentJSON.id;
 					var upvotesURL = commentURL + '/upvotes/';
 					$.ajax({

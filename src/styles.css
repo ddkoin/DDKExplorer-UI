@@ -56,9 +56,9 @@
 	box-sizing: border-box;
 	font-family: inherit;
 }
-.jquery-comments{
+/* .jquery-comments{
 	padding: 20px 0;
-}
+} */
 
 .jquery-comments .textarea, .jquery-comments input, .jquery-comments button {
 	-webkit-appearance: none;
@@ -501,4 +501,49 @@
 .default-tab-layout .nav-tabs .nav-link.active{
 	background: #388bf7;
 	color: #fff;
+}
+.tab-btn{
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+    position: relative;
+    z-index: 1;
+}
+.tab-btn button{
+    background: #fff;
+    border: 1px solid rgba(120, 130, 140, 0.13);
+    border-radius: 4px 4px 0 0;
+    padding: 10px 15px;
+    position: relative;
+    z-index: 2;
+    border-bottom: none;
+}
+.tab-btn button.active{
+    position: relative;
+    background: #388bf7;
+    color: #fff;
+}
+.tab-btn button:focus{
+    outline: none;
+}
+.tab-btn button:hover{
+    cursor: pointer;
+}
+
+.ngx-datatable.material{
+	border-radius: 4px;
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell{
+	padding: 12.5px 10px!important;
+    background: #f3f3f3;
+    color: #2a2a2a!important;
+    font-size: 13px!important;
+}
+
+.ngx-datatable .datatable-body .datatable-row-wrapper:nth-child(even){
+	background: #f9f9f9	
+}
+
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell{
+	padding: 12.5px 10px!important;
 }
