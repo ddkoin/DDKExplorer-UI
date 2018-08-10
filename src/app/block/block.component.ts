@@ -16,7 +16,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
 	columns = [];
 	offset: any;
 	temp = [];
-	public page: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" };
+	public page: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" };
 	public timeout: any = 100;
 	@ViewChild('blockId') blockId: TemplateRef<any>;
 	@ViewChild('height') height: TemplateRef<any>;

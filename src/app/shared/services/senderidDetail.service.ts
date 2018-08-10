@@ -12,17 +12,27 @@ export class SenderidDetailService {
 
     constructor(private http: Http) { }
 
+    getSenderidDetail(address) {
+        return this.http.get(environment.serverUrl + '/api/accounts', {
+            params: {
+                address: address
+            }
+        })
+        .map((res: Response) => res.json());
+    }
+
     /* For All Transactions List Services */
-    getSenderidDetail(limit, offset, senderId) {
+    getSenderTransactions(limit, offset, recipientId, publicKey) {
         return this.http.get(environment.serverUrl + '/api/transactions', {
             params: {
                 limit: limit,
                 offset: offset,
-                senderId: senderId,
+                senderPublicKey: publicKey,
+                recipientId: recipientId,
                 orderBy: 'timestamp:desc'
             }
         })
-            .map((res: Response) => res.json());
+        .map((res: Response) => res.json());
     }
 }
 

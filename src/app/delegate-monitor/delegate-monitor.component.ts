@@ -18,10 +18,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	columns4 = [];
 	offset: any;
 	temp = [];
-	public page1: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
-	public page2: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
-	public page3: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
-	public page4: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public page1: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
+	public page2: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
+	public page3: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
+	public page4: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
 	public timeout: any = 100;
 	@ViewChild('voters') voters: TemplateRef<any>;
 	@ViewChild('transactionId') transactionId: TemplateRef<any>;

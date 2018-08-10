@@ -16,7 +16,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	columns = [];
 	offset: any;
 	temp = [];
-	public page: any = { totalElements: 0, pageNumber: 0, size: 10, searchValue: "" }
+	public page: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
 	public timeout: any = 100;
 	@ViewChild('senderId') senderId: TemplateRef<any>;
 	@ViewChild('recipientId') recipientId: TemplateRef<any>;
@@ -33,6 +33,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 
 	constructor(private senderidDetail:SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail:AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
+			console.log('Params : ', params);
 			this.typeId = params.id;
 		});
 	 }
@@ -68,18 +69,32 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	senderIdDetail(limit, offset) {
-		this.senderidDetail.getSenderidDetail(limit, offset, this.typeId).subscribe(
+		console.log('limit : ', limit);
+		console.log('this.typeId : ', this.typeId)
+		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
 			resp => {
 				if (resp.success) {
-					this.senderInfo = resp.transactions;
-					console.log('this.senderInfo : ', this.senderInfo);
-					this.page.totalElements = resp.count;
+					let data = {};
+					let publicKey = resp.account.publicKey;
+					console.log('publicKey : ', publicKey);
+					this.senderidDetail.getSenderTransactions(limit, offset, this.typeId, publicKey).subscribe(
+						resp => {
+							if (resp.success) {
+								this.senderInfo = resp.transactions;
+								this.page.totalElements = resp.count;
+							}
+						},
+						error => {
+							console.log(error)
+						}
+					);
 				}
 			},
 			error => {
-				console.log(error)
+				console.log(error);
 			}
 		);
+		
 	}
 
 	setPage(event) {
