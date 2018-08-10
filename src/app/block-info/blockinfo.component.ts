@@ -107,11 +107,9 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		this.BlockDetails.getTransactions(block.id).subscribe(
 			resp => {
 				if(resp.success) {
-					//console.log('transactions in a block : ', resp.transactions);
 					this.traxList = resp.transactions;
 					this.traxlength = resp.transactions.length;
-				}
-				else {
+				} else {
 					console.log('error : ', resp);
 				}
 			}

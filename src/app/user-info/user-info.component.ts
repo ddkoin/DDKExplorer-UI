@@ -33,7 +33,6 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 
 	constructor(private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
-			console.log('Params : ', params);
 			this.typeId = params.id;
 		});
 	}
@@ -64,14 +63,11 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	senderIdDetail(limit, offset) {
-		console.log('limit : ', limit);
-		console.log('this.typeId : ', this.typeId)
 		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
 			resp => {
 				if (resp.success) {
 					let data = {};
 					let publicKey = resp.account.publicKey;
-					console.log('publicKey : ', publicKey);
 					this.senderidDetail.getSenderTransactions(limit, offset, this.typeId, publicKey).subscribe(
 						resp => {
 							if (resp.success) {
