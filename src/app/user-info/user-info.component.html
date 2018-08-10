@@ -27,12 +27,12 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 default-tab-layout m-t-20">
-                    <div>
-                        <button type="button" (click)="showTransactions()">Transactions</button>
-                        <button type="button" (click)="showComments()">Commets</button>
+                    <div class="tab-btn">
+                        <button type="button" [class.active]="clicked === tab1" (click)="showTransactions()">Transactions</button>
+                        <button type="button" [class.active]="clicked === tab2" (click)="showComments()">Commets</button>
                     </div>
                     <div [hidden]="!tab1">
-                        <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                        <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="47"
                             [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
                             [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
                         </ngx-datatable>

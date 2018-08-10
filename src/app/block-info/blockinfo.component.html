@@ -28,13 +28,71 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Previous Block:</span>
-                                    <span class="col-md-8"><a (click)="getBlockId(blockInfo.previousBlock,'blockId')" class="link-hover">{{blockInfo.previousBlock}}</a></span>
+                                    <span class="col-md-8">
+                                        <a (click)="getBlockId(blockInfo.previousBlock,'blockId')" class="link-hover">{{blockInfo.previousBlock}}</a>
+                                    </span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Number Of Transactions:</span>
-                                    <span class="col-md-8"><a class="link-hover" (click)="showBlock(blockInfo)">{{blockInfo.numberOfTransactions}}</a></span>
+                                    <span class="col-md-8">
+                                        <!-- <a class="link-hover" (click)="showBlock(blockInfo)">{{blockInfo.numberOfTransactions}}</a> -->
+                                        <a class="link-hover" (click)="numOfTrxs(content);showBlock(blockInfo)">{{blockInfo.numberOfTransactions}}</a>
+                                    </span>
+
+                                    <!-- <button class="btn btn-lg btn-outline-primary" (click)="open2(content)">Launch demo modal</button> -->
+                                    <ng-template #content let-c="close" let-d="dismiss">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Transactions ({{traxlength}})</h4>
+                                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="list-transactions-modal">
+                                                <ul class="list-transactions">
+                                                    <li *ngFor = "let trax of traxList">
+                                                        <div class="transaction-data">
+                                                            <strong>
+                                                                <span>Transaction ID</span>:</strong> {{trax.id}}
+                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} | {{trax.timestamp | timestampFilter}}</span>
+
+                                                            
+                                                        </div>
+                                                        <div class="transaction-path">
+                                                            <div class="transaction-part pull-left">
+                                                                <a href="javascript:void(0);" class="blue-link">{{trax.senderId}}</a>
+                                                                <span ng-show="transaction.type != 8" class="DDK">{{trax.amount/100000000}} DDK</span>
+                                                                <!-- <span ng-show="transaction.type == 8" class="DDK ng-hide">0 DDK</span> -->
+                                                            </div>
+                                                            <div class="transaction-direction"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                                                            <div class="transaction-part pull-right">
+                                                                <a href="javascript:void(0);" class="blue-link">{{trax.recipientId}}</a>
+                                                                <span class="DDK">{{trax.amount/100000000}} DDK</span>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                        <!-- <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button> -->
+                                                        <div class="transaction-bottom clearfix">
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all m-r-10">
+                                                                <span>FEE</span>: {{trax.fee}} DDK</div>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
+                                                                <span>Type</span>: {{trax.trsName}}</div>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}} DDK</div>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations}}
+                                                                <span>CONFIRMATIONS</span>
+                                                            </div>
+                                                        </div>
+                                                    </li>                                                   
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                                        </div> -->
+                                    </ng-template>
+
                                 </span>
                             </li>
                             <li>

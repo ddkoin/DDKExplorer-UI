@@ -2,59 +2,44 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="search-container">
-                    <input type='text' class="search-box" placeholder='Search...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)" />
-                    <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button>
+                <div class="search-container m-b-15">
+                    <input type='text' class="search-box form-control" placeholder='Search Transaction...' name="searchName" [(ngModel)]="page.searchValue"
+                        (keyup)="filterData($event)" />
                 </div>
-
-                <ngx-datatable #table class="material bootstrap" [rows]="transactionlist" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                <ngx-datatable #table class="material bootstrap" [rows]="transactionlist" [columns]="columns" [columnMode]="'force'" [headerHeight]="47"
                     [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
                     [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
                 </ngx-datatable>
                 <ng-template #transactionId let-row="row">
                     <a (click)="getTxId(row.id,'transactionId')" class="address-tag link-hover">{{row.id}}</a>
                 </ng-template>
-
-                <ng-template let-row="row">
-                    {{ row.trsName }}
-                </ng-template>
-
-                <ng-template let-row="row">
-                    {{ row.height }}
-                </ng-template>
-
+                <ng-template let-row="row">{{ row.trsName }}</ng-template>
+                <ng-template let-row="row">{{ row.height }}</ng-template>
                 <ng-template #blockId let-row="row">
                     <a (click)="getBlockId(row.blockId,'blockId')" class="address-tag link-hover">{{row.blockId}}</a>
                 </ng-template>
-
                 <ng-template #senderId let-row="row">
-                    <span *ngIf="row.senderName; else elseBlock"><a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a></span>
+                    <span *ngIf="row.senderName; else elseBlock">
+                        <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
+                    </span>
                     <ng-template #elseBlock>
                         <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
                     </ng-template>
                 </ng-template>
-
                 <ng-template #recipientId let-row="row">
-                    <span *ngIf="row.recipientName; else elseBlock"><a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a></span>
+                    <span *ngIf="row.recipientName; else elseBlock">
+                        <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
+                    </span>
                     <ng-template #elseBlock>
                         <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
                     </ng-template>
                 </ng-template>
-
-                <ng-template #timestamp let-row="row">
-                    {{row.timestamp | timeagofilter }}
-                </ng-template>
-
+                <ng-template #timestamp let-row="row">{{row.timestamp | timeagofilter }}</ng-template>
                 <ng-template #amount let-row="row">
                     <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
-                    <ng-template #stakedAmount>
-                        {{ row.stakedAmount/100000000}}
-                    </ng-template>
+                    <ng-template #stakedAmount>{{ row.stakedAmount/100000000}}</ng-template>
                 </ng-template>
-
-                <ng-template #fee let-row="row">
-                    {{ row.fee/100000000 }}
-                </ng-template>
+                <ng-template #fee let-row="row">{{ row.fee/100000000 }}</ng-template>
             </div>
         </div>
     </div>

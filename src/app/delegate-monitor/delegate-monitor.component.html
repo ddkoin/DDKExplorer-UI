@@ -118,7 +118,7 @@
                 <div class="default-tab-layout m-t-30">
                     <h4 class="card-title m-b-0 font-medium">Latest Votes</h4>
                     <div class="table-container p-t-em">
-                        <ngx-datatable #table class="material bootstrap" [rows]="latestVotes" [columns]="columns1" [columnMode]="'force'" [headerHeight]="50"
+                        <ngx-datatable #table class="material bootstrap" [rows]="latestVotes" [columns]="columns1" [columnMode]="'force'" [headerHeight]="47"
                             [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page1.totalElements"
                             [offset]="page1.pageNumber" [limit]="page1.size" (page)='setPage($event)' [scrollbarH]="true">
                         </ngx-datatable>
@@ -150,7 +150,7 @@
                 <div class="default-tab-layout m-t-30">
                     <h4 class="card-title m-b-0 font-medium">Newest Delegates</h4>
                     <div class="table-container p-t-em">
-                        <ngx-datatable #table class="material bootstrap" [rows]="latestDelegates" [columns]="columns2" [columnMode]="'force'" [headerHeight]="50"
+                        <ngx-datatable #table class="material bootstrap" [rows]="latestDelegates" [columns]="columns2" [columnMode]="'force'" [headerHeight]="47"
                             [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page2.totalElements"
                             [offset]="page2.pageNumber" [limit]="page2.size" (page)='setPage($event)' [scrollbarH]="true">
                         </ngx-datatable>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="default-tab-layout m-t-20">
-                    <div>
+                    <div class="tab-btn">
                         <button type="button" (click)="showActiveDelegates()">Active Delegates</button>
                         <button type="button" (click)="showStandbyDelegates()">Standby Delegates</button>
                     </div>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <div class="table-container" [hidden]="!tab1">
-                            <ngx-datatable #table class="material bootstrap" [rows]="delegatesInfo" [columns]="columns3" [columnMode]="'force'" [headerHeight]="50"
+                            <ngx-datatable #table class="material bootstrap" [rows]="delegatesInfo" [columns]="columns3" [columnMode]="'force'" [headerHeight]="47"
                                 [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page3.totalElements"
                                 [offset]="page3.pageNumber" [limit]="page3.size" (page)='setPage($event)' [scrollbarH]="true">
                             </ngx-datatable>
@@ -246,7 +246,7 @@
                         <div class="table-container" [hidden]="!tab2">
                             <h4 class="card-title font-medium m-b-20">Standby Delegates</h4>
 
-                            <ngx-datatable #table class="material bootstrap" [rows]="standbyDelegates" [columns]="columns4" [columnMode]="'force'" [headerHeight]="50"
+                            <ngx-datatable #table class="material bootstrap" [rows]="standbyDelegates" [columns]="columns4" [columnMode]="'force'" [headerHeight]="47"
                                 [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page4.totalElements"
                                 [offset]="page4.pageNumber" [limit]="page4.size" (page)='setPage($event)' [scrollbarH]="true">
                             </ngx-datatable>
