@@ -196,8 +196,12 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.router.navigate(['/delegate', publicKey]);
 	}
 
-	getAddressInfo(address) {
+	getSenderId(address) {
 		this.router.navigate(['/user-info', address]);
+	}
+
+	getTxId(id, name) {
+		this.router.navigate(['/transaction-info', name, id]);
 	}
 
 	getPrice() {
@@ -251,8 +255,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.columns2 = [
 			{ name: 'Delegate', prop: 'username', cellTemplate: this.name },
 			{ name: 'Address', prop: 'address', cellTemplate: this.addresss },
-			{ name: 'Produced Blocks', prop: 'producedblocks', cellTemplate: this.producedBlocks },
-			{ name: 'Missed Blocks', prop: 'missedblocks', cellTemplate: this.missedBlocks }
+			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp }
 		]
 
 		this.columns3 = [
