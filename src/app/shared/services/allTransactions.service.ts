@@ -72,4 +72,8 @@ export class allTransactionsService {
         .map((res: Response) => res.json());
     }
 
+    getTransactionsHistory() {
+        return this.http.get(environment.serverUrl + '/api/transactions/getTransactionHistory')
+            .map((res: Response) => res.json());
+    }
 }
