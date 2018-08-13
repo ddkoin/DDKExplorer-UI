@@ -42,7 +42,7 @@ export class ProjectCounterComponent implements AfterViewInit {
         }
       }],
     },
-    lineTension: 200,
+    lineTension: 10,
     responsive: true,
     maintainAspectRatio: false,
 
