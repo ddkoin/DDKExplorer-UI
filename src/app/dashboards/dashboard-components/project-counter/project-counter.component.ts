@@ -26,19 +26,26 @@ export class ProjectCounterComponent implements AfterViewInit {
   ];
   public lineChartLabels: Array<any> = [
   ];
+ public timeFormat = 'DD/MM/YYYY';
   public lineChartOptions: any = {
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero: false
+          beginAtZero: true
         },
         gridLines: {
           color: "rgba(0, 0, 0, 0.1)"
         }
       }],
       xAxes: [{
-        gridLines: {
-          color: "rgba(0, 0, 0, 0.1)"
+        type: "time",
+        time: {
+          format: this.timeFormat,
+          tooltipFormat: 'll'
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Date'
         }
       }],
     },
@@ -129,13 +136,14 @@ export class ProjectCounterComponent implements AfterViewInit {
             } else {
               balance[i] = 0;
             }
-            time[i] = resp.trsData[i].time.split('T')[0];
+            var timeFormat = resp.trsData[i].time.split('T')[0].split('-');
+            time[i] = parseInt(timeFormat[2]) + '/' + parseInt(timeFormat[1]);
           }
           this.trsLineChartData[0].data = data;
           this.balanceLineChartData[0].data = balance;
           this.lineChartLabels = time;
         } else {
-          console.log('else resp : ', resp);
+          console.log('error : ', resp);
         }
       },
       error => {
