@@ -22,7 +22,7 @@ export class ProjectCounterComponent implements AfterViewInit {
     { data: [], label: 'Transactions '}
   ];
   public balanceLineChartData = [
-    { data: [], label: 'Balance '}
+    { data: [], label: 'Volume '}
   ];
   public lineChartLabels: Array<any> = [
   ];
