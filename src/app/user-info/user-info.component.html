@@ -29,7 +29,7 @@
                 <div class="col-md-12 default-tab-layout m-t-20">
                     <div class="tab-btn">
                         <button type="button" [class.active]="clicked === tab1" (click)="showTransactions()">Transactions</button>
-                        <button type="button" [class.active]="clicked === tab2" (click)="showComments()">Commets</button>
+                        <button type="button" [class.active]="clicked === tab2" (click)="showComments()">Comments</button>
                     </div>
                     <div [hidden]="!tab1">
                         <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="47"
