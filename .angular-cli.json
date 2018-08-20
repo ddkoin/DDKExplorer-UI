@@ -70,8 +70,8 @@
   },
   "defaults": {
     "serve": {
-      "port": 7001,
-      "host": "explorertestnet.ddkoin.com"
+    "port": 7001,
+      "host": "https://explorertestnet.ddkoin.com"
     },
     "styleExt": "css",
     "component": {}
