@@ -37,12 +37,9 @@
                                 <span class="row info-summary">
                                     <span class="col-md-3">Number Of Transactions:</span>
                                     <span class="col-md-8">
-                                        <!-- <a class="link-hover" (click)="showBlock(blockInfo)">{{blockInfo.numberOfTransactions}}</a> -->
                                         <a class="link-hover" (click)="numOfTrxs(content);showBlock(blockInfo)">{{blockInfo.numberOfTransactions}}</a>
                                     </span>
-
-                                    <!-- <button class="btn btn-lg btn-outline-primary" (click)="open2(content)">Launch demo modal</button> -->
-                                    <ng-template #content let-c="close" let-d="dismiss">
+                                    <ng-template #content let-c="close" let-d="dismiss" class="list-transactions-wrapper">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Transactions ({{traxlength}})</h4>
                                             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -56,9 +53,7 @@
                                                         <div class="transaction-data">
                                                             <strong>
                                                                 <span>Transaction ID</span>:</strong> {{trax.id}}
-                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} | {{trax.timestamp | timestampFilter}}</span>
-
-                                                            
+                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} | {{trax.timestamp | timestampFilter}}</span> 
                                                         </div>
                                                         <div class="transaction-path">
                                                             <div class="transaction-part pull-left">
@@ -88,9 +83,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <!-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-                                        </div> -->
                                     </ng-template>
 
                                 </span>

@@ -39,8 +39,6 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		} else {
 			this.blockHeight();
 		}
-
-
 	}
 
 	ngAfterViewInit() {
@@ -52,7 +50,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	}
 	
 	numOfTrxs(content) { 
-		this.modalService.open(content,{ size: 'lg', backdrop: 'static' }).result.then((result) => {
+		this.modalService.open(content,{windowClass : "myCustomModalClass", size: 'lg', backdrop: 'static' }).result.then((result) => {
 			this.closeResult = `Closed with: ${result}`;
 		}, (reason) => {
 			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

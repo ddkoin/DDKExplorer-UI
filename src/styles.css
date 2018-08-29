@@ -578,3 +578,16 @@
 .form-control:focus{
 	box-shadow: none!important;
 }
+.myCustomModalClass .modal-content{
+    background-color: #2e3138!important;
+}
+.myCustomModalClass .modal-content .modal-header{
+	border-bottom: 1px solid #3a3c42;
+}
+.myCustomModalClass .modal-content .modal-header .modal-title,.myCustomModalClass .modal-content .modal-header .close{
+	color: #fff;
+	text-shadow: none;
+}
+.modal-title,.myCustomModalClass .modal-content .modal-header .close:focus{
+	outline:none;
+}

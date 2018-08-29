@@ -54,6 +54,10 @@
                                 <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
                             </ng-template>
                         </ng-template>
+                        
+                        <ng-template #fee let-row="row">
+                            {{row.fee / 100000000 }}
+                        </ng-template>
 
                         <ng-template #amount let-row="row">
                             <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
@@ -73,3 +77,5 @@
         </div>
     </div>
 </div>
+
+

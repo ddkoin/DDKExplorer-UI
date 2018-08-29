@@ -34,7 +34,7 @@ body {
     font-family: $bodyfont;
     margin: 0;
     overflow-x: hidden;
-    color: $bodytext;
+    color: $bodytext-default;
     font-weight: 300;
 }
 
@@ -2361,9 +2361,9 @@ Layouts
         height: 70px;
         overflow: hidden;
         img{
-            width: 210px;
+            width: 230px;
             position: relative;
-            top: -25px;
+            top: -35px;
         }
     }
 }

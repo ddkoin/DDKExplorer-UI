@@ -23,6 +23,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	@ViewChild('timestamp') timestamp: TemplateRef<any>;
 	@ViewChild('amount') amount: TemplateRef<any>;
 	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
+	@ViewChild('fee') fee: TemplateRef<any>;
 	public addressInfo: any = [];
 	public typeId: any;
 	public senderInfo: any = [];
@@ -106,6 +107,8 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
 			{ name: 'Tx Type', prop: 'trsName' },
 			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
+			{ name: 'Tx Fee', prop: 'fee', cellTemplate: this.fee },
+			{ name: 'Height', prop: 'height' },
 			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount }
 		];
 		this.setPage({ offset: 0 });
