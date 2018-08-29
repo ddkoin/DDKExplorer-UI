@@ -194,7 +194,7 @@ sidebar navigation
     }
 }
 .topbar .top-navbar {
-    background: #388bf7;
+    background: #272c33;
 }
 .menu-box{
     ul{
@@ -250,10 +250,10 @@ sidebar navigation
                 &:hover{
                     cursor: pointer;
                     text-decoration: none;
-                    color: #b6d6ff;
+                    color: #3a89fc;
                 }
                 &.active{
-                    color: #b6d6ff!important;
+                    color: #3a89fc!important;
                 }
             }
         }
@@ -286,14 +286,14 @@ sidebar navigation
                 &:hover{
                     cursor: pointer;
                     text-decoration: none;
-                    color: #b6d6ff!important;
+                    color: #3a89fc!important;
                 } 
             }
         }
         .show{
             background: inherit!important;
             a{
-                color: #b6d6ff!important;
+                color: #3a89fc!important;
                
             }
         }

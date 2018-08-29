@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 custom-card">
         <div class="card">
             <div class="card-body">
-                <div class="col-md-12 info-box">
+                <div class="info-box">
                     <span class="heading b-b">Overview</span>
                     <ul class="blog-info">
                         <li>
@@ -26,7 +26,7 @@
                     </ul>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-md-12 default-tab-layout m-t-20">
+                <div class="default-tab-layout m-t-20">
                     <div class="tab-btn">
                         <button type="button" [class.active]="clicked === tab1" (click)="showTransactions()">Transactions</button>
                         <button type="button" [class.active]="clicked === tab2" (click)="showComments()">Comments</button>

@@ -6,7 +6,6 @@ const data: any = require('./data.json');
 
 import { allBlockService } from '../../../shared/services/allBlock.service'
 import { allTransactionsService } from '../../../shared/services/allTransactions.service';
-//import { transactionsHistoryService } from '../../../shared/services/transactionsHistory.service';
 
 @Component({
   selector: 'project-counter',
@@ -58,10 +57,9 @@ export class ProjectCounterComponent implements AfterViewInit {
   };
   public lineChartColors: Array<any> = [
     {
-      // grey
-      backgroundColor: 'rgba(117,91,241,1)',
-      borderColor: 'rgba(117,91,241,1)',
-      pointBackgroundColor: 'rgba(117,91,241,1)',
+      // blue
+      backgroundColor: 'rgba(57,139,257,1)',
+      pointBackgroundColor: 'rgba(57,139,257,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(117,91,241,1)'

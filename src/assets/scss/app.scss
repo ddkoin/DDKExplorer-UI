@@ -1490,15 +1490,15 @@ Buttons
 }
 
 .btn-outline-info {
-    color: $info;
-    background-color: transparent;
+    color: $white;
+    background-color: $info;
     border-color: $info;
     box-shadow: $info-shadow;
     transition: 0.2s ease-in;
     &:hover,
     &:focus,
     &.focus {
-        background: $info;
+        background: transparent;
         border-color: $info;
         color: $white;
         box-shadow: $info-shadow-hover;
@@ -2103,7 +2103,7 @@ Layouts
 }
 
 .pace .pace-progress {
-  background: $danger;
+  background: #398bf7;
   position: fixed;
   z-index: 2000;
   top: 0;
@@ -2167,12 +2167,12 @@ Layouts
 }
 .block-info-box{
     .align-self-center {
-        background: #388bf7;
         padding: 15px 10px;
         border-radius: 1px;
         color: #fff;
         font-size: 14px;
         text-align: center;
+        border-right: #31383e 1px solid;
         a{
             font-size: 15px;
             color: #fff;

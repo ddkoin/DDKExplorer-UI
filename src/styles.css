@@ -503,19 +503,19 @@
 	color: #fff;
 }
 .tab-btn{
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+    /* border-bottom: 1px solid rgba(120, 130, 140, 0.13); */
     position: relative;
     z-index: 1;
 }
 .tab-btn button{
-    background: #fff;
+    background: #323945;
     border: 1px solid rgba(120, 130, 140, 0.13);
     border-radius: 4px 4px 0 0;
     padding: 10px 15px;
     position: relative;
     z-index: 2;
     border-bottom: none;
+    color: #fff;
 }
 .tab-btn button.active{
     position: relative;
@@ -535,15 +535,46 @@
 
 .ngx-datatable.material .datatable-header .datatable-header-cell{
 	padding: 12.5px 10px!important;
-    background: #f3f3f3;
-    color: #2a2a2a!important;
+    background: #323945;
+    color: #ffffff!important;
     font-size: 13px!important;
 }
 
 .ngx-datatable .datatable-body .datatable-row-wrapper:nth-child(even){
-	background: #f9f9f9	
+	background: #373e4b;	
 }
 
 .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell{
 	padding: 12.5px 10px!important;
+}
+
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover{
+	background: #2f343e!important
+}
+
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover, .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group{
+	background: #2f343e!important
+}
+.ngx-datatable.material .datatable-header .resize-handle{
+	border-right: solid 1px #454d5b!important;
+}
+.ngx-datatable.material .datatable-footer .page-count, .ngx-datatable .datatable-footer .datatable-pager .pager li a{
+	color: #7d8b92!important;
+}
+
+.custom-card .card{
+	background: transparent!important; 
+}
+.custom-card .card .card-body{
+	padding-top:0;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.tab-contant-wrapper{
+	background: #373e4b;
+}
+
+.form-control:focus{
+	box-shadow: none!important;
 }
