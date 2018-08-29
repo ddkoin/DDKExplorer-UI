@@ -68,32 +68,10 @@ export class DelegatesService {
     .map((res: Response) => res.json());
   }
 
-  /* getDelegate(publickey) {
-    let getdelegateInfoUri = environment.serverUrl + '/api/delegates/get?publickey';
-    let getDelegate = this.http.get(getdelegateInfoUri, {
-      params: {
-        publickey: publickey
-      }
-    });
-
-    let getVotersUri = environment.serverUrl + '/api/delegates/voters?publicKey';
-    let getVoters = this.http.get(getVotersUri, {
-      params: {
-        publickey: publickey
-      }
-    });
-
-    forkJoin([getDelegate, getVoters]).subscribe(results => {
-      return results.map(res => res);
-    });
-  } */
-
   getPrice() {
     return this.http.get('http://ddkoin.com/price/price-ddk-api.php?com=sell')
     .map((res: Response) => res.json());
   }
-
-  
 }
 
 

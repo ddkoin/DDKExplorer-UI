@@ -21,6 +21,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	@ViewChild('senderId') senderId: TemplateRef<any>;
 	@ViewChild('recipientId') recipientId: TemplateRef<any>;
 	@ViewChild('timestamp') timestamp: TemplateRef<any>;
+	@ViewChild('fee') fee: TemplateRef<any>;
 	@ViewChild('amount') amount: TemplateRef<any>;
 	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
 	public addressInfo: any = [];
@@ -105,6 +106,8 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
 			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
 			{ name: 'Tx Type', prop: 'trsName' },
+			{ name: 'Tx Fee', prop: 'fee', cellTemplate: this.fee },
+			{ name: 'Height', prop: 'height' },
 			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
 			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount }
 		];
