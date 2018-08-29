@@ -26,7 +26,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	public addressInfo: any = [];
 	public typeId: any;
 	public senderInfo: any = [];
-	public explorerServer = "http://159.65.139.248:7003";
+	public explorerServer = "https://explorer-e.ddkoin.com";
 
 	tab1 = true;
 	tab2 = false;
