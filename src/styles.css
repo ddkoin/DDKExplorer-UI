@@ -546,6 +546,7 @@
 
 .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell{
 	padding: 12.5px 10px!important;
+	font-size: 13px!important;
 }
 
 .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover{
@@ -558,9 +559,11 @@
 .ngx-datatable.material .datatable-header .resize-handle{
 	border-right: solid 1px #454d5b!important;
 }
-.ngx-datatable.material .datatable-footer .page-count, .ngx-datatable .datatable-footer .datatable-pager .pager li a{
-	color: #7d8b92!important;
+.ngx-datatable.material .datatable-footer .page-count, .ngx-datatable .datatable-footer .datatable-pager .pager li a, .dark-theme .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell{
+	color: #fff!important;
 }
+
+
 
 .custom-card .card{
 	background: transparent!important; 

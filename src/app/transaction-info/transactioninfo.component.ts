@@ -11,15 +11,15 @@ import { BlockDetailsService } from '../shared/services/blockDetails.service';
 export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	dtOptions: DataTables.Settings = {};
 	public transactionInfo: any = [];
-	public trxId:any;
-	public typeId:any;
-	public txsId:any;
-	public txsBlockId:any;
+	public trxId: any;
+	public typeId: any;
+	public txsId: any;
+	public txsBlockId: any;
 
-	constructor(private router: Router, private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) { 
+	constructor(private router: Router, private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
-			 if (this.typeId == 'transactionId') {
+			if (this.typeId == 'transactionId') {
 				this.txsId = params.id;
 			} else {
 				this.txsBlockId = params.id;
@@ -27,11 +27,26 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 		});
 	}
 
+	ngOnInit() {
+		if (this.typeId == 'transactionId') {
+			this.transactionsDetail()
+		} else {
+			this.blockDetail()
+		}
+	}
+
+	ngAfterViewInit() {
+		this.dtOptions = {
+			stateSave: true
+		};
+	}
+
 	transactionsDetail() {
 		this.transactionsDetails.getTransactionsDetail(this.txsId).subscribe(
 			resp => {
 				if (resp.success) {
-					this.transactionInfo = resp.transaction;					
+					this.transactionInfo = resp.transaction;
+					console.log('TransactionInfo :',this.transactionInfo);
 				}
 			},
 			error => {
@@ -55,27 +70,10 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	/* For Block ID By Height */
-	getBlockId(id,name) {
+	getBlockId(id, name) {
 		this.router.navigate(['/block-info', name, id]);
 	}
-
 	getSenderId(senderId) {
 		this.router.navigate(['/user-info', senderId]);
-	}
-
-	ngOnInit(){
-		if(this.typeId == 'transactionId'){
-			this.transactionsDetail()
-		}else{
-			this.blockDetail()
-		}
-	}
-
-	ngAfterViewInit() {
-		//this.transactionsDetail();
-		this.dtOptions = {
-			//pagingType: 'full_numbers',
-			stateSave: true
-		};
-	}
+	}	
 }

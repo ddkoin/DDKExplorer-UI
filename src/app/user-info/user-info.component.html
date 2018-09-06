@@ -23,6 +23,12 @@
                                 <span class="col-md-8">{{addressInfo.publicKey}}</span>
                             </span>
                         </li>
+                        <li>
+                            <span class="row info-summary">
+                                <span class="col-md-3">Total Transactions:</span>
+                                <span class="col-md-8">{{addressInfo.count}} txns</span>
+                            </span>
+                        </li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -36,7 +42,9 @@
                             [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
                             [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
                         </ngx-datatable>
-
+                        <ng-template #id let-row="row">
+                            <a (click)="getTxId(row.id,'transactionId')" class="address-tag link-hover">{{row.id}}</a>
+                        </ng-template>
                         <ng-template #senderId let-row="row">
                             <span *ngIf="row.senderName; else elseBlock">
                                 <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
@@ -45,7 +53,6 @@
                                 <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
                             </ng-template>
                         </ng-template>
-
                         <ng-template #recipientId let-row="row">
                             <span *ngIf="row.recipientName; else elseBlock">
                                 <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>
@@ -60,8 +67,17 @@
                         </ng-template>
 
                         <ng-template #amount let-row="row">
-                            <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
+                            <span *ngIf="row.type !== 8; else stakedAmount">
+                                <span *ngIf="row.recipientId==row.senderId"><i class="fa fa-circle text-muted"></i></span>
+                                <span *ngIf="row.recipientId!=row.senderId && row.type != 8">
+                                    <i class="fa" [ngClass]="{'fa-plus-circle text-success': row.recipientId == addressInfo.address, 
+                                    'fa-minus-circle text-danger': row.senderId == addressInfo.address}"></i>
+                                </span>
+                                <span *ngIf="row.type == 8"><i class="fa fa-minus-circle text-danger"></i></span>
+                                {{row.amount/100000000}}
+                            </span>
                             <ng-template #stakedAmount>
+                                <i class="fa fa-circle text-muted"></i>
                                 {{ row.stakedAmount/100000000}}
                             </ng-template>
                         </ng-template>

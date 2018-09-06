@@ -1,9 +1,7 @@
 import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ContentChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AddressDetailService } from '../shared/services/addressDetail.service';
-
 import { SenderidDetailService } from '../shared/services/senderidDetail.service'
-
 declare var jquery: any;
 declare var $: any;
 
@@ -18,6 +16,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	temp = [];
 	public page: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
 	public timeout: any = 100;
+	@ViewChild('id') id: TemplateRef<any>;
 	@ViewChild('senderId') senderId: TemplateRef<any>;
 	@ViewChild('recipientId') recipientId: TemplateRef<any>;
 	@ViewChild('timestamp') timestamp: TemplateRef<any>;
@@ -28,16 +27,40 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	public typeId: any;
 	public senderInfo: any = [];
 	public explorerServer = "https://explorer-e.ddkoin.com";
-
 	tab1 = true;
 	tab2 = false;
+	show = false;
 
-	constructor(private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
+	constructor(private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.id;
 		});
 	}
-	show = false;
+	ngAfterViewInit() {
+		this.AddressDetail();
+	}
+	ngOnInit() {
+		this.columns = [
+			{ name: 'Transaction ID', prop: 'id', width: '240', cellTemplate: this.id},
+			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
+			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
+			{ name: 'Tx Type', prop: 'trsName' },
+			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
+			{ name: 'Tx Fee', prop: 'fee', cellTemplate: this.fee },
+			{ name: 'Height', prop: 'height' },
+			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount }
+		];
+		this.setPage({ offset: 0 });
+	}
+	/* For Transactions Detail By ID */
+	getTxId(id,name) {
+		this.router.navigate(['/transaction-info', name, id]);
+	}
+
+	getSenderId(senderId) {
+		this.router.navigate(['/user-info', senderId]);
+		this.AddressDetail();
+	}
 
 	showTransactions() {
 		this.tab1 = true;
@@ -55,6 +78,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.addressInfo = resp.account;
+					//console.log("this.addressInfo :",this.addressInfo)
 				}
 			},
 			error => {
@@ -62,6 +86,16 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			}
 		);
 	}
+
+
+
+
+
+
+
+
+
+	
 
 	senderIdDetail(limit, offset) {
 		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
@@ -73,7 +107,10 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 						resp => {
 							if (resp.success) {
 								this.senderInfo = resp.transactions;
+								console.log("SenderInfo : ",this.senderInfo);
+
 								this.page.totalElements = resp.count;
+								this.addressInfo.count = this.page.totalElements;
 							}
 						},
 						error => {
@@ -86,7 +123,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 				console.log(error);
 			}
 		);
-		
+
 	}
 
 	setPage(event) {
@@ -94,25 +131,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
-	getSenderId(senderId) {
-		console.log("his is working")
-	}
-
-	ngAfterViewInit() {
-		this.AddressDetail();
-	}
-	ngOnInit() {
-		this.columns = [
-			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
-			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
-			{ name: 'Tx Type', prop: 'trsName' },
-			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
-			{ name: 'Tx Fee', prop: 'fee', cellTemplate: this.fee },
-			{ name: 'Height', prop: 'height' },
-			{ name: 'Amount', prop: 'amount', cellTemplate: this.amount }
-		];
-		this.setPage({ offset: 0 });
-	}
+	
 
 	loadCommenents(userInfo, explorerServer) {
 		$(document).ready(function () {

@@ -8,26 +8,38 @@
                         <ul class="blog-info">
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">ID:</span>
+                                    <span class="col-md-3">TX ID:</span>
                                     <span class="col-md-8">{{transactionInfo.id}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">Height:</span>
+                                    <span class="col-md-3">TX Status:</span>
+                                    <span class="col-md-8 text-success">Success</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Block Height:</span>
                                     <span class="col-md-8">{{transactionInfo.height}}</span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">BlockId:</span>
+                                    <span class="col-md-3">Block Confirmations:</span>
+                                    <span class="col-md-8">{{transactionInfo.confirmations}}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="row info-summary">
+                                    <span class="col-md-3">Block ID:</span>
                                     <span class="col-md-8"><a (click)="getBlockId(transactionInfo.blockId,'blockId')" class="link-hover">{{transactionInfo.blockId}}</a></span>
                                 </span>
                             </li>
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Type:</span>
-                                    <span class="col-md-8">{{transactionInfo.type}}</span>
+                                    <span class="col-md-8">{{transactionInfo.type}} {{transactionInfo.trsName}}</span>
                                 </span>
                             </li>
                             <li>
@@ -38,7 +50,7 @@
                             </li>
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">SenderId:</span>
+                                    <span class="col-md-3">Sender ID:</span>
                                     <span class="col-md-8">
                                         <a (click)="getSenderId(transactionInfo.senderId)" class="link-hover">{{transactionInfo.senderId}}</a>
                                     </span>
@@ -46,7 +58,7 @@
                             </li>
                             <li>
                                 <span class="row info-summary">
-                                    <span class="col-md-3">RecipientId:</span>
+                                    <span class="col-md-3">Recipient ID:</span>
                                     <span class="col-md-8">
                                         <a (click)="getSenderId(transactionInfo.recipientId)" class="link-hover">{{transactionInfo.recipientId}}</a>
                                     </span>
@@ -56,11 +68,11 @@
                                 <span class="row info-summary">
                                     <span class="col-md-3">Amount:</span>
                                     <div *ngIf="transactionInfo.type === 8; else elseBlock">
-                                        <span class="col-md-8">{{transactionInfo.stakedAmount/100000000}}
+                                        <span class="col-md-8">{{transactionInfo.stakedAmount/100000000}} DDK
                                         </span>
                                     </div>
                                     <ng-template #elseBlock>
-                                        <span class="col-md-8">{{transactionInfo.amount/100000000}}
+                                        <span class="col-md-8">{{transactionInfo.amount/100000000}} DDK
                                         </span>
                                     </ng-template>
                                 </span>
@@ -68,7 +80,7 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Fee:</span>
-                                    <span class="col-md-8">{{transactionInfo.fee/100000000}}</span>
+                                    <span class="col-md-8">{{transactionInfo.fee/100000000}} DDK</span>
                                 </span>
                             </li>
                         </ul>

@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BlockDetailsService } from '../shared/services/blockDetails.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
 import { DelegatesService } from '../shared/services/delegates.service';
-import {Observable} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Component({
@@ -23,7 +23,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public Voters: any;
 	public votesCount: any = Number;
 	public publicKey: any;
-	
+
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -66,7 +66,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	getLatestHeight() {
 		this.delegateService.getNextForgers(10).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.currentHeight = resp.currentBlock;
 				}
 			},
@@ -78,7 +78,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	getDelegate(publicKey) {
 		this.delegateService.getDelegate(publicKey).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.delegateInfo = resp.delegate;
 				}
 			},
@@ -91,7 +91,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	getVoters(publicKey) {
 		this.delegateService.getVoters(publicKey).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.Voters = resp.accounts;
 					this.votesCount = resp.accounts.length;
 				}
@@ -119,8 +119,8 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		this.getDelegate(this.publicKey);
 		this.getVoters(this.publicKey);
 		this.getLatestHeight();
-		let flag:any = true
-		window.localStorage.setItem('flag',flag)
+		let flag: any = true
+		window.localStorage.setItem('flag', flag)
 		this.dtOptions = {
 			pagingType: 'full_numbers'
 		};

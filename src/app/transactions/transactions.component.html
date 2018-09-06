@@ -39,7 +39,7 @@
                     <span *ngIf="row.type !== 8; else stakedAmount">{{row.amount/100000000}}</span>
                     <ng-template #stakedAmount>{{ row.stakedAmount/100000000}}</ng-template>
                 </ng-template>
-                <ng-template #fee let-row="row">{{ row.fee/100000000 }}</ng-template>
+                <ng-template #fee let-row="row">{{ row.fee | exponentialStrength }}</ng-template>
             </div>
         </div>
     </div>

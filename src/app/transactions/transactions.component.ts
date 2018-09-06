@@ -34,6 +34,8 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	public transactionInfo: any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 
+	txFee: any;
+
 	constructor(private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService) { }
 
 	filterData(event) {
