@@ -16,8 +16,7 @@ export class HoursMinAgoPipeFilter implements PipeTransform {
         time = new Date((timestamp + t) * 1000);
 
         var currentTime = new Date().getTime();
-        // var diffTime = (currentTime - time.getTime()) / 1000;
-        var diffTime = 56678;
+        var diffTime = (currentTime - time.getTime()) / 1000;
 
         if (diffTime < 60) {
             if(diffTime < 0) {
@@ -26,13 +25,16 @@ export class HoursMinAgoPipeFilter implements PipeTransform {
             return Math.floor(diffTime) + ' sec ago';
         }
 
-       function convertMinsToHrsMins(minutes) {
+        function convertMinsToHrsMins(minutes) {
             var h = Math.floor(minutes / 60);
             var m = minutes % 60;
             var Hr = h < 10 ? '0' + h : h;
             var Min = m < 10 ? '0' + m : m;
             return Hr + ' Hour ' + Min + ' Minutes ago';
-          }
+        }
+
+
+        
 
         if (Math.floor(diffTime / 60) <= 1) {
             return Math.floor(diffTime / 60) + ' mins ' + Math.floor(diffTime) + ' sec ago';
