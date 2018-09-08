@@ -58,8 +58,10 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	getSenderId(senderId) {
+		this.typeId = senderId;
 		this.router.navigate(['/user-info', senderId]);
 		this.AddressDetail();
+		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
 	showTransactions() {
@@ -74,11 +76,18 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	AddressDetail() {
+		this.addressInfo = [];
+		if(this.typeId === 'DDK00000000000000000000') {
+			this.typeId = 'DDK12817390500414975490';
+		}
 		this.addressDetail.getAddressDetail(this.typeId).subscribe(
 			resp => {
 				if (resp.success) {
 					this.addressInfo = resp.account;
-					//console.log("this.addressInfo :",this.addressInfo)
+					if (resp.account.address === 'DDK12817390500414975490') {
+						this.addressInfo.address = 'DDK00000000000000000000';
+						this.addressInfo.publicKey = 'N/A';
+					}
 				}
 			},
 			error => {
@@ -87,17 +96,11 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-
-
-
-
-
-
-
-
-	
-
 	senderIdDetail(limit, offset) {
+		this.senderInfo = [];
+		if(this.typeId === 'DDK00000000000000000000') {
+			this.typeId = 'DDK12817390500414975490';
+		}
 		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
 			resp => {
 				if (resp.success) {
@@ -107,7 +110,6 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 						resp => {
 							if (resp.success) {
 								this.senderInfo = resp.transactions;
-								console.log("SenderInfo : ",this.senderInfo);
 
 								this.page.totalElements = resp.count;
 								this.addressInfo.count = this.page.totalElements;
@@ -123,7 +125,6 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 				console.log(error);
 			}
 		);
-
 	}
 
 	setPage(event) {

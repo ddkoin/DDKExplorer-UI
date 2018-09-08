@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router, ActivatedRoute, Params } from '@angular/router';
 import { UserInfoComponent } from './user-info.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,4 +31,5 @@ const routes: Routes = [{
     ],
 	declarations: [UserInfoComponent]
 })
-export class UserInfoModule { }
+export class UserInfoModule {
+}

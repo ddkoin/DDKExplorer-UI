@@ -18,14 +18,14 @@ export class ProjectCounterComponent implements AfterViewInit {
   public transactionHistory: any = [];
   public transactionLength: any = [];
   public trsLineChartData = [
-    { data: [], label: 'Transactions '}
+    { data: [], label: 'Transactions ' }
   ];
   public balanceLineChartData = [
-    { data: [], label: 'Volume '}
+    { data: [], label: 'Volume ' }
   ];
   public lineChartLabels: Array<any> = [
   ];
- public timeFormat = 'DD/MM/YYYY';
+  public timeFormat = 'DD/MM/YYYY';
   public lineChartOptions: any = {
     scales: {
       yAxes: [{
@@ -126,9 +126,9 @@ export class ProjectCounterComponent implements AfterViewInit {
           var balance = [];
           for (let i = 0; i < resp.trsData.length; i++) {
             data[i] = resp.trsData[i].count;
-            if(parseInt(resp.trsData[i].amount) !== 0) {
+            if (parseInt(resp.trsData[i].amount) !== 0) {
               balance[i] = resp.trsData[i].amount / 100000000;
-              if(balance[i] > 45000000) {
+              if (balance[i] > 45000000) {
                 balance[i] = parseInt(balance[i]) - 45000000;
               }
             } else {

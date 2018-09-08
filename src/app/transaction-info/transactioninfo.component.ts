@@ -46,7 +46,6 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.transactionInfo = resp.transaction;
-					console.log('TransactionInfo :',this.transactionInfo);
 				}
 			},
 			error => {

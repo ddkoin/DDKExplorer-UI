@@ -14,7 +14,6 @@ export class DayHourAgoPipeFilter implements PipeTransform {
 
         var currentTime = new Date().getTime();
         var diffTime = (currentTime - time.getTime()) / 1000;
-        console.log("diffTime : " + diffTime);
 
         if (diffTime < 60) {
             if (diffTime < 0) {
