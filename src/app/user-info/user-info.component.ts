@@ -98,6 +98,8 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 
 	senderIdDetail(limit, offset) {
 		this.senderInfo = [];
+		this.addressInfo.count = 0;
+		this.page.totalElements = 0;
 		if(this.typeId === 'DDK00000000000000000000') {
 			this.typeId = 'DDK12817390500414975490';
 		}
