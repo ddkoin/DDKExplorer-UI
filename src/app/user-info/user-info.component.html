@@ -32,12 +32,12 @@
                     </ul>
                 </div>
                 <div class="clearfix"></div>
-                <div class="default-tab-layout m-t-20">
+                <div class="default-tab-layout m-t-25">
                     <div class="tab-btn">
                         <button type="button" [class.active]="clicked === tab1" (click)="showTransactions()">Transactions</button>
                         <button type="button" [class.active]="clicked === tab2" (click)="showComments()">Comments</button>
                     </div>
-                    <div [hidden]="!tab1">
+                    <div [hidden]="!tab1" class="tab-contant">
                         <ngx-datatable #table class="material bootstrap" [rows]="senderInfo" [columns]="columns" [columnMode]="'force'" [headerHeight]="47"
                             [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
                             [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
@@ -86,7 +86,7 @@
                             {{row.timestamp | timeagofilter }}
                         </ng-template>
                     </div>
-                    <div [hidden]="!tab2" id="comments-container">
+                    <div [hidden]="!tab2" class="tab-contant" id="comments-container">
                     </div>
                 </div>
             </div>

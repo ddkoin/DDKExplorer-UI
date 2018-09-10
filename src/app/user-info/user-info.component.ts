@@ -41,7 +41,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 	ngOnInit() {
 		this.columns = [
-			{ name: 'Transaction ID', prop: 'id', width: '240', cellTemplate: this.id},
+			{ name: 'Transaction ID', prop: 'id', width: '240', cellTemplate: this.id },
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
 			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
 			{ name: 'Tx Type', prop: 'trsName' },
@@ -53,7 +53,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.setPage({ offset: 0 });
 	}
 	/* For Transactions Detail By ID */
-	getTxId(id,name) {
+	getTxId(id, name) {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
@@ -77,7 +77,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 
 	AddressDetail() {
 		this.addressInfo = [];
-		if(this.typeId === 'DDK00000000000000000000') {
+		if (this.typeId === 'DDK00000000000000000000') {
 			this.typeId = 'DDK12817390500414975490';
 		}
 		this.addressDetail.getAddressDetail(this.typeId).subscribe(
@@ -100,7 +100,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.senderInfo = [];
 		this.addressInfo.count = 0;
 		this.page.totalElements = 0;
-		if(this.typeId === 'DDK00000000000000000000') {
+		if (this.typeId === 'DDK00000000000000000000') {
 			this.typeId = 'DDK12817390500414975490';
 		}
 		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
@@ -112,7 +112,6 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 						resp => {
 							if (resp.success) {
 								this.senderInfo = resp.transactions;
-
 								this.page.totalElements = resp.count;
 								this.addressInfo.count = this.page.totalElements;
 							}
@@ -134,8 +133,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
-	
-
+	/* For load Commenents */
 	loadCommenents(userInfo, explorerServer) {
 		$(document).ready(function () {
 			$('#comments-container').comments({

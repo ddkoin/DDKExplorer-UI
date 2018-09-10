@@ -74,6 +74,28 @@
 	background: rgba(0, 0, 0, 0);
 }
 
+.textarea-wrapper{
+	margin-left: 60px;
+}
+.jquery-comments .textarea-wrapper .textarea{
+	background: none!important;
+	border-width: 1px!important;
+}
+.jquery-comments .textarea-wrapper:after{
+	content: " ";
+    position: absolute;
+    border: 4px solid #323945;
+    left: 8px;
+    top: 1px;
+    /* width: 5px; */
+    /* height: 4px; */
+    box-sizing: border-box;
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+}
+
+
+
 .jquery-comments button {
 	vertical-align: inherit;
 }
@@ -134,19 +156,6 @@
 	border: 5px solid rgba(120, 130, 140, 0.13);
 	left: 5px;
 	top: 0;
-	width: 10px;
-	height: 10px;
-	box-sizing: border-box;
-	border-bottom-color: rgba(0, 0, 0, 0);
-	border-left-color: rgba(0, 0, 0, 0);
-}
-
-.jquery-comments .textarea-wrapper:after {
-	content: " ";
-	position: absolute;
-	border: 7px solid #FFF;
-	left: 10px;
-    top: 2px;
 	width: 10px;
 	height: 10px;
 	box-sizing: border-box;
