@@ -10,46 +10,27 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
+	width: 5px;
+	height: 5px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track,.ngx-datatable.scroll-horz .datatable-body::-webkit-scrollbar-track{
     background: #f1f1f1; 
 }
  
 /* Handle */
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb,.ngx-datatable.scroll-horz .datatable-body::-webkit-scrollbar-thumb {
     background: #3582e6; 
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover,.ngx-datatable.scroll-horz .datatable-body::-webkit-scrollbar-thumb:hover {
     background: #3279d6; 
 }
 
 
-/* width */
-.default-table-layout::-webkit-scrollbar {
-    height: 6px;
-}
 
-/* Track */
-.default-table-layout::-webkit-scrollbar-track {
-    background: #fff; 
-}
- 
-/* Handle */
-.default-table-layout::-webkit-scrollbar-thumb {
-    background: #ccc; 
-    border-radius: 6px;
-}
-
-/* Handle on hover */
-.default-table-layout::-webkit-scrollbar-thumb:hover {
-    background: #c7c7c7;
-    cursor: pointer;
-}
 
 
 .jquery-comments * {
