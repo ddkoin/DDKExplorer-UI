@@ -30,7 +30,7 @@
                     {{ row.totalAmount/100000000 }}
                 </ng-template>
                 <ng-template #fee let-row="row">
-                    {{ row.totalFee/100000000 }}
+                    {{ row.totalFee | exponentialStrength }}
                 </ng-template>
                 <ng-template #timestamp let-row="row">
                     {{row.timestamp | timeagofilter }}

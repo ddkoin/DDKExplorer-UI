@@ -5,6 +5,8 @@ import { SenderidDetailService } from '../shared/services/senderidDetail.service
 declare var jquery: any;
 declare var $: any;
 
+
+
 @Component({
 	templateUrl: './user-info.component.html',
 	styleUrls: ['./user-info.css']
@@ -30,6 +32,9 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	tab1 = true;
 	tab2 = false;
 	show = false;
+	private toggle : boolean = false;
+	public isActive = true;
+	public isAct = false;
 
 	constructor(private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -57,6 +62,13 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
+	clickEvent(event){
+		//if you just want to toggle the class; change toggle variable.
+		this.toggle != this.toggle;       
+	 }
+
+	
+
 	getSenderId(senderId) {
 		this.typeId = senderId;
 		this.router.navigate(['/user-info', senderId]);
@@ -67,12 +79,17 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	showTransactions() {
 		this.tab1 = true;
 		this.tab2 = false;
+		this.isActive = true;
+		this.isAct = false;
 	}
 
 	showComments() {
 		this.tab1 = false;
 		this.tab2 = true;
 		this.loadCommenents(this.addressInfo, this.explorerServer);
+		this.isAct = true;
+		this.isActive = false;
+
 	}
 
 	AddressDetail() {

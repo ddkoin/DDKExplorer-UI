@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DelegatesService } from '../shared/services/delegates.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
 
-import {Observable} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 
 @Component({
 	templateUrl: './delegate-monitor.component.html',
@@ -52,27 +52,30 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public currentBlock: any;
 	public DDKPrice: any;
 	tab1 = true;
-  	tab2 = false;
-	
+	tab2 = false;
+	public isActive = true;
+	public isAct = false;
+
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
-		
+
 	}
+
 	getProductivityInfo(delegatesList) {
 		this.totalMissedBlocks = 0;
 		var self = this;
 		this.worstProductivity = delegatesList[0];
 		this.bestProductivity = delegatesList[0];
 		var newCount = delegatesList[0];
-		delegatesList.forEach(function(delegate) {
+		delegatesList.forEach(function (delegate) {
 			self.totalMissedBlocks = self.totalMissedBlocks + delegate.missedblocks
-			if(delegate.productivity > self.bestProductivity.productivity) {
+			if (delegate.productivity > self.bestProductivity.productivity) {
 				self.bestProductivity = delegate;
 			}
-			if(delegate.productivity < self.worstProductivity.productivity) {
+			if (delegate.productivity < self.worstProductivity.productivity) {
 				self.worstProductivity = delegate;
 			}
-			if(delegate.producedblocks >= newCount.producedblocks) {
+			if (delegate.producedblocks >= newCount.producedblocks) {
 				newCount.producedblocks = delegate.producedblocks;
 				self.bestForger = delegate;
 			}
@@ -82,7 +85,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	getStandbyDelegates(limit, offset) {
 		this.delegateService.getStandbyDelegates(limit, this.activeDelegates + offset).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.standbyDelegates = resp.delegates;
 					this.page4.totalElements = resp.totalCount - this.activeDelegates;
 				}
@@ -96,7 +99,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	getDelegatesDetail(limit, offset) {
 		this.delegateService.getDelegatesDetail(limit, offset).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.delegatesInfo = [];
 					this.delegatesInfo = resp.delegates;
 					this.page3.totalElements = this.activeDelegates;
@@ -114,8 +117,8 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 	getdelegateName(publicKey) {
 		var self = this;
-		this.delegatesInfo.forEach(function(delegate) {
-			if(publicKey == delegate.publicKey) {
+		this.delegatesInfo.forEach(function (delegate) {
+			if (publicKey == delegate.publicKey) {
 				self.nextForgersList.push({
 					username: delegate.username,
 					publicKey: delegate.publicKey
@@ -128,11 +131,11 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.nextForgersList = [];
 		this.delegateService.getNextForgers(limit).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					var self = this;
 					this.nextForgers = [];
 					this.nextForgers = resp.delegates;
-					this.nextForgers.forEach(function(publicKey) {
+					this.nextForgers.forEach(function (publicKey) {
 						self.getdelegateName(publicKey);
 					});
 					this.currentBlock = resp.currentBlock;
@@ -148,11 +151,11 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	getLastBlock(currentBlockHeight) {
 		this.BlockDetails.getBlockHeightDetail(currentBlockHeight).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					let self = this;
 					this.lastBlock = resp.blocks[0];
-					this.delegatesInfo.forEach(function(delegate) {
-						if(self.lastBlock.generatorPublicKey == delegate.publicKey) {
+					this.delegatesInfo.forEach(function (delegate) {
+						if (self.lastBlock.generatorPublicKey == delegate.publicKey) {
 							self.lastBlock.username = delegate.username;
 						}
 					});
@@ -167,7 +170,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	getLatestVotes(limit) {
 		this.delegateService.getLatestVotes(limit).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.latestVotes = resp.voters;
 					this.page1.totalElements = resp.voters.length;
 				}
@@ -181,7 +184,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	getLatestDelegates(limit) {
 		this.delegateService.getLatestDelegates(limit).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.latestDelegates = resp.delegates;
 					this.page2.totalElements = resp.delegates.length;
 				}
@@ -207,7 +210,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	getPrice() {
 		this.delegateService.getPrice().subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp.success) {
 					this.DDKPrice = resp;
 				}
 			},
@@ -217,28 +220,32 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	showStandbyDelegates() {
-		this.tab1 = false;
-		this.tab2 = true;
-	}
-
 	showActiveDelegates() {
 		this.tab1 = true;
 		this.tab2 = false;
+		this.isActive = true;
+		this.isAct = false;
 	}
-	
+
+	showStandbyDelegates() {
+		this.tab1 = false;
+		this.tab2 = true;
+		this.isAct = true;
+		this.isActive = false;
+	}
+
 	setPage(event) {
 		this.page1.offset = this.page1.size * event.offset;
 		this.page2.offset = this.page2.size * event.offset;
 		this.page3.offset = this.page3.size * event.offset;
-		if(this.page4.size > this.activeDelegates) {
+		if (this.page4.size > this.activeDelegates) {
 			this.page4.size = this.activeDelegates;
 			this.page4.offset = this.page4.size * event.offset;
 		} else {
 			this.page4.offset = this.page4.size * event.offset;
 		}
-		
-		if(this.tab1) {
+
+		if (this.tab1) {
 			this.getDelegatesDetail(this.page3.size, this.page3.offset);
 		} else {
 			this.getStandbyDelegates(this.page4.size, this.page4.offset);

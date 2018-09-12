@@ -48,12 +48,13 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="list-transactions-modal">
+
                                                 <ul class="list-transactions">
-                                                    <li *ngFor = "let trax of traxList">
+                                                    <li *ngFor="let trax of traxList">
                                                         <div class="transaction-data">
                                                             <strong>
                                                                 <span>Transaction ID</span>:</strong> {{trax.id}}
-                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} | {{trax.timestamp | timestampFilter}}</span> 
+                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} | {{trax.timestamp | timestampFilter}}</span>
                                                         </div>
                                                         <div class="transaction-path">
                                                             <div class="transaction-part pull-left">
@@ -61,7 +62,9 @@
                                                                 <span ng-show="transaction.type != 8" class="DDK">{{trax.amount/100000000}} DDK</span>
                                                                 <!-- <span ng-show="transaction.type == 8" class="DDK ng-hide">0 DDK</span> -->
                                                             </div>
-                                                            <div class="transaction-direction"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                                                            <div class="transaction-direction">
+                                                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                            </div>
                                                             <div class="transaction-part pull-right">
                                                                 <a href="javascript:void(0);" class="blue-link">{{trax.recipientId}}</a>
                                                                 <span class="DDK">{{trax.amount/100000000}} DDK</span>
@@ -71,7 +74,7 @@
                                                         <!-- <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button> -->
                                                         <div class="transaction-bottom clearfix">
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all m-r-10">
-                                                                <span>FEE</span>: {{trax.fee / 100000000}} DDK</div>
+                                                                <span>FEE</span>: {{trax.fee | exponentialStrength}} DDK</div>
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
                                                                 <span>Type</span>: {{trax.trsName}}</div>
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}} DDK</div>
@@ -79,12 +82,12 @@
                                                                 <span>CONFIRMATIONS</span>
                                                             </div>
                                                         </div>
-                                                    </li>                                                   
+                                                    </li>
                                                 </ul>
+                                                <span *ngIf="!(!!traxList) || traxList.length < 1"> No Transaction List </span>
                                             </div>
                                         </div>
                                     </ng-template>
-
                                 </span>
                             </li>
                             <li>
@@ -96,7 +99,7 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Total Fee:</span>
-                                    <span class="col-md-8">{{blockInfo.totalFee/100000000}}</span>
+                                    <span class="col-md-8">{{blockInfo.totalFee | exponentialStrength}}</span>
                                 </span>
                             </li>
                             <li>

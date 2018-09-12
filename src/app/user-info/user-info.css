@@ -74,3 +74,6 @@
     font-size: 16px;
     font-weight: 400;
 }
+.tab-active {
+    background: #009efb;
+  }

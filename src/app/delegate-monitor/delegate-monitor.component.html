@@ -170,8 +170,8 @@
                 <div class="clearfix"></div>
                 <div class="default-tab-layout m-t-20">
                     <div class="tab-btn">
-                        <button type="button" (click)="showActiveDelegates()">Active Delegates</button>
-                        <button type="button" (click)="showStandbyDelegates()">Standby Delegates</button>
+                        <button [ngClass]="{'tab-active': isActive}" type="button" (click)="showActiveDelegates()">Active Delegates</button>
+                        <button [ngClass]="{'tab-active': isAct}" type="button" (click)="showStandbyDelegates()">Standby Delegates</button>
                     </div>
                     <div class="col-md-12 p-20 tab-contant-wrapper">
                         <h4 class="card-title font-medium m-b-20">Active Delegates</h4>
