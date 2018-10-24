@@ -15,6 +15,7 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	public typeId: any;
 	public txsId: any;
 	public txsBlockId: any;
+	public txsHeight: any;
 
 	constructor(private router: Router, private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -74,5 +75,5 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	}
 	getSenderId(senderId) {
 		this.router.navigate(['/user-info', senderId]);
-	}	
+	}
 }

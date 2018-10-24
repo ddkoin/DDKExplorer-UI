@@ -48,7 +48,6 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="list-transactions-modal">
-
                                                 <ul class="list-transactions">
                                                     <li *ngFor="let trax of traxList">
                                                         <div class="transaction-data">
@@ -74,12 +73,12 @@
                                                         <!-- <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button> -->
                                                         <div class="transaction-bottom clearfix">
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all m-r-10">
-                                                                <span>FEE</span>: {{trax.fee | exponentialStrength}} DDK</div>
+                                                                <span>TX Fees</span>: {{trax.fee | exponentialStrength}} DDK</div>
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
                                                                 <span>Type</span>: {{trax.trsName}}</div>
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}} DDK</div>
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations}}
-                                                                <span>CONFIRMATIONS</span>
+                                                                <span>Total Confirmation</span>
                                                             </div>
                                                         </div>
                                                     </li>

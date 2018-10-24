@@ -12,11 +12,18 @@ export class transactionsDetailsService {
 
     constructor(private http: Http) { }
 
-    /* For All Transactions List Services */
+    /* For Transactions Details by ID */
     getTransactionsDetail(id) {
         return this.http.get(environment.serverUrl + '/api/transactions/get?id='+id)
             .map((res: Response) => res.json());
     }
+
+
+    /* For Transactions Details by Height */
+    /* getTransactionsBYHeight(height) {
+        return this.http.get(environment.serverUrl + '/api/transactions?height='+height)
+            .map((res: Response) => res.json());
+    } */
 
 
 }

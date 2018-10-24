@@ -14,7 +14,12 @@
                     <a (click)="getTxId(row.id,'transactionId')" class="address-tag link-hover">{{row.id}}</a>
                 </ng-template>
                 <ng-template let-row="row">{{ row.trsName }}</ng-template>
-                <ng-template let-row="row">{{ row.height }}</ng-template>
+
+                <ng-template #transactionHeight let-row="row">
+                    <a (click)="getBlockHeight(row.height,'height')" class="link-hover">{{row.height}}</a>
+                </ng-template>
+
+                
                 <ng-template #blockId let-row="row">
                     <a (click)="getBlockId(row.blockId,'blockId')" class="address-tag link-hover">{{row.blockId}}</a>
                 </ng-template>

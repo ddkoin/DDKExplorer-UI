@@ -230,8 +230,9 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	showStandbyDelegates() {
 		this.tab1 = false;
 		this.tab2 = true;
-		this.isAct = true;
 		this.isActive = false;
+		this.isAct = true;
+		
 	}
 
 	setPage(event) {

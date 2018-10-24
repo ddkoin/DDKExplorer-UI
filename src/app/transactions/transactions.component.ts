@@ -23,6 +23,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	public page: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
 	public timeout: any = 100;
 	@ViewChild('transactionId') transactionId: TemplateRef<any>;
+	@ViewChild('transactionHeight') transactionHeight: TemplateRef<any>;
 	@ViewChild('blockId') blockId: TemplateRef<any>;
 	@ViewChild('senderId') senderId: TemplateRef<any>;
 	@ViewChild('recipientId') recipientId: TemplateRef<any>;
@@ -148,6 +149,12 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
+	
+	/* For Transactions Detail By Height */
+	getBlockHeight(height,name) {
+		this.router.navigate(['/block-info',name, height]);
+	}
+
 	/* For Block ID By Height */
 	getBlockId(id,name) {
 		this.router.navigate(['/block-info', name, id]);
@@ -171,7 +178,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		this.columns = [
 			{ name: 'Transation ID', prop: 'id', width: '200', cellTemplate: this.transactionId },
 			{ name: 'Tx Type', prop: 'trsName' },
-			{ name: 'Height', prop: 'height' },
+			{ name: 'Height', prop: 'height', cellTemplate: this.transactionHeight},
 			{ name: 'Block ID', prop: 'blockId', width: '200', cellTemplate: this.blockId },
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
 			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },

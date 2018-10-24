@@ -101,6 +101,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.addressInfo = resp.account;
+					console.log("this.addressInfo :",this.addressInfo);
 					if (resp.account.address === 'DDK12817390500414975490') {
 						this.addressInfo.address = 'DDK00000000000000000000';
 						this.addressInfo.publicKey = 'N/A';

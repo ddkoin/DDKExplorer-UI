@@ -1,44 +1,44 @@
 <div class="row">
-    <div class="col-12 custom-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="search-container m-b-15">
-                    <input type='text' class="search-box form-control" placeholder='Search Block...' name="searchName" [(ngModel)]="page.searchValue" (keyup)="filterData($event)"
-                    />
-                    <!-- <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button> -->
-                </div>
-                <ngx-datatable #table class="material bootstrap custom-table" [rows]="blocklist" [columns]="columns" [columnMode]="'force'" [headerHeight]="47"
-                    [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
-                    [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
-                </ngx-datatable>
-                <ng-template #blockId let-row="row">
-                    <a (click)="getBlockId(row.id,'blockId')" class="link-hover">{{row.id}}</a>
-                </ng-template>
-                <ng-template #height let-row="row">
-                    <a (click)="getBlockHeight(row.height,'height')" class="link-hover">{{row.height}}</a>
-                </ng-template>
-                <ng-template #generator let-row="row">
-                    <a (click)="getSenderId(row.generatorId)" class="address-tag link-hover">{{row.username}}</a>
-                </ng-template>
-                <ng-template let-row="row">
-                    {{ row.numberOfTransactions }}
-                </ng-template>
-                <ng-template let-row="row">
-                    {{ row.confirmations }}
-                </ng-template>
-                <ng-template #amount let-row="row">
-                    {{ row.totalAmount/100000000 }}
-                </ng-template>
-                <ng-template #fee let-row="row">
-                    {{ row.totalFee | exponentialStrength }}
-                </ng-template>
-                <ng-template #timestamp let-row="row">
-                    {{row.timestamp | timeagofilter }}
-                </ng-template>
-                <ng-template #previousBlock let-row="row">
-                    <a (click)="getBlockId(row.previousBlock,'blockId')" class="link-hover">{{row.previousBlock}}</a>
-                </ng-template>
-            </div>
+  <div class="col-12 custom-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="search-container m-b-15">
+          <input type='text' class="search-box form-control" placeholder='Search Block...' name="searchName" [(ngModel)]="page.searchValue"
+            (keyup)="filterData($event)" />
+          <!-- <button type="button" (click)="filterData()" value="Search" class="p-10 btn btn-info btn-sm font-14 text-uppercase waves-effect waves-light">Search</button> -->
         </div>
+        <ngx-datatable #table class="material bootstrap custom-table" [rows]="blocklist" [columns]="columns" [columnMode]="'force'"
+          [headerHeight]="47" [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page.totalElements"
+          [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [scrollbarH]="true">
+        </ngx-datatable>
+        <ng-template #blockId let-row="row">
+          <a (click)="getBlockId(row.id,'blockId')" class="link-hover">{{row.id}}</a>
+        </ng-template>
+        <ng-template #height let-row="row">
+          <a (click)="getBlockHeight(row.height,'height')" class="link-hover">{{row.height}}</a>
+        </ng-template>
+        <ng-template #generator let-row="row">
+          <a (click)="getSenderId(row.generatorId)" class="address-tag link-hover">{{row.username}}</a>
+        </ng-template>
+        <ng-template let-row="row">
+          {{ row.numberOfTransactions }}
+        </ng-template>
+        <ng-template let-row="row">
+          {{ row.confirmations }}
+        </ng-template>
+        <ng-template #amount let-row="row">
+          {{ row.totalAmount/100000000 }}
+        </ng-template>
+        <ng-template #fee let-row="row">
+          {{ row.totalFee | exponentialStrength }}
+        </ng-template>
+        <ng-template #timestamp let-row="row">
+          {{row.timestamp | timeagofilter }}
+        </ng-template>
+        <ng-template #previousBlock let-row="row">
+          <a (click)="getBlockId(row.previousBlock,'blockId')" class="link-hover">{{row.previousBlock}}</a>
+        </ng-template>
+      </div>
     </div>
+  </div>
 </div>
