@@ -19,8 +19,6 @@ export const Approutes: Routes = [
         { path: 'transaction-info/:name/:id',  loadChildren: './transaction-info/transactioninfo.module#TransactionInfoModule' },
         { path: 'user-info/:id', loadChildren: './user-info/user-info.module#UserInfoModule' },
         { path: 'address', loadChildren: './address/address.module#AddressModule' },
-        { path: 'charts', loadChildren: './charts/charts.module#ChartModule' },
-        { path: 'apps', loadChildren: './apps/apps.module#AppsModule' },
         { path: 'delegate-monitor', loadChildren: './delegate-monitor/delegate-monitor.module#DelegateMonitorModule' },
         { path: 'delegate/:publicKey', loadChildren: './delegate-monitor-info/delegateMonitorInfo.module#DelegateMonitorInfoModule' }
         
