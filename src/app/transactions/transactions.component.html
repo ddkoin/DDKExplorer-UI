@@ -13,7 +13,13 @@
                 <ng-template #transactionId let-row="row">
                     <a (click)="getTxId(row.id,'transactionId')" class="address-tag link-hover">{{row.id}}</a>
                 </ng-template>
-                <ng-template let-row="row">{{ row.trsName }}</ng-template>
+                
+                <ng-template #txName let-row="row">
+                    <span *ngIf="row.trsName === 'SIGNATURE'; else elseBlock">
+                        SECONDPASS
+                    </span>
+                    <ng-template #elseBlock>{{row.trsName}}</ng-template>
+                </ng-template>
 
                 <ng-template #transactionHeight let-row="row">
                     <a (click)="getBlockHeight(row.height,'height')" class="link-hover">{{row.height}}</a>
@@ -23,6 +29,7 @@
                 <ng-template #blockId let-row="row">
                     <a (click)="getBlockId(row.blockId,'blockId')" class="address-tag link-hover">{{row.blockId}}</a>
                 </ng-template>
+
                 <ng-template #senderId let-row="row">
                     <span *ngIf="row.senderName; else elseBlock">
                         <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderName}}</a>
@@ -31,6 +38,7 @@
                         <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
                     </ng-template>
                 </ng-template>
+
                 <ng-template #recipientId let-row="row">
                     <span *ngIf="row.recipientName; else elseBlock">
                         <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientName}}</a>

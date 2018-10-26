@@ -31,6 +31,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	@ViewChild('amount') amount: TemplateRef<any>;
 	@ViewChild('fee') fee: TemplateRef<any>;
 	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
+	@ViewChild('txName') txName: TemplateRef<any>;
 	public transactionlist: any = [];
 	public transactionInfo: any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
@@ -115,6 +116,12 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 				resp => {
 					if (resp.success) {
 						this.transactionlist = resp.transactions;
+						console.log("this.transactionlist :",this.transactionlist);
+
+						/* if(this.transactionlist.trsName == "SIGNATURE"){
+							this.transactionlist.trsName = "SECONDPASS";
+							console.log("this.transactionlist :",this.transactionlist);
+						} */
 						this.page.totalElements = resp.count;
 					}
 				},
@@ -177,7 +184,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		this.transactionlist = [];
 		this.columns = [
 			{ name: 'Transation ID', prop: 'id', width: '200', cellTemplate: this.transactionId },
-			{ name: 'Tx Type', prop: 'trsName' },
+			{ name: 'Tx Type', prop: 'trsName', cellTemplate: this.txName },
 			{ name: 'Height', prop: 'height', cellTemplate: this.transactionHeight},
 			{ name: 'Block ID', prop: 'blockId', width: '200', cellTemplate: this.blockId },
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },

@@ -47,6 +47,10 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.transactionInfo = resp.transaction;
+					/* console.log("this.transactionInfo : ",this.transactionInfo); */
+					if(this.transactionInfo.type == 1){
+						this.transactionInfo.trsName = "SECONDPASS";
+					}
 				}
 			},
 			error => {

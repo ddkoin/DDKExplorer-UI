@@ -74,11 +74,24 @@
                                                         <div class="transaction-bottom clearfix">
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all m-r-10">
                                                                 <span>TX Fees</span>: {{trax.fee | exponentialStrength}} DDK</div>
-                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
-                                                                <span>Type</span>: {{trax.trsName}}</div>
+                                                                <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
+                                                                    <span>Type</span>:
+                                                                    <span *ngIf="trax.trsName === 'SIGNATURE';else other_content">
+                                                                        SECONDPASS
+                                                                    </span>
+                                                                    <ng-template #other_content>{{trax.trsName}}</ng-template>
+                                                                
+                                                                
+                                                                </div>
+
+
+
+
+
+
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}} DDK</div>
-                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations}}
-                                                                <span>Total Confirmation</span>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations || 0}}
+                                                                <span> Total Confirmation</span>
                                                             </div>
                                                         </div>
                                                     </li>

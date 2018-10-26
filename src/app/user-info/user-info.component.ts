@@ -25,6 +25,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	@ViewChild('amount') amount: TemplateRef<any>;
 	@ViewChild('stakedAmount') stakedAmount: TemplateRef<any>;
 	@ViewChild('fee') fee: TemplateRef<any>;
+	@ViewChild('txName') txName: TemplateRef<any>;
 	public addressInfo: any = [];
 	public typeId: any;
 	public senderInfo: any = [];
@@ -49,7 +50,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			{ name: 'Transaction ID', prop: 'id', width: '240', cellTemplate: this.id },
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },
 			{ name: 'Recipient ID', prop: 'recipientId', width: '240', cellTemplate: this.recipientId },
-			{ name: 'Tx Type', prop: 'trsName' },
+			{ name: 'Tx Type', prop: 'trsName', cellTemplate: this.txName },
 			{ name: 'Time', prop: 'timestamp', cellTemplate: this.timestamp },
 			{ name: 'Tx Fee', prop: 'fee', cellTemplate: this.fee },
 			{ name: 'Height', prop: 'height' },
@@ -101,7 +102,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.addressInfo = resp.account;
-					console.log("this.addressInfo :",this.addressInfo);
+					//console.log("this.addressInfo :",this.addressInfo);
 					if (resp.account.address === 'DDK12817390500414975490') {
 						this.addressInfo.address = 'DDK00000000000000000000';
 						this.addressInfo.publicKey = 'N/A';

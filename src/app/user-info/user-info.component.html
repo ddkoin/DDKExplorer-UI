@@ -26,7 +26,7 @@
                         <li>
                             <span class="row info-summary">
                                 <span class="col-md-3">DDK Frozen:</span>
-                                <span class="col-md-8">{{addressInfo.totalFrozeAmount}}</span>
+                                <span class="col-md-8">{{addressInfo.totalFrozeAmount/100000000}}</span>
                             </span>
                         </li>
                         <li>
@@ -58,7 +58,7 @@
                             </span>
                             <ng-template #elseBlock>
                                 <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
-                            </ng-template>
+                            </ng-template>trsName
                         </ng-template>
                         <ng-template #recipientId let-row="row">
                             <span *ngIf="row.recipientName; else elseBlock">
@@ -68,6 +68,15 @@
                                 <a (click)="getSenderId(row.recipientId)" class="address-tag link-hover">{{row.recipientId}}</a>
                             </ng-template>
                         </ng-template>
+
+
+                        <ng-template #txName let-row="row">
+                                <span *ngIf="row.trsName === 'SIGNATURE'; else elseBlock">
+                                    SECONDPASS
+                                </span>
+                                <ng-template #elseBlock>{{row.trsName}}</ng-template>
+                            </ng-template>
+
                         
                         <ng-template #fee let-row="row">
                             {{row.fee | exponentialStrength }}

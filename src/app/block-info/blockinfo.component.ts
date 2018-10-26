@@ -106,6 +106,14 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if(resp.success) {
 					this.traxList = resp.transactions;
+
+					/* if(this.traxList.trsName == "SIGNATURE"){
+						this.traxList.trsName = "SECONDPASS";
+					} */
+
+
+					
+					//console.log("this.traxList :",this.traxList);
 					this.traxlength = resp.transactions.length;
 				} else {
 					console.log('error : ', resp);
