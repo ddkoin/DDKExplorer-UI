@@ -58,7 +58,7 @@
                             </span>
                             <ng-template #elseBlock>
                                 <a (click)="getSenderId(row.senderId)" class="address-tag link-hover">{{row.senderId}}</a>
-                            </ng-template>trsName
+                            </ng-template>
                         </ng-template>
                         <ng-template #recipientId let-row="row">
                             <span *ngIf="row.recipientName; else elseBlock">
