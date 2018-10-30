@@ -23,7 +23,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public Voters: any;
 	public votesCount: any = Number;
 	public publicKey: any;
-
+	public innerSpinner = true;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -94,6 +94,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 				if (resp.success) {
 					this.Voters = resp.accounts;
 					this.votesCount = resp.accounts.length;
+					this.innerSpinner = false;
 				}
 			},
 			error => {

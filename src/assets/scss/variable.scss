@@ -106,7 +106,7 @@ $form-brd: #b1b8bb;
     top:0px;
     position: fixed;
     z-index: 99999;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.5);
     .cssload-speeding-wheel{
         position: absolute;
         top: calc(50% - 3.5px);

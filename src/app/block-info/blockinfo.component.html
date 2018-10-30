@@ -1,3 +1,9 @@
+<div class="loader-backdrop" *ngIf="innerSpinner">
+    <div class="loader"> 
+        <img class="loading" src="../assets/images/ddk_box.svg"
+    ></div>
+</div>
+
 <div class="row">
     <div class="col-12 custom-card">
         <div class="card">
@@ -79,16 +85,8 @@
                                                                     <span *ngIf="trax.trsName === 'SIGNATURE';else other_content">
                                                                         SECONDPASS
                                                                     </span>
-                                                                    <ng-template #other_content>{{trax.trsName}}</ng-template>
-                                                                
-                                                                
+                                                                    <ng-template #other_content>{{trax.trsName}}</ng-template>                                 
                                                                 </div>
-
-
-
-
-
-
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}} DDK</div>
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations || 0}}
                                                                 <span> Total Confirmation</span>

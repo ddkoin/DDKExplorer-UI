@@ -3,7 +3,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BlockDetailsService } from '../shared/services/blockDetails.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
-
 import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -20,6 +19,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	closeResult: string;
 	public traxList: any;
 	public traxlength: any;
+	public innerSpinner = true;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private modalService: NgbModal) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -73,6 +73,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.blockInfo = resp.block;
+					this.innerSpinner = false;
 				}
 			},
 			error => {

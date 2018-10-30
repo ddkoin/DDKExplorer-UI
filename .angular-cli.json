@@ -31,7 +31,6 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/pace-js/pace.min.js",
         "assets/js/jquery.sparkline.min.js",
         "../node_modules/datatables.net/js/jquery.dataTables.js",
         "../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js",

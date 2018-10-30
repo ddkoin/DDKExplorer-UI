@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule, LocationStrategy, HashLocationStrategy  } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
@@ -26,7 +25,7 @@ import{ AddressDetailService } from './shared/services/addressDetail.service';
 import { SenderidDetailService } from './shared/services/senderidDetail.service';
 import { DelegatesService } from './shared/services/delegates.service'
 import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -48,8 +47,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     CommonModule,
     BrowserModule,
-    BrowserAnimationsModule,   
-    FormsModule,
+    BrowserAnimationsModule,
     HttpModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(Approutes, { useHash: true }),    

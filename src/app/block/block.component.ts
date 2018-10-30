@@ -28,6 +28,8 @@ export class BlockComponent implements OnInit, AfterViewInit {
 	public blocklist : any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 
+	public innerSpinner = true;
+
 	constructor(private router: Router, private allBlocks :allBlockService, private userService: AddressDetailService) { }
 
 	allBlockList(limit, offset) {
@@ -36,6 +38,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
 				if (resp.success) {
 					this.blocklist = resp.blocks;
 					this.page.totalElements = resp.count;
+					this.innerSpinner = false;
 				}
 			},
 			error => {

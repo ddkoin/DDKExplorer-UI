@@ -36,6 +36,8 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	private toggle : boolean = false;
 	public isActive = true;
 	public isAct = false;
+	public innerSpinner = true;
+
 
 	constructor(private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -133,6 +135,8 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 								this.senderInfo = resp.transactions;
 								this.page.totalElements = resp.count;
 								this.addressInfo.count = this.page.totalElements;
+								this.innerSpinner = false;
+
 							}
 						},
 						error => {

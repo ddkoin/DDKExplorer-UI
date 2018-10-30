@@ -8,8 +8,12 @@ import { allBlockService } from '../../shared/services/allBlock.service'
 	styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements AfterViewInit {
+	public innerSpinner = true;
 	public txLists : any = [];
 	public bxLists : any = [];	
+
+	public blockData = false;
+	public transactionData = false;
 
 	constructor(private router: Router, private allTx:allTransactionsService, private allBx:allBlockService) {}
 
@@ -18,6 +22,9 @@ export class DashboardComponent implements AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.txLists = resp.transactions;
+					this.transactionData = true;
+					this.innerSpinner = !(this.blockData && this.transactionData);
+					
 				}
 			},
 			error => {
@@ -31,6 +38,8 @@ export class DashboardComponent implements AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.bxLists = resp.blocks;
+					this.blockData = true;
+					this.innerSpinner = !(this.blockData && this.transactionData);
 				}
 			},
 			error => {

@@ -55,7 +55,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	tab2 = false;
 	public isActive = true;
 	public isAct = false;
-
+	public innerSpinner = true;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
 
@@ -140,6 +140,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 					});
 					this.currentBlock = resp.currentBlock;
 					this.getLastBlock(this.currentBlock);
+					this.innerSpinner = false;
 				}
 			},
 			error => {

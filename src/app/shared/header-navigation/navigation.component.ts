@@ -7,6 +7,8 @@ import {Directive, HostListener, HostBinding} from '@angular/core';
 /* declare var jquery:any;
 declare var $ :any; */
 
+
+
 @Component({
   selector: 'ap-navigation',
   templateUrl: './navigation.component.html'
@@ -113,5 +115,17 @@ export class NavigationComponent implements AfterViewInit {
 
 
     $("body").trigger("resize");
+
+
+
+      /* $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+          $(this).toggleClass('active');
+      }); */
+
+
+      
+
+
   }
 }

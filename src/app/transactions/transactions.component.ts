@@ -35,8 +35,8 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	public transactionlist: any = [];
 	public transactionInfo: any = [];
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
-
 	txFee: any;
+	public innerSpinner = true;
 
 	constructor(private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService) { }
 
@@ -116,13 +116,8 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 				resp => {
 					if (resp.success) {
 						this.transactionlist = resp.transactions;
-						console.log("this.transactionlist :",this.transactionlist);
-
-						/* if(this.transactionlist.trsName == "SIGNATURE"){
-							this.transactionlist.trsName = "SECONDPASS";
-							console.log("this.transactionlist :",this.transactionlist);
-						} */
 						this.page.totalElements = resp.count;
+						this.innerSpinner = false;
 					}
 				},
 				error => {
@@ -135,6 +130,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 					if (resp.success) {
 						this.transactionlist = resp.transactions;
 						this.page.totalElements = resp.count;
+						this.innerSpinner = false;
 					}
 				},
 				error => {

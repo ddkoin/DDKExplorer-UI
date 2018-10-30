@@ -8,6 +8,7 @@ import {Router, NavigationEnd} from "@angular/router";
 })
 export class AppComponent {
   title = 'app';
+  innerSpinner = true;
   constructor(private router: Router) {
     router.events.subscribe((val) => {
         if (val instanceof NavigationEnd){

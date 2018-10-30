@@ -16,6 +16,7 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	public txsId: any;
 	public txsBlockId: any;
 	public txsHeight: any;
+	public innerSpinner = true;
 
 	constructor(private router: Router, private BlockDetails: BlockDetailsService, private activatedRoute: ActivatedRoute, private transactionsDetails: transactionsDetailsService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -47,10 +48,10 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.transactionInfo = resp.transaction;
-					/* console.log("this.transactionInfo : ",this.transactionInfo); */
 					if(this.transactionInfo.type == 1){
 						this.transactionInfo.trsName = "SECONDPASS";
 					}
+					this.innerSpinner = false;
 				}
 			},
 			error => {
