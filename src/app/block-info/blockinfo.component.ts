@@ -73,6 +73,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.blockInfo = resp.block;
+					//console.log('this.blockInfo :',this.blockInfo)
 					this.innerSpinner = false;
 				}
 			},
@@ -88,6 +89,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp.success) {
 					this.blockInfo = resp.blocks[0];
+					this.innerSpinner = false;
 				}
 			},
 			error => {
