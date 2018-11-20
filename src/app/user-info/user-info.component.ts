@@ -1,10 +1,11 @@
-import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ContentChild } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ContentChild, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AddressDetailService } from '../shared/services/addressDetail.service';
-import { SenderidDetailService } from '../shared/services/senderidDetail.service'
+import { SenderidDetailService } from '../shared/services/senderidDetail.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 declare var jquery: any;
 declare var $: any;
-
 
 
 @Component({
@@ -33,19 +34,23 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	tab1 = true;
 	tab2 = false;
 	show = false;
-	private toggle : boolean = false;
+	private toggle: boolean = false;
 	public isActive = true;
 	public isAct = false;
 	public innerSpinner = true;
 
+	public address = 'DDK00000000000000000000';
+	public addressReplace = 'DDK12817390500414975490';
 
-	constructor(private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
+
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
+		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
-			this.typeId = params.id;
+		this.typeId = params.id;
 		});
 	}
 	ngAfterViewInit() {
-		this.AddressDetail();
+	 this.AddressDetail();
 	}
 	ngOnInit() {
 		this.columns = [
@@ -60,18 +65,19 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		];
 		this.setPage({ offset: 0 });
 	}
+
 	/* For Transactions Detail By ID */
 	getTxId(id, name) {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
-	clickEvent(event){
+	clickEvent(event) {
 		//if you just want to toggle the class; change toggle variable.
-		this.toggle != this.toggle;       
-	 }
+		this.toggle != this.toggle;
+	}
 
-	
 
+    /* For SenderId */
 	getSenderId(senderId) {
 		this.typeId = senderId;
 		this.router.navigate(['/user-info', senderId]);
@@ -79,6 +85,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
+	/* For Show Transaction */
 	showTransactions() {
 		this.tab1 = true;
 		this.tab2 = false;
@@ -86,66 +93,70 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.isAct = false;
 	}
 
+	/* For Show Comments */
 	showComments() {
 		this.tab1 = false;
 		this.tab2 = true;
 		this.loadCommenents(this.addressInfo, this.explorerServer);
 		this.isAct = true;
 		this.isActive = false;
-
 	}
 
+
+   /* For Detail Address */
 	AddressDetail() {
 		this.addressInfo = [];
-		if (this.typeId === 'DDK00000000000000000000') {
-			this.typeId = 'DDK12817390500414975490';
+		if (this.typeId === this.address) {
+			this.typeId = this.addressReplace;
 		}
 		this.addressDetail.getAddressDetail(this.typeId).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.addressInfo = resp.account;
-					//console.log("this.addressInfo :",this.addressInfo);
-					if (resp.account.address === 'DDK12817390500414975490') {
-						this.addressInfo.address = 'DDK00000000000000000000';
+					if (resp.account.address === this.addressReplace) {
+						this.addressInfo.address = this.address;
 						this.addressInfo.publicKey = 'N/A';
 					}
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error)
 			}
 		);
 	}
 
+  /* For Sender Detail ID */
 	senderIdDetail(limit, offset) {
 		this.senderInfo = [];
 		this.addressInfo.count = 0;
 		this.page.totalElements = 0;
-		if (this.typeId === 'DDK00000000000000000000') {
-			this.typeId = 'DDK12817390500414975490';
+		if (this.typeId === this.address) {
+			this.typeId = this.addressReplace;
 		}
 		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					let data = {};
 					let publicKey = resp.account.publicKey;
 					this.senderidDetail.getSenderTransactions(limit, offset, this.typeId, publicKey).subscribe(
 						resp => {
-							if (resp.success) {
+							if (resp && resp.success) {
 								this.senderInfo = resp.transactions;
 								this.page.totalElements = resp.count;
 								this.addressInfo.count = this.page.totalElements;
 								this.innerSpinner = false;
-
 							}
 						},
 						error => {
+							this.toastr.error('This is not good!', error);
 							console.log(error)
 						}
 					);
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);

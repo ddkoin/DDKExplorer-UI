@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 import { Component, AfterViewInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbPanelChangeEvent, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import {Directive, HostListener, HostBinding} from '@angular/core';
+import { Directive, HostListener, HostBinding } from '@angular/core';
 
 /* declare var jquery:any;
 declare var $ :any; */
@@ -16,21 +16,21 @@ declare var $ :any; */
 export class NavigationComponent implements AfterViewInit {
   name: string;
   public config: PerfectScrollbarConfigInterface = {};
-  private isOpen:boolean = false;
-  public isCollapsed:boolean = false;
+  private isOpen: boolean = false;
+  public isCollapsed: boolean = false;
 
-  @HostBinding('class.open') get opened(){
+  @HostBinding('class.open') get opened() {
     return this.isOpen;
   }
 
   constructor(private modalService: NgbModal) {
 
   }
-  @HostListener('click')open(){
+  @HostListener('click') open() {
     this.isOpen = true;
   }
 
-  @HostListener('mouseleave')close(){
+  @HostListener('mouseleave') close() {
     this.isOpen = false;
   }
 
@@ -118,13 +118,13 @@ export class NavigationComponent implements AfterViewInit {
 
 
 
-      /* $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
-          $(this).toggleClass('active');
-      }); */
+    /* $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+    }); */
 
 
-      
+
 
 
   }

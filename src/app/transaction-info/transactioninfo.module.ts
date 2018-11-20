@@ -9,20 +9,20 @@ import { SharedModule } from './../shared/shared.module'
 const routes: Routes = [{
 	path: '',
 	data: {
-        title: 'Transaction',
-        urls: [{title: 'Home',url: '/dashboard'},{title: 'Transaction Information'}]
-    },
+		title: 'Transaction',
+		urls: [{ title: 'Home', url: '/dashboard' }, { title: 'Transaction Information' }]
+	},
 	component: TransactionInfoComponent
 }];
 
 @NgModule({
 	imports: [
-    	CommonModule, 
+		CommonModule,
 		RouterModule.forChild(routes),
 		DataTablesModule,
 		NgbModule,
 		SharedModule
-    ],
+	],
 	declarations: [TransactionInfoComponent]
 })
 export class TransactionInfoModule { }

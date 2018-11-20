@@ -14,7 +14,7 @@ export class transactionsDetailsService {
 
     /* For Transactions Details by ID */
     getTransactionsDetail(id) {
-        return this.http.get(environment.serverUrl + '/api/transactions/get?id='+id)
+        return this.http.get(environment.serverUrl + '/api/transactions/get?id=' + id)
             .map((res: Response) => res.json());
     }
 

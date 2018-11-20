@@ -1,7 +1,6 @@
 <div class="loader-backdrop" *ngIf="innerSpinner">
-    <div class="loader"> 
-        <img class="loading" src="../assets/images/ddk_box.svg"
-    ></div>
+    <div class="loader">
+        <img class="loading" src="../assets/images/ddk_box.svg"></div>
 </div>
 
 <div class="row">
@@ -21,7 +20,8 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Timestamp:</span>
-                                    <span class="col-md-8">{{blockInfo.timestamp | timeagofilter}} | {{blockInfo.timestamp | timestampFilter}}</span>
+                                    <span class="col-md-8">{{blockInfo.timestamp | timeagofilter}} | {{blockInfo.timestamp
+                                        | timestampFilter}}</span>
                                 </span>
                             </li>
                             <li>
@@ -59,12 +59,14 @@
                                                         <div class="transaction-data">
                                                             <strong>
                                                                 <span>Transaction ID</span>:</strong> {{trax.id}}
-                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} | {{trax.timestamp | timestampFilter}}</span>
+                                                            <span class="pull-right">{{trax.timestamp | timeagofilter}} |
+                                                                {{trax.timestamp | timestampFilter}}</span>
                                                         </div>
                                                         <div class="transaction-path">
                                                             <div class="transaction-part pull-left">
                                                                 <a href="javascript:void(0);" class="blue-link">{{trax.senderId}}</a>
-                                                                <span ng-show="transaction.type != 8" class="DDK">{{trax.amount/100000000}} DDK</span>
+                                                                <span ng-show="transaction.type != 8" class="DDK">{{trax.amount/100000000}}
+                                                                    DDK</span>
                                                                 <!-- <span ng-show="transaction.type == 8" class="DDK ng-hide">0 DDK</span> -->
                                                             </div>
                                                             <div class="transaction-direction">
@@ -79,16 +81,19 @@
                                                         <!-- <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button> -->
                                                         <div class="transaction-bottom clearfix">
                                                             <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all m-r-10">
-                                                                <span>TX Fees</span>: {{trax.fee | exponentialStrength}} DDK</div>
-                                                                <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
-                                                                    <span>Type</span>:
-                                                                    <span *ngIf="trax.trsName === 'SIGNATURE';else other_content">
-                                                                        SECONDPASS
-                                                                    </span>
-                                                                    <ng-template #other_content>{{trax.trsName}}</ng-template>                                 
-                                                                </div>
-                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}} DDK</div>
-                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations || 0}}
+                                                                <span>TX Fees</span>: {{trax.fee | exponentialStrength}}
+                                                                DDK</div>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-left view-all">
+                                                                <span>Type</span>:
+                                                                <span *ngIf="trax.trsName === 'SIGNATURE';else other_content">
+                                                                    SECONDPASS
+                                                                </span>
+                                                                <ng-template #other_content>{{trax.trsName}}</ng-template>
+                                                            </div>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all">{{trax.amount/100000000}}
+                                                                DDK</div>
+                                                            <div class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all m-r-10">{{trax.confirmations
+                                                                || 0}}
                                                                 <span> Total Confirmation</span>
                                                             </div>
                                                         </div>

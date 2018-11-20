@@ -6,12 +6,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 @Component({
-  selector: 'breadcrumb',
-  templateUrl: './breadcrumb.component.html'
+    selector: 'breadcrumb',
+    templateUrl: './breadcrumb.component.html'
 })
 export class BreadcrumbComponent implements OnInit {
-    
-	@Input() layout;
+
+    @Input() layout;
     pageInfo;
     constructor(
         private router: Router,
@@ -19,19 +19,19 @@ export class BreadcrumbComponent implements OnInit {
         private titleService: Title
     ) {
         this
-        .router.events
-        .filter(event => event instanceof NavigationEnd)
-        .map(() => this.activatedRoute)
-        .map(route => {
-            while (route.firstChild) route = route.firstChild;
-            return route;
-        })
-        .filter(route => route.outlet === 'primary')
-        .mergeMap(route => route.data)
-        .subscribe((event) => {
-            this.titleService.setTitle(event['title']);
-            this.pageInfo = event;
-        });
+            .router.events
+            .filter(event => event instanceof NavigationEnd)
+            .map(() => this.activatedRoute)
+            .map(route => {
+                while (route.firstChild) route = route.firstChild;
+                return route;
+            })
+            .filter(route => route.outlet === 'primary')
+            .mergeMap(route => route.data)
+            .subscribe((event) => {
+                this.titleService.setTitle(event['title']);
+                this.pageInfo = event;
+            });
     }
     ngOnInit() { }
 }

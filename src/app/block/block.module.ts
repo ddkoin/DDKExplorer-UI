@@ -10,21 +10,21 @@ import { FormsModule } from '@angular/forms';
 const routes: Routes = [{
 	path: '',
 	data: {
-        title: 'Block',
-        urls: [{title: 'Home',url: '/dashboard'},{title: 'Block'}]
-    },
+		title: 'Block',
+		urls: [{ title: 'Home', url: '/dashboard' }, { title: 'Block' }]
+	},
 	component: BlockComponent
 }];
 
 @NgModule({
 	imports: [
-    	CommonModule, 
+		CommonModule,
 		RouterModule.forChild(routes),
 		DataTablesModule,
 		SharedModule,
 		NgxDatatableModule,
 		FormsModule
-    ],
+	],
 	declarations: [BlockComponent]
 })
 export class BlockModule { }

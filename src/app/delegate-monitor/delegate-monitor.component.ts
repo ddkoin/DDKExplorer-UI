@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef,ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DelegatesService } from '../shared/services/delegates.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
-
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Observable } from 'rxjs/Rx'
 
 @Component({
@@ -57,10 +57,11 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public isAct = false;
 	public innerSpinner = true;
 
-	constructor(private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
 
 	}
-
+	
+	/* For Get Productivity Infomation */
 	getProductivityInfo(delegatesList) {
 		this.totalMissedBlocks = 0;
 		var self = this;
@@ -82,24 +83,27 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		})
 	}
 
+	/* For StandBy Delegates */
 	getStandbyDelegates(limit, offset) {
 		this.delegateService.getStandbyDelegates(limit, this.activeDelegates + offset).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.standbyDelegates = resp.delegates;
 					this.page4.totalElements = resp.totalCount - this.activeDelegates;
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
 
+	/*For Delegates Detail */
 	getDelegatesDetail(limit, offset) {
 		this.delegateService.getDelegatesDetail(limit, offset).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.delegatesInfo = [];
 					this.delegatesInfo = resp.delegates;
 					this.page3.totalElements = this.activeDelegates;
@@ -110,11 +114,13 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
 
+    /* For Delegate Name */
 	getdelegateName(publicKey) {
 		var self = this;
 		this.delegatesInfo.forEach(function (delegate) {
@@ -126,12 +132,13 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 			}
 		});
 	}
-
+   
+	/*For Next Forgers */
 	getNextForgers(limit) {
 		this.nextForgersList = [];
 		this.delegateService.getNextForgers(limit).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					var self = this;
 					this.nextForgers = [];
 					this.nextForgers = resp.delegates;
@@ -144,15 +151,17 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
 
+	/* For Last Block */
 	getLastBlock(currentBlockHeight) {
 		this.BlockDetails.getBlockHeightDetail(currentBlockHeight).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					let self = this;
 					this.lastBlock = resp.blocks[0];
 					this.delegatesInfo.forEach(function (delegate) {
@@ -163,43 +172,50 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
 
+	/* For Latest Votes */
 	getLatestVotes(limit) {
 		this.delegateService.getLatestVotes(limit).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.latestVotes = resp.voters;
 					this.page1.totalElements = resp.voters.length;
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
 
+	/*For Latest Delegates */
 	getLatestDelegates(limit) {
 		this.delegateService.getLatestDelegates(limit).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.latestDelegates = resp.delegates;
 					this.page2.totalElements = resp.delegates.length;
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
 
+	/* For Delegate Information */
 	getDelegateInfo(publicKey) {
 		this.router.navigate(['/delegate', publicKey]);
 	}
 
+	/* For SenderId */
 	getSenderId(address) {
 		this.router.navigate(['/user-info', address]);
 	}
@@ -208,32 +224,36 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
+	/*For Price*/
 	getPrice() {
 		this.delegateService.getPrice().subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.DDKPrice = resp;
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
 	}
-
+	
+	/*For Show Active Delegates */
 	showActiveDelegates() {
 		this.tab1 = true;
 		this.tab2 = false;
 		this.isActive = true;
 		this.isAct = false;
 	}
-
+	
+	/* For Show Stand By Delegates */
 	showStandbyDelegates() {
 		this.tab1 = false;
 		this.tab2 = true;
 		this.isActive = false;
 		this.isAct = true;
-		
+
 	}
 
 	setPage(event) {

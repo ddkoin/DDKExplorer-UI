@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 import { forkJoin } from "rxjs/observable/forkJoin";
 
@@ -19,14 +19,15 @@ export class DelegatesService {
     })
       .map((res: Response) => res.json());
   }
-
+ 
+  
   getStandbyDelegates(limit, offset) {
     return this.http.get(environment.serverUrl + '/api/delegates', {
       params: {
         offset: offset
       }
     })
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   getNextForgers(limit) {
@@ -55,17 +56,17 @@ export class DelegatesService {
         limit: limit
       }
     })
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   getDelegate(publicKey) {
     return this.http.get(environment.serverUrl + '/api/delegates/get?publicKey=' + publicKey)
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   getVoters(publickey) {
     return this.http.get(environment.serverUrl + '/api/delegates/voters?publicKey=' + publickey)
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   /* getDelegate(publickey) {
@@ -90,10 +91,10 @@ export class DelegatesService {
 
   getPrice() {
     return this.http.get('http://ddkoin.com/price/price-ddk-api.php?com=sell')
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
-  
+
 }
 
 

@@ -5,9 +5,9 @@ import { Component, AfterViewInit } from '@angular/core';
     templateUrl: './not-found.component.html',
     styleUrls: ['not-found.component.css']
 })
-export class NotFoundComponent implements AfterViewInit { 
+export class NotFoundComponent implements AfterViewInit {
 
-	ngAfterViewInit() {
+    ngAfterViewInit() {
 
         $(function () {
             $(".preloader").fadeOut();

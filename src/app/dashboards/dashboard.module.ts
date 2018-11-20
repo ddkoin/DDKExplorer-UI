@@ -6,15 +6,15 @@ import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardRoutes } from './dashboard.routing';
-import { ChartistModule} from 'ng-chartist';
+import { ChartistModule } from 'ng-chartist';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ProjectCounterComponent } from './dashboard-components/project-counter/project-counter.component';
 import { SharedModule } from './../shared/shared.module'
 
 @NgModule({
-	imports: [
-    	FormsModule,
-    	CommonModule,
+    imports: [
+        FormsModule,
+        CommonModule,
         NgbModule,
         ChartsModule,
         ChartistModule,
@@ -22,10 +22,10 @@ import { SharedModule } from './../shared/shared.module'
         RouterModule.forChild(DashboardRoutes),
         SharedModule
     ],
-	declarations: [
+    declarations: [
         DashboardComponent,
         ProjectCounterComponent
-        
+
     ]
 })
 export class DashboardModule { }

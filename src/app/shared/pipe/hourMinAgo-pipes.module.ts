@@ -1,15 +1,15 @@
 
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'hoursMinagofilter'})
+@Pipe({ name: 'hoursMinagofilter' })
 
 export class HoursMinAgoPipeFilter implements PipeTransform {
-    
-  transform(timestamp: any): any {
 
-    var time;
-    
-    // Epoch time
+    transform(timestamp: any): any {
+
+        var time;
+
+        // Epoch time
         var d = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
         var t = (d.getTime() / 1000);
 
@@ -19,7 +19,7 @@ export class HoursMinAgoPipeFilter implements PipeTransform {
         var diffTime = (currentTime - time.getTime()) / 1000;
 
         if (diffTime < 60) {
-            if(diffTime < 0) {
+            if (diffTime < 0) {
                 diffTime = 0;
             }
             return Math.floor(diffTime) + ' sec ago';
@@ -34,13 +34,13 @@ export class HoursMinAgoPipeFilter implements PipeTransform {
         }
 
 
-        
+
 
         if (Math.floor(diffTime / 60) <= 1) {
             return Math.floor(diffTime / 60) + ' mins ' + Math.floor(diffTime) + ' sec ago';
         }
         if ((diffTime / 60) < 60) {
-            return Math.floor(diffTime / 60) + ' mins '+ Math.floor(diffTime) + ' sec ago';
+            return Math.floor(diffTime / 60) + ' mins ' + Math.floor(diffTime) + ' sec ago';
         }
         if (Math.floor(diffTime / 60 / 60) <= 1) {
             return convertMinsToHrsMins(Math.floor(diffTime / 60));
@@ -49,10 +49,10 @@ export class HoursMinAgoPipeFilter implements PipeTransform {
             return convertMinsToHrsMins(Math.floor(diffTime / 60));
         }
         if (Math.floor(diffTime / 60 / 60 / 24) <= 1) {
-            return Math.floor(diffTime / 60 / 60 / 24) + ' day '+ Math.floor(diffTime / 60 / 60) + ' hours ago';
+            return Math.floor(diffTime / 60 / 60 / 24) + ' day ' + Math.floor(diffTime / 60 / 60) + ' hours ago';
         }
         if ((diffTime / 60 / 60 / 24) < 30) {
-            return Math.floor(diffTime / 60 / 60 / 24) + ' days '+ Math.floor(diffTime / 60 / 60) + ' hours ago'
+            return Math.floor(diffTime / 60 / 60 / 24) + ' days ' + Math.floor(diffTime / 60 / 60) + ' hours ago'
         }
         if (Math.floor(diffTime / 60 / 60 / 24 / 30) <= 1) {
             return Math.floor(diffTime / 60 / 60 / 24 / 30) + ' month ' + Math.floor(diffTime / 60 / 60 / 24) + ' days ago';
@@ -65,5 +65,5 @@ export class HoursMinAgoPipeFilter implements PipeTransform {
         }
 
         return Math.floor(diffTime / 60 / 60 / 24 / 30 / 12) + ' years ' + Math.floor(diffTime / 60 / 60 / 24 / 30) + ' months ago'
-    } 
-  }
+    }
+}

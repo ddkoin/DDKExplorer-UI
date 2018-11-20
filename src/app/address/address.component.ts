@@ -4,8 +4,6 @@ import { DataTablesModule } from 'angular-datatables';
 declare var jquery: any;
 declare var $: any;
 
-
-
 @Component({
 	templateUrl: './address.component.html',
 	styleUrls: ['./address.css']
@@ -15,6 +13,7 @@ export class AddressComponent implements AfterViewInit {
 	constructor() { }
 	show = false;
 
+	/* For Show Comments */
 	showComments($event) {
 		if ($event.activeId == "tab-selectbyid1") {
 			this.show = true;
@@ -28,18 +27,18 @@ export class AddressComponent implements AfterViewInit {
 			pagingType: 'full_numbers'
 		};
 	}
-
+   
+	/*For Load Comments*/
 	loadCommenents() {
 		$(document).ready(function () {
 			$('#comments-container').comments({
 				profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
 				getComments: function (success, error) {
 					var commentsArray = [
-						
-					]
 
-					var usersArray = [
-						
+					]
+                    var usersArray = [
+
 					]
 					success(commentsArray);
 				}

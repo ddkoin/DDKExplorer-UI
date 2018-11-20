@@ -18,7 +18,7 @@ export class SenderidDetailService {
                 address: address
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     /* For All Transactions List Services */
@@ -32,7 +32,7 @@ export class SenderidDetailService {
                 orderBy: 'timestamp:desc'
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 }
 

@@ -12,9 +12,9 @@ describe('LoginComponent', () => {
       imports: [
         RouterTestingModule
       ],
-      declarations: [ LoginComponent ]
+      declarations: [LoginComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

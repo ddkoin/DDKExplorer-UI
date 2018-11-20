@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewContainerRef} from '@angular/core';
 import { DataTablesModule } from 'angular-datatables';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BlockDetailsService } from '../shared/services/blockDetails.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
-import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
 	templateUrl: './blockinfo.component.html',
@@ -21,7 +22,8 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public traxlength: any;
 	public innerSpinner = true;
 
-	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private modalService: NgbModal) {
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private modalService: NgbModal) {
+		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
@@ -42,15 +44,15 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		let flag:any = true
-		window.localStorage.setItem('flag',flag)
+		let flag: any = true
+		window.localStorage.setItem('flag', flag)
 		this.dtOptions = {
 			pagingType: 'full_numbers'
 		};
 	}
-	
-	numOfTrxs(content) { 
-		this.modalService.open(content,{windowClass : "myCustomModalClass", size: 'lg', backdrop: 'static' }).result.then((result) => {
+
+	numOfTrxs(content) {
+		this.modalService.open(content, { windowClass: "myCustomModalClass", size: 'lg', backdrop: 'static' }).result.then((result) => {
 			this.closeResult = `Closed with: ${result}`;
 		}, (reason) => {
 			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -59,73 +61,72 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 
 	private getDismissReason(reason: any): string {
 		if (reason === ModalDismissReasons.ESC) {
-		  return 'by pressing ESC';
+			return 'by pressing ESC';
 		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-		  return 'by clicking on a backdrop';
+			return 'by clicking on a backdrop';
 		} else {
-		  return  `with: ${reason}`;
+			return `with: ${reason}`;
 		}
-	  }
+	}
 
+	/* For Block Detail */
 	blockDetail(blockId) {
 		this.blockInfo = [];
 		this.BlockDetails.getBlockDetail(blockId).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.blockInfo = resp.block;
 					//console.log('this.blockInfo :',this.blockInfo)
 					this.innerSpinner = false;
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error)
 			}
 		);
 	}
 
+	/* For Block Height */
 	blockHeight() {
 		this.blockInfo = [];
 		this.allBxHeight.getBlockHeightDetail(parseInt(this.bxsHight)).subscribe(
 			resp => {
-				if (resp.success) {
+				if (resp && resp.success) {
 					this.blockInfo = resp.blocks[0];
 					this.innerSpinner = false;
 				}
 			},
 			error => {
+				this.toastr.error('This is not good!', error);
 				console.log(error)
 			}
 		);
 	}
 
+	/* For BlockId */
 	getBlockId(id, name) {
 		this.router.navigate(['/block-info', name, id]);
 		this.blockDetail(id);
 	}
 
+	/* Show Block */
 	showBlock(block) {
 		//show transactions here for a particular block
 		this.BlockDetails.getTransactions(block.id).subscribe(
 			resp => {
-				if(resp.success) {
+				if (resp && resp.success) {
 					this.traxList = resp.transactions;
-
-					/* if(this.traxList.trsName == "SIGNATURE"){
-						this.traxList.trsName = "SECONDPASS";
-					} */
-
-
-					
-					//console.log("this.traxList :",this.traxList);
 					this.traxlength = resp.transactions.length;
 				} else {
+					
 					console.log('error : ', resp);
 				}
 			}
 		)
 	}
 
-	
+
 }
 
 

@@ -8,16 +8,16 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-    constructor(public router: Router) {}
+    constructor(public router: Router) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     ngAfterViewInit() {
-        $(function() {
+        $(function () {
             $(".preloader").fadeOut();
         });
-        
-        $('#to-recover').on("click", function() {
+
+        $('#to-recover').on("click", function () {
             $("#loginform").slideUp();
             $("#recoverform").fadeIn();
         });

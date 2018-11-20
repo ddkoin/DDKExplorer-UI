@@ -6,29 +6,26 @@ import { AddressComponent } from './address.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-declare var jquery:any;
-declare var $ :any;
-
-
-
+declare var jquery: any;
+declare var $: any;
 
 const routes: Routes = [{
 	path: '',
 	data: {
-        title: 'Address',
-        urls: [{title: 'Home',url: '/dashboard'},{title: 'Address'}]
-    },
+		title: 'Address',
+		urls: [{ title: 'Home', url: '/dashboard' }, { title: 'Address' }]
+	},
 	component: AddressComponent
 }];
 
 @NgModule({
 	imports: [
-    	FormsModule,
-    	CommonModule, 
+		FormsModule,
+		CommonModule,
 		RouterModule.forChild(routes),
 		DataTablesModule,
 		NgbModule
-    ],
+	],
 	declarations: [AddressComponent]
 })
 export class AddressModule { }

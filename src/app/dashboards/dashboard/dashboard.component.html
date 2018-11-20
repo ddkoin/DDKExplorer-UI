@@ -18,13 +18,14 @@
             <div class="card-body heading-box b-b">
                 <h4 class="card-title">
                     <span class="lstick"></span>Blocks</h4>
-                <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/block">View All</button>
+                <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/block">View
+                    All</button>
             </div>
             <div *ngFor="let bxList of bxLists; let i = index;">
                 <div class="p-20 b-b block-info-box d-flex" *ngIf="i<5">
                     <div class="align-self-center pull-left">
                         <a class="m-b-0" (click)="getBlockHeight(bxList.height,'height')">Block {{bxList.height}}</a>
-                        
+
                         <small>> {{bxList.timestamp | timeagofilter}}</small>
                     </div>
                     <div class="ml-left block-info-details pull-left">
@@ -45,7 +46,8 @@
             <div class="card-body heading-box b-b">
                 <h4 class="card-title">
                     <span class="lstick"></span>Transactions</h4>
-                <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button>
+                <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View
+                    All</button>
             </div>
             <div *ngFor="let txList of  txLists; let i = index;">
                 <div class="profile-post color-one b-b" *ngIf="i<5">
@@ -60,10 +62,14 @@
                         <p>
                             From <a class="address-tag link-hover" (click)="getSenderId(txList.senderId)">{{txList.senderId}}</a>
                             <span *ngIf="txList.recipientId!==null">
-                            To <a class="address-tag link-hover" (click)="getSenderId(txList.recipientId)">{{txList.recipientId}}</a></span>
+                                To <a class="address-tag link-hover" (click)="getSenderId(txList.recipientId)">{{txList.recipientId}}</a></span>
                         </p>
-                        <div *ngIf="txList.type === 8; else elseBlock"><p>Amount {{txList.stakedAmount/100000000}} DDK</p></div>
-                        <ng-template #elseBlock><p>Amount {{txList.amount/100000000}} DDK</p></ng-template>
+                        <div *ngIf="txList.type === 8; else elseBlock">
+                            <p>Amount {{txList.stakedAmount/100000000}} DDK</p>
+                        </div>
+                        <ng-template #elseBlock>
+                            <p>Amount {{txList.amount/100000000}} DDK</p>
+                        </ng-template>
                     </div>
                 </div>
             </div>

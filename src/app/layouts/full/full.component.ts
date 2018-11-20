@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar'; 
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 
 @Component({
     selector: 'full-layout',
@@ -15,10 +15,10 @@ export class FullComponent implements OnInit {
 
     color = 'defaultdark';
     showSettings = false;
-    showMinisidebar = false;   
+    showMinisidebar = false;
     showDarktheme = false;
 
-	public config: PerfectScrollbarConfigInterface = {};
+    public config: PerfectScrollbarConfigInterface = {};
 
     constructor(public router: Router) { }
 

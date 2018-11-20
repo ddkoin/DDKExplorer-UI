@@ -9,20 +9,20 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 const routes: Routes = [{
 	path: '',
 	data: {
-        title: 'Delegate Monitor',
-        urls: [{title: 'Home',url: '/delegate-monitor'},{title: 'Delegate Monitor'}]
-    },
+		title: 'Delegate Monitor',
+		urls: [{ title: 'Home', url: '/delegate-monitor' }, { title: 'Delegate Monitor' }]
+	},
 	component: DelegateMonitorComponent
 }];
 
 @NgModule({
 	imports: [
-    	CommonModule, 
+		CommonModule,
 		RouterModule.forChild(routes),
 		NgbModule,
 		SharedModule,
 		NgxDatatableModule
-    ],
+	],
 	declarations: [DelegateMonitorComponent]
 })
 export class DelegateMonitorModule { }

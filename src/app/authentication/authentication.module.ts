@@ -10,7 +10,7 @@ import { AuthenticationRoutes } from './authentication.routing';
 
 
 @NgModule({
-  imports: [ 
+  imports: [
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
     NgbModule
@@ -22,4 +22,4 @@ import { AuthenticationRoutes } from './authentication.routing';
   ]
 })
 
-export class AuthenticationModule {}
+export class AuthenticationModule { }

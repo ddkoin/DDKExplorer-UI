@@ -21,7 +21,7 @@ export class allTransactionsService {
                 orderBy: 'timestamp:desc'
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getUnconfirmedTransactions(limit, offset) {
@@ -32,7 +32,7 @@ export class allTransactionsService {
                 orderBy: 'timestamp:desc'
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getTransactionsBasedOnHeight(height) {
@@ -42,7 +42,7 @@ export class allTransactionsService {
                 orderBy: 'height:desc'
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getTransactionsBasedOnId(id) {
@@ -51,7 +51,7 @@ export class allTransactionsService {
                 id: id
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getTransactionsBasedOnSender(senderId) {
@@ -60,7 +60,7 @@ export class allTransactionsService {
                 senderId: senderId
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getTransactionsBasedOnType(type) {
@@ -69,7 +69,7 @@ export class allTransactionsService {
                 type: type
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getTransactionsHistory() {

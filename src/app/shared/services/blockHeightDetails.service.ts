@@ -14,7 +14,7 @@ export class BlockHeightDetailsService {
 
     /* For All Block List Services */
     getBlockHeightDetail(height) {
-        return this.http.get(environment.serverUrl + '/api/blocks?height='+height)
+        return this.http.get(environment.serverUrl + '/api/blocks?height=' + height)
             .map((res: Response) => res.json());
     }
 

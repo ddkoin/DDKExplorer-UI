@@ -59,7 +59,7 @@
     <div class="card">
         <div class="card-body text-center">
             <div class="row">
-                <div class="col-12 network-status"> 
+                <div class="col-12 network-status">
                     <h2 class="m-b-0">
                         <!-- <i class="mdi mdi-navigation text-danger"></i> -->
                         <img src="../assets/images/ethereum-classic.svg" width="15">
@@ -73,7 +73,7 @@
     <div class="card">
         <div class="card-body text-center">
             <div class="row">
-                <div class="col-12 network-status"> 
+                <div class="col-12 network-status">
                     <h2 class="m-b-0">
                         <!-- <i class="mdi mdi-navigation text-danger"></i> -->
                         <img src="../assets/images/dinar-icon.png" width="18">
@@ -110,7 +110,8 @@
                         <span class="btn-block">
                             <a href="#">{{lastBlock.id}}</a>
                         </span>
-                        <span class="btn-block">Applied {{lastBlock.numberOfTransactions}} transactions with {{lastBlock.confirmations}} confirmations</span>
+                        <span class="btn-block">Applied {{lastBlock.numberOfTransactions}} transactions with {{lastBlock.confirmations}}
+                            confirmations</span>
                     </div>
 
                     <div class="col-md-4 m-b-30 delegates-info">
@@ -203,75 +204,78 @@
                 <div class="clearfix"></div>
                 <div class="default-tab-layout m-t-20">
                     <div class="tab-btn">
-                        <button [ngClass]="{'tab-active': isActive}" type="button" (click)="showActiveDelegates()">Active Delegates</button>
-                        <button [ngClass]="{'tab-active': isAct}" type="button" (click)="showStandbyDelegates()">Standby Delegates</button>
+                        <button [ngClass]="{'tab-active': isActive}" type="button" (click)="showActiveDelegates()">Active
+                            Delegates</button>
+                        <button [ngClass]="{'tab-active': isAct}" type="button" (click)="showStandbyDelegates()">Standby
+                            Delegates</button>
                     </div>
                     <div class="tab-contant-wrapper p-20">
                         <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="card-title font-medium m-b-20" *ngIf="tab1 == true">Active Delegates</h4>
-                            <h4 class="card-title font-medium m-b-20" *ngIf="tab2 == true">Standby Delegates</h4>
-                            <div class="row">
-                                <div class="col-md-3 col-lg-3 col-xlg-2">
-                                    <div class="card card-inverse card-info">
-                                        <div class="box bg-info text-center">
-                                            <h1 class="font-light text-white">{{totalActiveForged}}</h1>
-                                            <h6 class="text-white">Forged block recently</h6>
+                            <div class="col-md-12">
+                                <h4 class="card-title font-medium m-b-20" *ngIf="tab1 == true">Active Delegates</h4>
+                                <h4 class="card-title font-medium m-b-20" *ngIf="tab2 == true">Standby Delegates</h4>
+                                <div class="row">
+                                    <div class="col-md-3 col-lg-3 col-xlg-2">
+                                        <div class="card card-inverse card-info">
+                                            <div class="box bg-info text-center">
+                                                <h1 class="font-light text-white">{{totalActiveForged}}</h1>
+                                                <h6 class="text-white">Forged block recently</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-xlg-2">
+                                        <div class="card card-inverse card-warning">
+                                            <div class="box text-center">
+                                                <h1 class="font-light text-white">{{totalMissedBlocks}}</h1>
+                                                <h6 class="text-white">Missed block recently</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-xlg-2">
+                                        <div class="card card-inverse card-megna">
+                                            <div class="box text-center">
+                                                <h1 class="font-light text-white">{{activeDelegates - nextForgers.length}}</h1>
+                                                <h6 class="text-white">Not forging</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-xlg-2">
+                                        <div class="card card-inverse card-dark">
+                                            <div class="box text-center">
+                                                <h1 class="font-light text-white">{{activeDelegates - 1}}</h1>
+                                                <h6 class="text-white">In queue for forging</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-lg-3 col-xlg-2">
-                                    <div class="card card-inverse card-warning">
-                                        <div class="box text-center">
-                                            <h1 class="font-light text-white">{{totalMissedBlocks}}</h1>
-                                            <h6 class="text-white">Missed block recently</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-lg-3 col-xlg-2">
-                                    <div class="card card-inverse card-megna">
-                                        <div class="box text-center">
-                                            <h1 class="font-light text-white">{{activeDelegates - nextForgers.length}}</h1>
-                                            <h6 class="text-white">Not forging</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-lg-3 col-xlg-2">
-                                    <div class="card card-inverse card-dark">
-                                        <div class="box text-center">
-                                            <h1 class="font-light text-white">{{activeDelegates - 1}}</h1>
-                                            <h6 class="text-white">In queue for forging</h6>
-                                        </div>
-                                    </div>
+                                <div class="table-container" [hidden]="!tab1">
+                                    <ngx-datatable #table class="material bootstrap" [rows]="delegatesInfo" [columns]="columns3" [columnMode]="'force'" [headerHeight]="47"
+                                        [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true"
+                                        [count]="page3.totalElements" [offset]="page3.pageNumber" [limit]="page3.size" (page)='setPage($event)'
+                                        [scrollbarH]="true">
+                                    </ngx-datatable>
+
+                                    <ng-template #rank let-row="row">
+                                        {{row.rank}}
+                                    </ng-template>
+
+                                    <ng-template #address let-row="row">
+                                        <a (click)="getSenderId(row.address)" class="link-hover">{{row.address}}</a>
+                                    </ng-template>
+
+                                    <ng-template #status let-row="row">
+                                        <div class="label label-table label-success text-center">Active</div>
+                                    </ng-template>
+
+                                    <ng-template #productivity let-row="row">
+                                        {{row.productivity }}
+                                    </ng-template>
+
+                                    <ng-template #approval let-row="row">
+                                        {{row.approval }}
+                                    </ng-template>
                                 </div>
                             </div>
-                            <div class="table-container" [hidden]="!tab1">
-                                <ngx-datatable #table class="material bootstrap" [rows]="delegatesInfo" [columns]="columns3" [columnMode]="'force'" [headerHeight]="47"
-                                    [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [externalPaging]="true" [count]="page3.totalElements"
-                                    [offset]="page3.pageNumber" [limit]="page3.size" (page)='setPage($event)' [scrollbarH]="true">
-                                </ngx-datatable>
-
-                                <ng-template #rank let-row="row">
-                                    {{row.rank}}
-                                </ng-template>
-
-                                <ng-template #address let-row="row">
-                                    <a (click)="getSenderId(row.address)" class="link-hover">{{row.address}}</a>
-                                </ng-template>
-
-                                <ng-template #status let-row="row">
-                                    <div class="label label-table label-success text-center">Active</div>
-                                </ng-template>
-
-                                <ng-template #productivity let-row="row">
-                                    {{row.productivity }}
-                                </ng-template>
-
-                                <ng-template #approval let-row="row">
-                                    {{row.approval }}
-                                </ng-template>
-                            </div>
-                        </div>
                             <div class="col-md-12">
                                 <div class="table-container" [hidden]="!tab2">
                                     <!--   <h4 class="card-title font-medium m-b-20">Standby Delegates</h4> -->

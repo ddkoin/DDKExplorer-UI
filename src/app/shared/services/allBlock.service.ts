@@ -21,7 +21,7 @@ export class allBlockService {
                 orderBy: 'timestamp:desc'
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getBlocksBasedOnHeight(height) {
@@ -30,7 +30,7 @@ export class allBlockService {
                 height: height
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getBlocksBasedOnblockId(blockId) {
@@ -39,7 +39,7 @@ export class allBlockService {
                 id: blockId
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getBlocksBasedOnpublicKey(publicKey) {
@@ -48,6 +48,6 @@ export class allBlockService {
                 generatorPublicKey: publicKey
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 }

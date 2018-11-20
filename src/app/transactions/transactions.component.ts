@@ -1,10 +1,12 @@
-import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { allTransactionsService } from '../shared/services/allTransactions.service';
 import { allBlockService } from '../shared/services/allBlock.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { transition } from '@angular/animations';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 
 declare var require: any;
 declare var jquery: any;
@@ -38,8 +40,10 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	txFee: any;
 	public innerSpinner = true;
 
-	constructor(private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService) { }
-
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService) { 
+	 this.toastr.setRootViewContainerRef(vcr);
+	}
+	
 	filterData(event) {
 		if (event) {
 			clearTimeout(this.timeout);
@@ -51,14 +55,14 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 						that.allTransaction.getTransactionsBasedOnId(searchValue).subscribe(
 							resp => {
 								if(parseInt(resp.count) !== 0) {
-									if (resp.success) {
+									if (resp && resp.success) {
 										that.transactionlist = resp.transactions;
 										that.page.totalElements = resp.count;
 									}
 								} else {
 									that.allTransaction.getTransactionsBasedOnHeight(searchValue).subscribe(
 										resp => {
-											if(resp.success) {
+											if(resp && resp.success) {
 												that.transactionlist = resp.transactions;
 												that.page.totalElements = resp.count;
 											}else {
@@ -74,7 +78,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 						if(searchValue.toUpperCase().indexOf('DDK') !== -1 ) {
 							that.allTransaction.getTransactionsBasedOnSender(searchValue).subscribe(
 								resp => {
-									if(resp.success) {
+									if(resp && resp.success) {
 										that.transactionlist = resp.transactions;
 										that.page.totalElements = resp.count;
 									}else {
@@ -87,7 +91,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 							if(transactionTypes[searchValue.toUpperCase()] !== undefined) {
 								that.allTransaction.getTransactionsBasedOnType(transactionTypes[searchValue.toUpperCase()]).subscribe(
 									resp => {
-										if(resp.success) {
+										if(resp && resp.success) {
 											that.transactionlist = resp.transactions;
 											that.page.totalElements = resp.count;
 										}else {
@@ -114,26 +118,28 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		if(trsType === 'transactions') {
 			this.allTransaction.getAllTransactions(limit, offset).subscribe(
 				resp => {
-					if (resp.success) {
+					if (resp && resp.success) {
 						this.transactionlist = resp.transactions;
 						this.page.totalElements = resp.count;
 						this.innerSpinner = false;
 					}
 				},
 				error => {
+					this.toastr.error('This is not good!', error);
 					console.log(error)
 				}
 			);
 		} else {
 			this.allTransaction.getUnconfirmedTransactions(limit, offset).subscribe(
 				resp => {
-					if (resp.success) {
+					if (resp && resp.success) {
 						this.transactionlist = resp.transactions;
 						this.page.totalElements = resp.count;
 						this.innerSpinner = false;
 					}
 				},
 				error => {
+					this.toastr.error('This is not good!', error);
 					console.log(error)
 				}
 			);

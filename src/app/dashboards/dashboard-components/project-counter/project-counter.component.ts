@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewContainerRef} from '@angular/core';
 import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 
 declare var require: any;
@@ -6,6 +6,9 @@ const data: any = require('./data.json');
 
 import { allBlockService } from '../../../shared/services/allBlock.service'
 import { allTransactionsService } from '../../../shared/services/allTransactions.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
+
 
 @Component({
   selector: 'project-counter',
@@ -85,42 +88,46 @@ export class ProjectCounterComponent implements AfterViewInit {
   public doughnutChartType: string = 'doughnut';
   public doughnutChartLegend: boolean = false;
 
-  constructor(private allTx: allTransactionsService, private allBx: allBlockService) {
+  constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private allTx: allTransactionsService, private allBx: allBlockService) {
     this.subtitle = "This is some text within a card block."
   }
 
 
-
+ /*For All BlockList */
   allBlockList() {
     this.allBx.getAllBlocks(25, 0).subscribe(
       resp => {
-        if (resp.success) {
+        if (resp && resp.success) {
           this.height = resp.blocks[0].height;
         }
       },
       error => {
+        this.toastr.error('This is not good!', error);
         console.log(error)
       }
     );
   }
 
+  /* For All Transaction */
   allTransactionsList() {
     this.allTx.getAllTransactions(25, 0).subscribe(
       resp => {
-        if (resp.success) {
+        if (resp && resp.success) {
           this.transactionLength = resp.count;
         }
       },
       error => {
+        this.toastr.error('This is not good!', error);
         console.log(error)
       }
     );
   }
 
+  /* For Transaction History */
   transactionsHistory() {
     this.allTx.getTransactionsHistory().subscribe(
       resp => {
-        if (resp.success) {
+        if (resp && resp.success) {
           var data = [];
           var time = [];
           var balance = [];
@@ -145,6 +152,7 @@ export class ProjectCounterComponent implements AfterViewInit {
         }
       },
       error => {
+        this.toastr.error('This is not good!', error);
         console.log(error)
       }
     );
@@ -156,11 +164,5 @@ export class ProjectCounterComponent implements AfterViewInit {
     this.allTransactionsList();
     this.transactionsHistory();
   }
-
-
-
-
-
-
 
 }

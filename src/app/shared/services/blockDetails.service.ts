@@ -14,7 +14,7 @@ export class BlockDetailsService {
 
     /* For All Block List Services */
     getBlockDetail(id) {
-        return this.http.get(environment.serverUrl + '/api/blocks/get?id='+id)
+        return this.http.get(environment.serverUrl + '/api/blocks/get?id=' + id)
             .map((res: Response) => res.json());
     }
 
@@ -24,7 +24,7 @@ export class BlockDetailsService {
                 blockId: blockId
             }
         })
-        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
 
