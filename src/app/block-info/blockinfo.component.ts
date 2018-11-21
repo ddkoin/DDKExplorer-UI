@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewContainerRef} from '@angular/core';
-import { DataTablesModule } from 'angular-datatables';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BlockDetailsService } from '../shared/services/blockDetails.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
@@ -11,7 +10,6 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 	styleUrls: ['./blockinfo.css']
 })
 export class BlockInfoComponent implements OnInit, AfterViewInit {
-	dtOptions: DataTables.Settings = {};
 	public blockInfo: any = [];
 	public bxHeight: any = [];
 	public blockId: any;
@@ -45,10 +43,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 		let flag: any = true
-		window.localStorage.setItem('flag', flag)
-		this.dtOptions = {
-			pagingType: 'full_numbers'
-		};
+		window.localStorage.setItem('flag', flag);
 	}
 
 	numOfTrxs(content) {
@@ -95,6 +90,8 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 				if (resp && resp.success) {
 					this.blockInfo = resp.blocks[0];
 					this.innerSpinner = false;
+				}else {
+					console.log('error : ', resp);
 				}
 			},
 			error => {
@@ -119,7 +116,6 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 					this.traxList = resp.transactions;
 					this.traxlength = resp.transactions.length;
 				} else {
-					
 					console.log('error : ', resp);
 				}
 			}

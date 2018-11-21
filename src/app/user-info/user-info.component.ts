@@ -38,7 +38,6 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	public isActive = true;
 	public isAct = false;
 	public innerSpinner = true;
-
 	public address = 'DDK00000000000000000000';
 	public addressReplace = 'DDK12817390500414975490';
 
@@ -46,11 +45,11 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
 		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
-		this.typeId = params.id;
+			this.typeId = params.id;
 		});
 	}
 	ngAfterViewInit() {
-	 this.AddressDetail();
+		this.AddressDetail();
 	}
 	ngOnInit() {
 		this.columns = [
@@ -77,7 +76,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 
-    /* For SenderId */
+	/* For SenderId */
 	getSenderId(senderId) {
 		this.typeId = senderId;
 		this.router.navigate(['/user-info', senderId]);
@@ -103,7 +102,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 
-   /* For Detail Address */
+	/* For Detail Address */
 	AddressDetail() {
 		this.addressInfo = [];
 		if (this.typeId === this.address) {
@@ -126,7 +125,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-  /* For Sender Detail ID */
+	/* For Sender Detail ID */
 	senderIdDetail(limit, offset) {
 		this.senderInfo = [];
 		this.addressInfo.count = 0;
@@ -244,6 +243,3 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		});
 	}
 }
-
-
-

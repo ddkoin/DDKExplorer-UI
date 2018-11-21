@@ -11,13 +11,13 @@ import { Observable } from 'rxjs/Rx'
 	styleUrls: ['./delegate-monitor.css']
 })
 export class DelegateMonitorComponent implements OnInit, AfterViewInit {
-	rows = [];
-	columns1 = [];
-	columns2 = [];
-	columns3 = [];
-	columns4 = [];
-	offset: any;
-	temp = [];
+	public rows = [];
+	public columns1 = [];
+	public columns2 = [];
+	public columns3 = [];
+	public columns4 = [];
+	public offset: any;
+	public temp = [];
 	public page1: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
 	public page2: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
 	public page3: any = { totalElements: 0, pageNumber: 0, size: 20, searchValue: "" }
@@ -51,14 +51,14 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public delegateCount: any;
 	public currentBlock: any;
 	public DDKPrice: any;
-	tab1 = true;
-	tab2 = false;
+	public tab1 = true;
+	public tab2 = false;
 	public isActive = true;
 	public isAct = false;
 	public innerSpinner = true;
 
 	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
-
+		this.toastr.setRootViewContainerRef(vcr);
 	}
 	
 	/* For Get Productivity Infomation */

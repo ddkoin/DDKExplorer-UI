@@ -127,7 +127,6 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		let flag: any = true;
 		window.localStorage.setItem('flag', flag);
 		this.getLatestHeight();
-		const that = this;
 		Observable.interval(10000).subscribe(x => {
 			this.getLatestHeight();
 		});
