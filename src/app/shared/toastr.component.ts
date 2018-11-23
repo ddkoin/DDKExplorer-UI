@@ -19,7 +19,7 @@ export class ToastrComponent {
       }
     
       showError() {
-        this.toastr.error('This is not good!', 'Oops!');
+        //this.toastr.error('This is not good!', 'Oops!');
       }
     
       showWarning() {

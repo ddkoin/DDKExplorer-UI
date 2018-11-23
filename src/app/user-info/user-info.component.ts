@@ -119,7 +119,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 				}
 			},
 			error => {
-				this.toastr.error('This is not good!', error);
+				//this.toastr.error('This is not good!', error);
 				console.log(error)
 			}
 		);
@@ -148,14 +148,14 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 							}
 						},
 						error => {
-							this.toastr.error('This is not good!', error);
+							//this.toastr.error('This is not good!', error);
 							console.log(error)
 						}
 					);
 				}
 			},
 			error => {
-				this.toastr.error('This is not good!', error);
+				//this.toastr.error('This is not good!', error);
 				console.log(error);
 			}
 		);
