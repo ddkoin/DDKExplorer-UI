@@ -144,11 +144,12 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 								this.senderInfo = resp.transactions;
 								this.page.totalElements = resp.count;
 								this.addressInfo.count = this.page.totalElements;
-								this.innerSpinner = false;
 							}
+							this.innerSpinner = false;
 						},
 						error => {
 							//this.toastr.error('This is not good!', error);
+							this.innerSpinner = false;
 							console.log(error)
 						}
 					);
