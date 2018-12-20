@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  serverUrl: "https://webtestnet-w.ddkoin.com"
+  serverUrl: "http://localhost:7007"
 };

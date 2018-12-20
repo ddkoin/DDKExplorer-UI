@@ -20,7 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/angular-calendar/css/angular-calendar.css", 
+        "../node_modules/angular-calendar/css/angular-calendar.css",
         "../node_modules/chartist/dist/chartist.css",
         "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
         "../node_modules/quill/dist/quill.snow.css",
@@ -71,7 +71,7 @@
   "defaults": {
     "serve": {
     "port": 7001,
-      "host": "https://explorertestnet.ddkoin.com"
+      "host": "0.0.0.0"
     },
     "styleExt": "css",
     "component": {}
