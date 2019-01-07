@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewContainerRef} from '@angular/core';
+import { Component, AfterViewInit, ViewContainerRef } from '@angular/core';
 import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 
 declare var require: any;
@@ -28,7 +28,7 @@ export class ProjectCounterComponent implements AfterViewInit {
   ];
   public lineChartLabels: Array<any> = [
   ];
-  public timeFormat = 'DD/MM/YYYY';
+  public timeFormat = 'YYYY/DD/MM';
   public lineChartOptions: any = {
     scales: {
       yAxes: [{
@@ -42,21 +42,21 @@ export class ProjectCounterComponent implements AfterViewInit {
       xAxes: [{
         type: "time",
         time: {
-          format: this.timeFormat,
-          tooltipFormat: 'll'
+          parser: this.timeFormat,
+          tooltipFormat: 'll',
+          unit: 'day',
+          stepSize: 3
         },
         scaleLabel: {
           display: true,
-          labelString: 'Date'
+          labelString: 'Days'
         }
       }],
     },
+    spanGaps: true,
     lineTension: 10,
     responsive: true,
     maintainAspectRatio: false,
-
-
-
   };
   public lineChartColors: Array<any> = [
     {
@@ -93,7 +93,7 @@ export class ProjectCounterComponent implements AfterViewInit {
   }
 
 
- /*For All BlockList */
+  /*For All BlockList */
   allBlockList() {
     this.allBx.getAllBlocks(25, 0).subscribe(
       resp => {
@@ -142,7 +142,7 @@ export class ProjectCounterComponent implements AfterViewInit {
               balance[i] = 0;
             }
             var timeFormat = resp.trsData[i].time.split('T')[0].split('-');
-            time[i] = parseInt(timeFormat[2]) + '/' + parseInt(timeFormat[1]);
+            time[i] = parseInt(timeFormat[0]) + '/' + parseInt(timeFormat[2]) + '/' + parseInt(timeFormat[1]);
           }
           this.trsLineChartData[0].data = data;
           this.balanceLineChartData[0].data = balance;
