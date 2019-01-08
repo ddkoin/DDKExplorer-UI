@@ -125,10 +125,13 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		var self = this;
 		this.delegatesInfo.forEach(function (delegate) {
 			if (publicKey == delegate.publicKey) {
+				delegate.status = true;
 				self.nextForgersList.push({
 					username: delegate.username,
 					publicKey: delegate.publicKey
 				});
+			} else{
+				delegate.status = false;
 			}
 		});
 	}
@@ -289,7 +292,8 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 		this.columns3 = [
 			{ name: 'Rank', prop: 'rank', cellTemplate: this.rank },
-			{ name: 'Address', prop: 'address', cellTemplate: this.addresss },
+			{ name: 'Name', prop: 'username', cellTemplate: this.name },
+			{ name: 'Address', prop: 'address', cellTemplate: this.addresss, width: '8px'},
 			{ name: 'Status', cellTemplate: this.status },
 			{ name: 'Productivity', prop: 'productivity', cellTemplate: this.productivity },
 			{ name: 'Approval', prop: 'approval', cellTemplate: this.approval }
@@ -297,6 +301,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 		this.columns4 = [
 			{ name: 'Rank', prop: 'rank', cellTemplate: this.rank },
+			{ name: 'Name', prop: 'username', cellTemplate: this.name },
 			{ name: 'Address', prop: 'address', cellTemplate: this.addresss },
 			{ name: 'Status', cellTemplate: this.status },
 			{ name: 'Productivity', prop: 'productivity', cellTemplate: this.productivity },

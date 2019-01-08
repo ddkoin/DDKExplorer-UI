@@ -17,7 +17,7 @@ export class DelegatesService {
         offset: offset
       }
     })
-      .map((res: Response) => res.json());
+    .map((res: Response) => res.json());
   }
  
   
@@ -36,8 +36,7 @@ export class DelegatesService {
         limit: limit
       }
     })
-      .map((res: Response) => res.json());
-
+    .map((res: Response) => res.json());
   }
 
   getLatestVotes(limit) {
@@ -46,8 +45,7 @@ export class DelegatesService {
         limit: limit
       }
     })
-      .map((res: Response) => res.json());
-
+    .map((res: Response) => res.json());
   }
 
   getLatestDelegates(limit) {
@@ -56,17 +54,17 @@ export class DelegatesService {
         limit: limit
       }
     })
-      .map((res: Response) => res.json());
+    .map((res: Response) => res.json());
   }
 
   getDelegate(publicKey) {
     return this.http.get(environment.serverUrl + '/api/delegates/get?publicKey=' + publicKey)
-      .map((res: Response) => res.json());
+    .map((res: Response) => res.json());
   }
 
   getVoters(publickey) {
     return this.http.get(environment.serverUrl + '/api/delegates/voters?publicKey=' + publickey)
-      .map((res: Response) => res.json());
+    .map((res: Response) => res.json());
   }
 
   /* getDelegate(publickey) {
