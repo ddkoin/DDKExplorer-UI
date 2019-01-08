@@ -224,7 +224,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xlg-2">
-                                        <div class="card card-inverse card-warning">
+                                        <div class="card card-inverse card-danger">
                                             <div class="box text-center">
                                                 <h1 class="font-light text-white">{{totalMissedBlocks}}</h1>
                                                 <h6 class="text-white">Missed block recently</h6>
@@ -240,7 +240,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xlg-2">
-                                        <div class="card card-inverse card-dark">
+                                        <div class="card card-inverse card-warning">
                                             <div class="box text-center">
                                                 <h1 class="font-light text-white">{{activeDelegates - 1}}</h1>
                                                 <h6 class="text-white">In queue for forging</h6>
@@ -264,7 +264,14 @@
                                     </ng-template>
 
                                     <ng-template #status let-row="row">
-                                        <div class="label label-table label-success text-center">Active</div>
+                                        <span *ngIf="row.status; else elseBlock">
+                                            <div class="label label-table label-success text-center">Forging</div>
+                                        </span>
+                                        <ng-template #elseBlock>
+                                                <div class="label label-table label-warning text-center">Awaiting</div>
+                                        </ng-template>
+                                        <!-- <div class="label label-table label-success text-center">{{ row.status }}</div> -->
+                                        <!-- <i class="fa ng-isolate-scope fa-circle green" data-uib-tooltip-html="tooltip.html" data-tooltip-trigger="mouseenter" data-tooltip-class="tooltip-green" data-tooltip-placement="left"></i> -->
                                     </ng-template>
 
                                     <ng-template #productivity let-row="row">
