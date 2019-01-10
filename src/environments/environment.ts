@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  serverUrl: "https://webwallet-w.ddkoin.com"
+  serverUrl: "http://128.199.195.94:7007"
 };
