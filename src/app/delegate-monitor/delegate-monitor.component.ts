@@ -45,7 +45,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public nextForgersList: any = [];
 	public latestVotes: any = [];
 	public latestDelegates: any = [];
-	public activeDelegates = 3;
+	public activeDelegates = 11;
 	public totalActiveForged = 0;
 	public totalMissedBlocks = 0;
 	public delegateCount: any;
