@@ -18,10 +18,13 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public typeId: any;
 	public currentHeight: any;
 	public delegateInfo: any = {};
-	public Voters: any;
+	public Voters: any = [];
 	public votesCount: any = Number;
 	public publicKey: any;
 	public innerSpinner = true;
+	public votesCountPerPage = 0;
+	public offset = 0;
+	public limit = 2;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
@@ -92,11 +95,13 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 
 	/* For Voters */
 	getVoters(publicKey) {
-		this.delegateService.getVoters(publicKey).subscribe(
+		this.delegateService.getVoters(publicKey, this.limit, this.offset).subscribe(
 			resp => {
 				if (resp && resp.success) {
-					this.Voters = resp.accounts;
-					this.votesCount = resp.accounts.length;
+					this.Voters = this.Voters.concat(resp.voters);
+					this.votesCount = resp.count.count;
+					this.votesCountPerPage += resp.voters.length;
+					this.offset += this.limit;
 					this.innerSpinner = false;
 				}
 			},
@@ -109,6 +114,10 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	/* For Address Information */
 	getAddressInfo(address) {
 		this.router.navigate(['/user-info', address]);
+	}
+
+	NextData(publicKey){
+		this.getVoters(publicKey);
 	}
 
 	ngOnInit() {
