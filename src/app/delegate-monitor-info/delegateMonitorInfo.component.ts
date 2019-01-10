@@ -24,7 +24,7 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public innerSpinner = true;
 	public votesCountPerPage = 0;
 	public offset = 0;
-	public limit = 2;
+	public limit = 100;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
