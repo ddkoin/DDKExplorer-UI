@@ -275,7 +275,12 @@
                   </ng-template>
 
                   <ng-template #status let-row="row">
-                    <div class="label label-table label-success text-center">Active</div>
+                    <span *ngIf="row.status; else elseBlock">
+                      <div class="label label-table label-success text-center">Forging</div>
+                    </span>
+                    <ng-template #elseBlock>
+                      <div class="label label-table label-warning text-center">Awaiting</div>
+                    </ng-template>
                   </ng-template>
 
                   <ng-template #productivity let-row="row">
@@ -305,7 +310,12 @@
                   </ng-template>
 
                   <ng-template #status let-row="row">
-                    <div class="label label-table label-success text-center">Active</div>
+                    <span *ngIf="row.status; else elseBlock">
+                      <div class="label label-table label-success text-center">Forging</div>
+                    </span>
+                    <ng-template #elseBlock>
+                      <div class="label label-table label-warning text-center">Awaiting</div>
+                    </ng-template>
                   </ng-template>
 
                   <ng-template #productivity let-row="row">

@@ -62,9 +62,15 @@ export class DelegatesService {
     .map((res: Response) => res.json());
   }
 
-  getVoters(publickey) {
-    return this.http.get(environment.serverUrl + '/api/delegates/voters?publicKey=' + publickey)
-    .map((res: Response) => res.json());
+  getVoters(publickey, limit, offset) {
+    return this.http.get(environment.serverUrl + '/api/delegates/voters',  {
+      params: {
+        limit: limit,
+        offset: offset,
+        publicKey: publickey
+      }
+    })
+      .map((res: Response) => res.json());
   }
 
   /* getDelegate(publickey) {
