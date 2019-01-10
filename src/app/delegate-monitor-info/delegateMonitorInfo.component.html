@@ -176,9 +176,9 @@
                                         voters.address }}</a></ng-template>
 
                             </li>
-                            <span *ngIf="votesCount > votesCountPerPage" (click)="NextData(delegateInfo.publicKey)" style="cursor: pointer;"><b>Load more...</b></span>
                         </ul>
                     </div>
+                    <span *ngIf="votesCount > votesCountPerPage" (click)="NextData(delegateInfo.publicKey)" style="cursor: pointer;padding-left: 20px;"><b>Load more...</b></span>
                 </div>
             </div>
         </div>
