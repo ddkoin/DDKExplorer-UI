@@ -49,7 +49,7 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 		this.transactionsDetails.getTransactionsDetail(this.txsId).subscribe(
 			resp => {
 				if (resp && resp.success) {
-					this.transactionInfo = resp.transaction;
+					this.transactionInfo = resp.transactions[0];
 					if (this.transactionInfo.type == 1) {
 						this.transactionInfo.trsName = "SECONDPASS";
 					}

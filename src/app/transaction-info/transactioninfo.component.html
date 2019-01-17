@@ -33,7 +33,7 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Block Confirmations:</span>
-                                    <span class="col-md-8">{{transactionInfo.confirmations}}</span>
+                                    <span class="col-md-8">{{transactionInfo.confirmations || 0}}</span>
                                 </span>
                             </li>
                             <li>
@@ -45,7 +45,7 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Type:</span>
-                                    <span class="col-md-8">({{transactionInfo.type}}) {{transactionInfo.trsName}}</span>
+                                    <span class="col-md-8">{{transactionInfo.type}}</span>
                                 </span>
                             </li>
                             <li>
@@ -67,7 +67,7 @@
                                 <span class="row info-summary">
                                     <span class="col-md-3">Recipient ID:</span>
                                     <span class="col-md-8">
-                                        <a (click)="getSenderId(transactionInfo.recipientId)" class="link-hover">{{transactionInfo.recipientId}}</a>
+                                        <a (click)="getSenderId(transactionInfo.recipientId)" class="link-hover">{{transactionInfo.recipientId || 'NULL'}}</a>
                                     </span>
                                 </span>
                             </li>

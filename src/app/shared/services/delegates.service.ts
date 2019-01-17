@@ -51,7 +51,8 @@ export class DelegatesService {
   getLatestDelegates(limit) {
     return this.http.get(environment.serverUrl + '/api/delegates/getLatestDelegates', {
       params: {
-        limit: limit
+        limit: limit,
+        orderBy: 'timestamp:desc'
       }
     })
     .map((res: Response) => res.json());

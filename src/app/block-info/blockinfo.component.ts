@@ -71,12 +71,10 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp && resp.success) {
 					this.blockInfo = resp.block;
-					//console.log('this.blockInfo :',this.blockInfo)
 					this.innerSpinner = false;
 				}
 			},
 			error => {
-				//this.toastr.error('This is not good!', error);
 				console.log(error)
 			}
 		);

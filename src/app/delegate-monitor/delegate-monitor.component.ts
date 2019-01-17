@@ -139,6 +139,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	/*For Next Forgers */
 	getNextForgers(limit) {
 		this.nextForgersList = [];
+		this.lastBlock = {};
 		this.delegateService.getNextForgers(limit).subscribe(
 			resp => {
 				if (resp && resp.success) {
@@ -162,7 +163,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 	/* For Last Block */
 	getLastBlock(currentBlockHeight) {
-		this.BlockDetails.getBlockHeightDetail(currentBlockHeight).subscribe(
+		this.BlockDetails.getBlockHeightDetail(currentBlockHeight - 1).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					let self = this;
@@ -225,6 +226,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 	getTxId(id, name) {
 		this.router.navigate(['/transaction-info', name, id]);
+	}
+
+	getBlockId(id, name) {
+		this.router.navigate(['/block-info', name, id]);
 	}
 
 	/*For Price*/

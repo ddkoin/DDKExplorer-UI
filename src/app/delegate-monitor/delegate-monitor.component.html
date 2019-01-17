@@ -108,7 +108,7 @@
 
             </span>
             <span class="btn-block">
-              <a href="#">{{lastBlock.id}}</a>
+              <a (click)="getBlockId(lastBlock.id, 'blockId')" class="link-hover">{{lastBlock.id}} </a>
             </span>
             <span class="btn-block">Applied {{lastBlock.numberOfTransactions}} transactions with
               {{lastBlock.confirmations}}
