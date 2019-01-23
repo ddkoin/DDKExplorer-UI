@@ -26,6 +26,7 @@ import { SenderidDetailService } from './shared/services/senderidDetail.service'
 import { DelegatesService } from './shared/services/delegates.service'
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { SocketService } from './shared/services/socket.service';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -63,7 +64,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }, {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
-    }],
+    }, SocketService],
   // exports: [
   //   OrdinalPipe
   // ],

@@ -4,7 +4,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DelegatesService } from '../shared/services/delegates.service';
 import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Observable } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx';
+import { SocketService } from '../shared/services/socket.service';
+
 
 @Component({
 	templateUrl: './delegate-monitor.component.html',
@@ -57,7 +59,7 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public isAct = false;
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService) {
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService, private socket: SocketService) {
 		this.toastr.setRootViewContainerRef(vcr);
 	}
 	
@@ -283,6 +285,40 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
+		var self = this;
+		this.socket
+			.getTransactions()
+			.subscribe((transaction: string) => {
+				if (transaction['type'] === 60) {
+					this.latestVotes.splice(0, 0, transaction);
+					this.page1.totalElements = parseInt(this.page1.totalElements) + 1;
+				}
+
+				if (transaction['type'] === 30) {
+					this.latestDelegates.splice(0, 0, transaction);
+					this.page1.totalElements = parseInt(this.page2.totalElements) + 1;
+				}
+			});
+		this.socket
+			.getNextForgers()
+			.subscribe((nextForgersList: string) => {
+				this.nextForgersList = [];
+				this.nextForgers = nextForgersList;
+				this.nextForgers.forEach(function (publicKey) {
+					self.getdelegateName(publicKey);
+				});
+			});
+		this.socket
+			.getBlocks()
+			.subscribe((block: string) => {
+				this.lastBlock = block;
+				this.currentBlock = block['height'];
+				this.delegatesInfo.forEach(function (delegate) {
+					if (self.lastBlock.generatorPublicKey == delegate.publicKey) {
+						self.lastBlock.username = delegate.username;
+					}
+				});
+			})
 		this.columns1 = [
 			{ name: 'Voter', prop: 'senderId', cellTemplate: this.voters },
 			{ name: 'Transaction', prop: 'id', cellTemplate: this.transactionId },
@@ -322,11 +358,6 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.getNextForgers(this.page1.size);
 		this.getLatestVotes(this.page1.size);
 		this.getLatestDelegates(this.page2.size);
-		Observable.interval(10000).subscribe(x => {
-			this.getNextForgers(this.page1.size);
-			this.getLatestVotes(this.page1.size);
-			this.getLatestDelegates(this.page2.size);
-		});
 	}
 }
 

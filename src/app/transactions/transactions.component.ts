@@ -6,6 +6,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { transition } from '@angular/animations';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SocketService } from '../shared/services/socket.service';
 
 
 declare var require: any;
@@ -40,7 +41,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	txFee: any;
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService) { 
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService, private socket: SocketService) { 
 	 this.toastr.setRootViewContainerRef(vcr);
 	}
 	
@@ -183,6 +184,12 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	}
 
 	ngOnInit(){
+		this.socket
+		.getTransactions()
+		.subscribe((transaction: string) => {
+			this.transactionlist.splice(0, 0, transaction);
+			this.page.totalElements = parseInt(this.page.totalElements) + 1; 
+		});
 		this.transactionlist = [];
 		this.columns = [
 			{ name: 'Transation ID', prop: 'id', width: '200', cellTemplate: this.transactionId },

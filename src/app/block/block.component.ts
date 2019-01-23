@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { allBlockService } from '../shared/services/allBlock.service';
 import { AddressDetailService } from '../shared/services/addressDetail.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SocketService } from '../shared/services/socket.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class BlockComponent implements OnInit {
 
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allBlocks: allBlockService, private userService: AddressDetailService) {
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allBlocks: allBlockService, private userService: AddressDetailService, private socket: SocketService) {
 		this.toastr.setRootViewContainerRef(vcr);
 	 }
 
@@ -137,12 +138,17 @@ export class BlockComponent implements OnInit {
 
 	
 	ngOnInit() {
+		this.socket
+			.getBlocks()
+			.subscribe((block: string) => {
+				this.blocklist.splice(0, 0, block);
+				this.page.totalElements = parseInt(this.page.totalElements) + 1; 
+			});
 		this.columns = [
 			{ name: 'Block ID', prop: 'id', width: '220', cellTemplate: this.blockId },
 			{ name: 'Height', prop: 'height', cellTemplate: this.height },
 			{ name: 'Generator', prop: 'generatorId', width: '240', cellTemplate: this.generator },
 			{ name: 'Number Of Tx', prop: 'numberOfTransactions' },
-			{ name: 'Confirmations', prop: 'confirmations' },
 			{ name: 'Total Amount', prop: 'totalAmount', cellTemplate: this.amount },
 			{ name: 'Total Fee', prop: 'totalFee', cellTemplate: this.fee },
 			{ name: "Time", prop: 'timestamp', cellTemplate: this.timestamp },
