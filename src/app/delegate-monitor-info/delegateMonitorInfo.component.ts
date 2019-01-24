@@ -103,6 +103,10 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 					this.votesCountPerPage += resp.voters.length;
 					this.offset += this.limit;
 					this.innerSpinner = false;
+				} else {
+					this.Voters = [];
+					this.votesCount = 0;
+					this.innerSpinner = false;
 				}
 			},
 			error => {
