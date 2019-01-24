@@ -170,15 +170,18 @@
                         <span class="heading b-b">Votes {{ votesCount }}</span>
                         <ul class="next-forgers">
                             <li *ngFor="let voters of Voters">
-                                <div *ngIf="voters.username; else elseBlock"><a (click)="getAddressInfo(voters.address)"
-                                        class="link-hover">{{ voters.username }}</a></div>
-                                <ng-template #elseBlock><a (click)="getAddressInfo(voters.address)" class="link-hover">{{
-                                        voters.address }}</a></ng-template>
-
+                                <div *ngIf="voters.username; else elseBlock">
+                                    <a (click)="getAddressInfo(voters.address)" class="link-hover">{{ voters.username }}</a>
+                                </div>
+                                <ng-template #elseBlock>
+                                    <a (click)="getAddressInfo(voters.address)" class="link-hover">{{ voters.address }}</a>
+                                </ng-template>
                             </li>
-                            <span *ngIf="votesCount > votesCountPerPage" (click)="NextData(delegateInfo.publicKey)" style="cursor: pointer;"><b>Load more...</b></span>
                         </ul>
                     </div>
+                    <span *ngIf="votesCount > votesCountPerPage" (click)="NextData(delegateInfo.publicKey)" style="cursor: pointer;padding-left: 20px;">
+                        <b>Load more...</b>
+                    </span>
                 </div>
             </div>
         </div>
