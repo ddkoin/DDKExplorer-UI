@@ -137,8 +137,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 			resp => {
 				if (resp && resp.success) {
 					let data = {};
-					let publicKey = resp.account.publicKey;
-					this.senderidDetail.getSenderTransactions(limit, offset, this.typeId, publicKey).subscribe(
+					this.senderidDetail.getSenderTransactionsBySenderId(limit, offset, this.typeId, resp.account.address).subscribe(
 						resp => {
 							if (resp && resp.success) {
 								this.senderInfo = resp.transactions;

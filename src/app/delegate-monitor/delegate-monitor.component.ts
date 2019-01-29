@@ -33,6 +33,8 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	@ViewChild('producedBlocks') producedBlocks: TemplateRef<any>;
 	@ViewChild('missedBlocks') missedBlocks: TemplateRef<any>;
 	@ViewChild('rank') rank: TemplateRef<any>;
+	@ViewChild('voteCount') voteCount: TemplateRef<any>;
+	@ViewChild('vote') vote: TemplateRef<any>;
 	@ViewChild('status') status: TemplateRef<any>;
 	@ViewChild('productivity') productivity: TemplateRef<any>;
 	@ViewChild('missedBlocks') approval: TemplateRef<any>;
@@ -333,8 +335,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 		this.columns3 = [
 			{ name: 'Rank', prop: 'rank', cellTemplate: this.rank },
+			{ name: 'Vote Count', prop: 'voteCount', cellTemplate: this.voteCount },
+			{ name: 'Vote Weight', prop: 'vote', cellTemplate: this.vote },
 			{ name: 'Name', prop: 'username', cellTemplate: this.name },
-			{ name: 'Address', prop: 'address', cellTemplate: this.addresss, width: '8px'},
+			{ name: 'Address', prop: 'address', cellTemplate: this.addresss},
 			{ name: 'Status', cellTemplate: this.status },
 			{ name: 'Productivity', prop: 'productivity', cellTemplate: this.productivity },
 			{ name: 'Approval', prop: 'approval', cellTemplate: this.approval }

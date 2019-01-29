@@ -270,6 +270,14 @@
                     {{row.rank}}
                   </ng-template>
 
+                  <ng-template #voteCount let-row="row">
+                    {{row.voteCount}}
+                  </ng-template>
+
+                  <ng-template #vote let-row="row">
+                    {{row.vote / 100000000}}
+                  </ng-template>
+
                   <ng-template #address let-row="row">
                     <a (click)="getSenderId(row.address)" class="link-hover">{{row.address}}</a>
                   </ng-template>

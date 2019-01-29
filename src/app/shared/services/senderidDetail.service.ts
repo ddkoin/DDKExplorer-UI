@@ -21,13 +21,12 @@ export class SenderidDetailService {
             .map((res: Response) => res.json());
     }
 
-    /* For All Transactions List Services */
-    getSenderTransactions(limit, offset, recipientId, publicKey) {
+    getSenderTransactionsBySenderId(limit, offset, recipientId, senderId) {
         return this.http.get(environment.serverUrl + '/api/transactions', {
             params: {
                 limit: limit,
                 offset: offset,
-                senderPublicKey: publicKey,
+                senderId: senderId,
                 recipientId: recipientId,
                 orderBy: 'timestamp:desc'
             }
