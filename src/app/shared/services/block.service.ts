@@ -8,11 +8,20 @@ import { Body } from '@angular/http/src/body';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class allBlockService {
+export class BlockService {
 
+    /**
+     * @constructor
+     * @param http : HTTP instance
+     */
     constructor(private http: Http) { }
 
-    /* For All Transactions List Services */
+    /**
+     * @function getAllBlocks
+     * @description get all blocks with parameters
+     * @param limit 
+     * @param offset 
+     */
     getAllBlocks(limit, offset) {
         return this.http.get(environment.serverUrl + '/api/blocks', {
             params: {
@@ -24,7 +33,12 @@ export class allBlockService {
             .map((res: Response) => res.json());
     }
 
-    getBlocksBasedOnHeight(height) {
+    /**
+     * @function getBlockDetailsByHeight
+     * @description get block details by height
+     * @param height 
+     */
+    getBlockDetailsByHeight(height) {
         return this.http.get(environment.serverUrl + '/api/blocks', {
             params: {
                 height: height
@@ -33,7 +47,12 @@ export class allBlockService {
             .map((res: Response) => res.json());
     }
 
-    getBlocksBasedOnblockId(blockId) {
+    /**
+     * @function getBlockDetailsById
+     * @description get block details by id
+     * @param blockId 
+     */
+    getBlockDetailsById(blockId) {
         return this.http.get(environment.serverUrl + '/api/blocks/get', {
             params: {
                 id: blockId
@@ -42,6 +61,11 @@ export class allBlockService {
             .map((res: Response) => res.json());
     }
 
+    /**
+     * @function getBlocksBasedOnpublicKey
+     * @description get blocks by public key
+     * @param publicKey 
+     */
     getBlocksBasedOnpublicKey(publicKey) {
         return this.http.get(environment.serverUrl + '/api/blocks', {
             params: {

@@ -7,6 +7,12 @@ import { Router, NavigationEnd } from "@angular/router";
     styleUrls: ['./app.component.css']
 })
 
+/**
+ * @description Initializes main component
+ * @class AppComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class AppComponent {
     title = 'app';
     innerSpinner = true;

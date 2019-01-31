@@ -8,12 +8,21 @@ declare var $: any;
 	templateUrl: './address.component.html',
 	styleUrls: ['./address.css']
 })
+/**
+ * Initializes component
+ * @class
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class AddressComponent implements AfterViewInit {
 	dtOptions: DataTables.Settings = {};
 	constructor() { }
 	show = false;
 
-	/* For Show Comments */
+	/**
+	 * @function toggle between tabs
+	 * @param  
+	 */
 	showComments($event) {
 		if ($event.activeId == "tab-selectbyid1") {
 			this.show = true;
@@ -22,13 +31,20 @@ export class AddressComponent implements AfterViewInit {
 			this.show = false;
 		}
 	}
+	/**
+	 * @implements ngAfterViewInit
+	 * @description load address component
+	 */
 	ngAfterViewInit() {
 		this.dtOptions = {
 			pagingType: 'full_numbers'
 		};
 	}
    
-	/*For Load Comments*/
+	/**
+	 * @function loadCommenents
+	 * @description load comments
+	 */
 	loadCommenents() {
 		$(document).ready(function () {
 			$('#comments-container').comments({

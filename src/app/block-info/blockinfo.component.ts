@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewContainerRef} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BlockDetailsService } from '../shared/services/blockDetails.service';
-import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
+import { BlockService } from '../shared/services/block.service';
+import { TransactionsService } from '../shared/services/transactions.service';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
@@ -9,6 +9,14 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 	templateUrl: './blockinfo.component.html',
 	styleUrls: ['./blockinfo.css']
 })
+
+/**
+ * @description Initializes component
+ * @implements OnInit, AfterViewInit
+ * @class BlockInfoComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public blockInfo: any = [];
 	public bxHeight: any = [];
@@ -20,7 +28,17 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public traxlength: any;
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private modalService: NgbModal) {
+	/**
+	 * @constructor
+	 * @param toastr : toast manager
+	 * @param vcr : view container reference
+	 * @param router : router
+	 * @param activatedRoute : activated route
+	 * @param blockService : block service
+	 * @param transactionService : transaction service
+	 * @param modalService : modal service
+	 */
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private blockService: BlockService, private transactionService: TransactionsService, private modalService: NgbModal) {
 		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
@@ -32,6 +50,10 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		});
 	}
 
+	/**
+	 * @implements ngOnInit
+	 * @description load block info by blockId OR blockHeight
+	 */
 	ngOnInit() {
 		if (this.typeId == 'blockId') {
 			var blockId = window.location.href.split('/blockId/')[1]
@@ -41,11 +63,20 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	/**
+	 * @implements ngAfterViewInit
+	 * @description load view for block info page
+	 */
 	ngAfterViewInit() {
 		let flag: any = true
 		window.localStorage.setItem('flag', flag);
 	}
 
+	/**
+	 * @function numOfTrxs
+	 * @description open modal popup
+	 * @param content 
+	 */
 	numOfTrxs(content) {
 		this.modalService.open(content, { windowClass: "myCustomModalClass", size: 'lg', backdrop: 'static' }).result.then((result) => {
 			this.closeResult = `Closed with: ${result}`;
@@ -54,6 +85,11 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		});
 	};
 
+	/**
+	 * @private @function getDismissReason
+	 * @description returns a reason
+	 * @param reason 
+	 */
 	private getDismissReason(reason: any): string {
 		if (reason === ModalDismissReasons.ESC) {
 			return 'by pressing ESC';
@@ -64,10 +100,14 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	/* For Block Detail */
+	/**
+	 * @function blockDetail 
+	 * @description get block details by blockId
+	 * @param blockId 
+	 */
 	blockDetail(blockId) {
 		this.blockInfo = [];
-		this.BlockDetails.getBlockDetail(blockId).subscribe(
+		this.blockService.getBlockDetailsById(blockId).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.blockInfo = resp.block;
@@ -80,10 +120,13 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Block Height */
+	/**
+	 * @function blockHeight
+	 * @description get block details by block height
+	 */
 	blockHeight() {
 		this.blockInfo = [];
-		this.allBxHeight.getBlockHeightDetail(parseInt(this.bxsHight)).subscribe(
+		this.blockService.getBlockDetailsByHeight(parseInt(this.bxsHight)).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.blockInfo = resp.blocks[0];
@@ -99,16 +142,24 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For BlockId */
+	/**
+	 * @function getBlockId
+	 * @description navigate to block-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getBlockId(id, name) {
 		this.router.navigate(['/block-info', name, id]);
 		this.blockDetail(id);
 	}
 
-	/* Show Block */
+	/**
+	 * @function showBlock
+	 * @description get all transactions in a block
+	 * @param block : { Object }
+	 */
 	showBlock(block) {
-		//show transactions here for a particular block
-		this.BlockDetails.getTransactions(block.id).subscribe(
+		this.transactionService.getBlockTransactions(block.id).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.traxList = resp.transactions;

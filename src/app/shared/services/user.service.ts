@@ -8,15 +8,23 @@ import { Body } from '@angular/http/src/body';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class BlockHeightDetailsService {
+export class UserService {
 
     constructor(private http: Http) { }
 
-    /* For All Block List Services */
-    getBlockHeightDetail(height) {
-        return this.http.get(environment.serverUrl + '/api/blocks?height=' + height)
+    /**
+     * @function getAddressDetail
+     * @description get address details
+     * @param address : { String }
+     */
+    getAddressDetail(address) {
+        return this.http.get(environment.serverUrl + '/api/accounts', {
+            params: {
+                address: address
+            }
+        })
             .map((res: Response) => res.json());
     }
-
-
 }
+
+/* return this.http.get(environment.serverUrl + '/api/blocks/get?id='+id) */

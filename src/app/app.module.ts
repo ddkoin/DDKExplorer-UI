@@ -16,13 +16,9 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
-import { allTransactionsService } from './shared/services/allTransactions.service';
-import { allBlockService } from './shared/services/allBlock.service';
-import { BlockHeightDetailsService } from './shared/services/blockHeightDetails.service';
-import { transactionsDetailsService } from './shared/services/transactionsDetails.service';
-import { BlockDetailsService } from './shared/services/blockDetails.service';
-import { AddressDetailService } from './shared/services/addressDetail.service';
-import { SenderidDetailService } from './shared/services/senderidDetail.service';
+import { TransactionsService } from './shared/services/transactions.service';
+import { BlockService } from './shared/services/block.service';
+import { UserService } from './shared/services/user.service';
 import { DelegatesService } from './shared/services/delegates.service'
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -57,7 +53,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule
   ],
-  providers: [DelegatesService, SenderidDetailService, AddressDetailService, BlockHeightDetailsService, allTransactionsService, allBlockService, transactionsDetailsService, BlockDetailsService,
+  providers: [DelegatesService, UserService, TransactionsService, BlockService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

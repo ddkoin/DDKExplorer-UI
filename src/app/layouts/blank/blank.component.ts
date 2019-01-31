@@ -5,5 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './blank.component.html',
   styleUrls: []
 })
+
+/**
+ * @description Initializes component
+ * @class BlankComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class BlankComponent {
 }

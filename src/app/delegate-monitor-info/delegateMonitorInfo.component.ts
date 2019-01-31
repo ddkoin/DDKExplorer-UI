@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BlockDetailsService } from '../shared/services/blockDetails.service';
-import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
+import { BlockService } from '../shared/services/block.service';
 import { DelegatesService } from '../shared/services/delegates.service';
 import { Observable } from 'rxjs/Rx'
 import { forkJoin } from "rxjs/observable/forkJoin";
@@ -10,9 +9,16 @@ import { forkJoin } from "rxjs/observable/forkJoin";
 	templateUrl: './delegateMonitorInfo.component.html',
 	styleUrls: ['./delegateMonitorInfo.css']
 })
+
+/**
+ * @description Initializes component
+ * @implements OnInit, AfterViewInit
+ * @class DelegateMonitorInfoComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public blockInfo: any = [];
-	public bxHeight: any = [];
 	public blockId: any;
 	public bxsHight: any;
 	public typeId: any;
@@ -26,7 +32,14 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	public offset = 0;
 	public limit = 100;
 
-	constructor(private router: Router, private activatedRoute: ActivatedRoute, private BlockDetails: BlockDetailsService, private allBxHeight: BlockHeightDetailsService, private delegateService: DelegatesService) {
+	/**
+	 * @description implements delegate info page
+	 * @param router 
+	 * @param activatedRoute 
+	 * @param blockService 
+	 * @param delegateService 
+	 */
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, private blockService: BlockService, private delegateService: DelegatesService) {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
 			if (this.typeId == 'blockId') {
@@ -37,10 +50,13 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	/* For Block Detail */
+	/**
+	 * @function blockDetail
+	 * @description get block details by blockId
+	 */
 	blockDetail() {
 		this.blockInfo = [];
-		this.BlockDetails.getBlockDetail(this.blockId).subscribe(
+		this.blockService.getBlockDetailsById(this.blockId).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.blockInfo = resp.block;
@@ -52,10 +68,13 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Block Height */
+	/**
+	 * @function blockHeight
+	 * @description get block details by blockHeight
+	 */
 	blockHeight() {
 		this.blockInfo = [];
-		this.allBxHeight.getBlockHeightDetail(parseInt(this.bxsHight)).subscribe(
+		this.blockService.getBlockDetailsByHeight(parseInt(this.bxsHight)).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.blockInfo = resp.blocks[0];
@@ -66,22 +85,28 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 			}
 		);
 	}
-	/* For Latest Height */
+	
+	/**
+	 * @function getLatestHeight
+	 * @description Get details for latest block
+	 */
 	getLatestHeight() {
-		this.delegateService.getNextForgers(10).subscribe(
+		this.blockService.getAllBlocks(1, 0).subscribe(
 			resp => {
 				if (resp && resp.success) {
-					this.currentHeight = resp.currentBlock;
+					this.currentHeight = resp.count;
 				}
-			},
-			error => {
-				console.log(error);
 			}
 		);
 	}
-	/* For Delegate*/
+	
+	/**
+	 * @function getDelegate
+	 * @description get delegate details by publick key
+	 * @param publicKey  
+	 */
 	getDelegate(publicKey) {
-		this.delegateService.getDelegate(publicKey).subscribe(
+		this.delegateService.getDelegateDetails(publicKey).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.delegateInfo = resp.delegate;
@@ -93,7 +118,11 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Voters */
+	/**
+	 * @function getVoters
+	 * @description get voters details for a user by publick key
+	 * @param publicKey 
+	 */
 	getVoters(publicKey) {
 		this.delegateService.getVoters(publicKey, this.limit, this.offset).subscribe(
 			resp => {
@@ -115,15 +144,20 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Address Information */
+	/**
+	 * @function getAddressInfo
+	 * @description navigate to user-info page
+	 * @param address 
+	 */
 	getAddressInfo(address) {
 		this.router.navigate(['/user-info', address]);
 	}
 
-	NextData(publicKey){
-		this.getVoters(publicKey);
-	}
-
+	/**
+	 * @function ngOnInit
+	 * @implements ngOnInit
+	 * @description load block info by blockId OR blockHeight
+	 */
 	ngOnInit() {
 		if (this.typeId == 'blockId') {
 			this.blockDetail();
@@ -132,6 +166,11 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	/**
+	 * @function ngAfterViewInit
+	 * @implements ngAfterViewInit
+	 * @description load view for delegate info page
+	 */
 	ngAfterViewInit() {
 		this.publicKey = window.location.href.split('/delegate/')[1];
 		this.getDelegate(this.publicKey);

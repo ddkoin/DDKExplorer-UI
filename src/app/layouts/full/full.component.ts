@@ -11,6 +11,14 @@ declare var $: any;
     templateUrl: './full.component.html',
     styleUrls: ['./full.component.scss']
 })
+
+/**
+ * @description Initializes component
+ * @implements OnInit
+ * @class FullComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class FullComponent implements OnInit {
 
     color = 'defaultdark';
@@ -22,6 +30,10 @@ export class FullComponent implements OnInit {
 
     constructor(public router: Router) { }
 
+    /**
+	 * @implements ngOnInit
+	 * @description navigate to URL
+	 */
     ngOnInit() {
         if (this.router.url === '/') {
             this.router.navigate(['/dashboard']);

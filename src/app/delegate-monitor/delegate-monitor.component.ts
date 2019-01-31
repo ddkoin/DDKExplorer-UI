@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef,ViewContainerR
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DelegatesService } from '../shared/services/delegates.service';
-import { BlockHeightDetailsService } from '../shared/services/blockHeightDetails.service';
+import { BlockService } from '../shared/services/block.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Observable } from 'rxjs/Rx';
 import { SocketService } from '../shared/services/socket.service';
@@ -12,6 +12,14 @@ import { SocketService } from '../shared/services/socket.service';
 	templateUrl: './delegate-monitor.component.html',
 	styleUrls: ['./delegate-monitor.css']
 })
+
+/**
+ * @description Initializes component
+ * @implements OnInit, AfterViewInit
+ * @class DelegateMonitorComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public rows = [];
 	public columns1 = [];
@@ -61,11 +69,25 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 	public isAct = false;
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private BlockDetails: BlockHeightDetailsService, private socket: SocketService) {
+	/**
+	 * @implements delegate monitor page
+	 * @description implements delegate monitor page
+	 * @param toastr : toasts manager
+	 * @param vcr : view container reference
+	 * @param router : router
+	 * @param activatedRoute : route handler
+	 * @param delegateService : delegate service
+	 * @param blockService : block service
+	 * @param socket : socket service 
+	 */
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private delegateService: DelegatesService, private blockService: BlockService, private socket: SocketService) {
 		this.toastr.setRootViewContainerRef(vcr);
 	}
 	
-	/* For Get Productivity Infomation */
+	/**
+	 * @function get productivity info based on next forgers
+	 * @param delegatesList : list of active delegates
+	 */
 	getProductivityInfo(delegatesList) {
 		this.totalMissedBlocks = 0;
 		var self = this;
@@ -87,7 +109,11 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		})
 	}
 
-	/* For StandBy Delegates */
+	/**
+	 * @function get stand by delegates
+	 * @param limit 
+	 * @param offset 
+	 */
 	getStandbyDelegates(limit, offset) {
 		this.delegateService.getStandbyDelegates(limit, this.activeDelegates + offset).subscribe(
 			resp => {
@@ -103,9 +129,13 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/*For Delegates Detail */
+	/**
+	 * @function get active delegates
+	 * @param limit 
+	 * @param offset 
+	 */
 	getDelegatesDetail(limit, offset) {
-		this.delegateService.getDelegatesDetail(limit, offset).subscribe(
+		this.delegateService.getActiveDelegates(limit, offset).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.delegatesInfo = [];
@@ -124,7 +154,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-    /* For Delegate Name */
+	/**
+	 * @function get delegate names by individuals pubicKey
+	 * @param publicKey 
+	 */
 	getdelegateName(publicKey) {
 		var self = this;
 		this.delegatesInfo.forEach(function (delegate) {
@@ -140,7 +173,25 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		});
 	}
    
-	/*For Next Forgers */
+	/**
+	 * @function get details for last block
+	 */
+	getLatestBlock() {
+		this.blockService.getAllBlocks(1, 0).subscribe(
+			resp => {
+				if (resp && resp.success) {
+					this.currentBlock = resp.count;
+					this.getLastBlock(this.currentBlock);
+					this.innerSpinner = false;
+				}
+			}
+		);
+	}
+	
+	/**
+	 * @function get next forgers list
+	 * @param limit 
+	 */
 	getNextForgers(limit) {
 		this.nextForgersList = [];
 		this.lastBlock = {};
@@ -153,8 +204,6 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 					this.nextForgers.forEach(function (publicKey) {
 						self.getdelegateName(publicKey);
 					});
-					this.currentBlock = resp.currentBlock;
-					this.getLastBlock(this.currentBlock);
 					this.innerSpinner = false;
 				}
 			},
@@ -165,9 +214,12 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Last Block */
+	/**
+	 * @function get block details by height
+	 * @param currentBlockHeight 
+	 */
 	getLastBlock(currentBlockHeight) {
-		this.BlockDetails.getBlockHeightDetail(currentBlockHeight - 1).subscribe(
+		this.blockService.getBlockDetailsByHeight(currentBlockHeight -1).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					let self = this;
@@ -186,7 +238,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Latest Votes */
+	/**
+	 * @function get latest votes transactions
+	 * @param limit 
+	 */
 	getLatestVotes(limit) {
 		this.delegateService.getLatestVotes(limit).subscribe(
 			resp => {
@@ -202,7 +257,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/*For Latest Delegates */
+	/**
+	 * @function get latest delegates transactions
+	 * @param limit 
+	 */
 	getLatestDelegates(limit) {
 		this.delegateService.getLatestDelegates(limit).subscribe(
 			resp => {
@@ -218,25 +276,43 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Delegate Information */
+	/**
+	 * @link navigate to delegate info page
+	 * @param publicKey 
+	 */
 	getDelegateInfo(publicKey) {
 		this.router.navigate(['/delegate', publicKey]);
 	}
 
-	/* For SenderId */
+	/**
+	 * @link navigate to user-info page
+	 * @param address 
+	 */
 	getSenderId(address) {
 		this.router.navigate(['/user-info', address]);
 	}
 
+	/**
+	 * @link navigate to transaction-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getTxId(id, name) {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
+	/**
+	 * @link navigate to block-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getBlockId(id, name) {
 		this.router.navigate(['/block-info', name, id]);
 	}
 
-	/*For Price*/
+	/**
+	 * @function get current price of DDK based on different market currencies
+	 */
 	getPrice() {
 		this.delegateService.getPrice().subscribe(
 			resp => {
@@ -251,7 +327,9 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		);
 	}
 	
-	/*For Show Active Delegates */
+	/**
+	 * @description switch between tabs and highlight active delegates tab
+	 */
 	showActiveDelegates() {
 		this.tab1 = true;
 		this.tab2 = false;
@@ -259,7 +337,9 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.isAct = false;
 	}
 	
-	/* For Show Stand By Delegates */
+	/**
+	 * @description switch between tabs and highlight standby delegates tab
+	 */
 	showStandbyDelegates() {
 		this.tab1 = false;
 		this.tab2 = true;
@@ -268,6 +348,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 
 	}
 
+	/**
+	 * @function set page size, offset for each tables used in this component
+	 * @param event : Object
+	 */
 	setPage(event) {
 		this.page1.offset = this.page1.size * event.offset;
 		this.page2.offset = this.page2.size * event.offset;
@@ -286,6 +370,10 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	/**
+	 * @implements ngOnInit
+	 * @description subscribe to socket events, initializes tables and set page limits/offsets
+	 */
 	ngOnInit() {
 		var self = this;
 		this.socket
@@ -356,9 +444,14 @@ export class DelegateMonitorComponent implements OnInit, AfterViewInit {
 		this.setPage({ offset: 0 });
 	}
 
+	/**
+	 * @implements ngAfterViewInit
+	 * @description load view for delegate monitor page
+	 */
 	ngAfterViewInit() {
 		this.getPrice();
 		this.getDelegatesDetail(this.activeDelegates, 0);
+		this.getLatestBlock();
 		this.getNextForgers(this.page1.size);
 		this.getLatestVotes(this.page1.size);
 		this.getLatestDelegates(this.page2.size);

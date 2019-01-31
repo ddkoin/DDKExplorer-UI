@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { allTransactionsService } from '../shared/services/allTransactions.service';
-import { allBlockService } from '../shared/services/allBlock.service';
+import { TransactionsService } from '../shared/services/transactions.service';
+import { BlockService } from '../shared/services/block.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { transition } from '@angular/animations';
@@ -18,6 +18,14 @@ const transactionTypes: any = require('../../assets/json/transactionTypes.js');
 	templateUrl: './transactions.component.html',
 	styleUrls: ['./transactions.css']
 })
+
+/**
+ * @description Initializes component
+ * @implements OnInit, AfterViewInit
+ * @class TransactionsComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class TransactionsComponent implements OnInit,  AfterViewInit {
 	rows = [];
 	columns = [];
@@ -41,10 +49,25 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	txFee: any;
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allTransaction: allTransactionsService, private http: HttpClient, private blockService: allBlockService, private socket: SocketService) { 
+	/**
+	 * @constructor 
+	 * @param toastr : toast manager
+	 * @param vcr : view container reference
+	 * @param router : router
+	 * @param transactionService : transaction service
+	 * @param http : http instance
+	 * @param blockService : block service
+	 * @param socket : socket service
+	 */
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private transactionService: TransactionsService, private http: HttpClient, private blockService: BlockService, private socket: SocketService) { 
 	 this.toastr.setRootViewContainerRef(vcr);
 	}
 	
+	/**
+	 * @function filterData
+	 * @description search transactions based on different parameters
+	 * @param event 
+	 */
 	filterData(event) {
 		if (event) {
 			clearTimeout(this.timeout);
@@ -53,7 +76,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 				var searchValue = event.target.value;
 				if(searchValue !== '') {
 					if (!isNaN(searchValue)) {
-						that.allTransaction.getTransactionsBasedOnId(searchValue).subscribe(
+						that.transactionService.getTransactionsById(searchValue).subscribe(
 							resp => {
 								if(parseInt(resp.count) !== 0) {
 									if (resp && resp.success) {
@@ -61,7 +84,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 										that.page.totalElements = resp.count;
 									}
 								} else {
-									that.allTransaction.getTransactionsBasedOnHeight(searchValue).subscribe(
+									that.transactionService.getTransactionsByHeight(searchValue).subscribe(
 										resp => {
 											if(resp && resp.success) {
 												that.transactionlist = resp.transactions;
@@ -77,7 +100,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 						);
 					} else {
 						if(searchValue.toUpperCase().indexOf('DDK') !== -1 ) {
-							that.allTransaction.getTransactionsBasedOnSender(searchValue).subscribe(
+							that.transactionService.getTransactionsBySender(searchValue).subscribe(
 								resp => {
 									if(resp && resp.success) {
 										that.transactionlist = resp.transactions;
@@ -90,7 +113,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 							);
 						}else {
 							if(transactionTypes[searchValue.toUpperCase()] !== undefined) {
-								that.allTransaction.getTransactionsBasedOnType(transactionTypes[searchValue.toUpperCase()]).subscribe(
+								that.transactionService.getTransactionsByType(transactionTypes[searchValue.toUpperCase()]).subscribe(
 									resp => {
 										if(resp && resp.success) {
 											that.transactionlist = resp.transactions;
@@ -114,10 +137,16 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		}
 	}
 
+	/**
+	 * @function allTransactionsList
+	 * @description get all transactions based on params
+	 * @param limit 
+	 * @param offset 
+	 */
 	allTransactionsList(limit, offset) {
 		let trsType = window.location.href.split('/')[4];
 		if(trsType === 'transactions') {
-			this.allTransaction.getAllTransactions(limit, offset).subscribe(
+			this.transactionService.getAllTransactions(limit, offset).subscribe(
 				resp => {
 					if (resp && resp.success) {
 						this.transactionlist = resp.transactions;
@@ -131,7 +160,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 				}
 			);
 		} else {
-			this.allTransaction.getUnconfirmedTransactions(limit, offset).subscribe(
+			this.transactionService.getUnconfirmedTransactions(limit, offset).subscribe(
 				resp => {
 					if (resp && resp.success) {
 						this.transactionlist = resp.transactions;
@@ -148,41 +177,77 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 		
 	}
 
+	/**
+	 * @function getTransactionId
+	 * @description navigate to transaction-info page
+	 * @param id 
+	 */
 	getTransactionId(id) {
 		localStorage.setItem('transactionId', id);
 		this.router.navigate(['/transaction-info', id]);
 	}
 
-
-	/* For Transactions Detail By ID */
+	/**
+	 * @function getTxId
+	 * @description navigate to transaction-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getTxId(id,name) {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
 	
-	/* For Transactions Detail By Height */
+	/**
+	 * @function getBlockHeight
+	 * @description navigate to block-info page
+	 * @param height 
+	 * @param name 
+	 */
 	getBlockHeight(height,name) {
 		this.router.navigate(['/block-info',name, height]);
 	}
 
-	/* For Block ID By Height */
+	/**
+	 * @function getBlockId
+	 * @description navigate to block-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getBlockId(id,name) {
 		this.router.navigate(['/block-info', name, id]);
 	}
 
-	/* For Amount Detail By Address */
+	/**
+	 * @function getSenderId
+	 * @description navigate to user-info page
+	 * @param senderId 
+	 */
 	getSenderId(senderId) {
 		this.router.navigate(['/user-info', senderId]);
 	}
 
+	/**
+	 * @function setPage
+	 * @description set page offset and load transactions accordingly
+	 * @param event 
+	 */
 	setPage(event) {
 		this.page.offset = this.page.size * event.offset;
 		this.allTransactionsList(this.page.size, this.page.offset);
 	}
 
+	/**
+	 * @implements ngAfterViewInit
+	 * @description load view for transactions page
+	 */
 	ngAfterViewInit() {
 	}
 
+	/**
+	 * @implements ngOnInit
+	 * @description subscribe to socket's transaction/change event, setup columns and set page size, limit etc for a table
+	 */
 	ngOnInit(){
 		this.socket
 		.getTransactions()

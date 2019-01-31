@@ -37,7 +37,11 @@ export class SidebarComponent implements OnInit {
         private route: ActivatedRoute) {
 
     }
-    // End open close
+
+    /**
+	 * @implements ngOnInit
+	 * @description jQuery toggle handler for CSS manipulation
+	 */
     ngOnInit() {
         this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
         $(function () {

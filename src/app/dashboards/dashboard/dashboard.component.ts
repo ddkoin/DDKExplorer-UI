@@ -1,13 +1,21 @@
 import { AfterViewInit, Component, ViewContainerRef} from '@angular/core';
 import { Router } from '@angular/router';
-import { allTransactionsService } from '../../shared/services/allTransactions.service';
-import { allBlockService } from '../../shared/services/allBlock.service'
+import { TransactionsService } from '../../shared/services/transactions.service';
+import { BlockService } from '../../shared/services/block.service'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.css']
 })
+
+/**
+ * @description Initializes component
+ * @implements AfterViewInit
+ * @class DashboardComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class DashboardComponent implements AfterViewInit {
 	public innerSpinner = true;
 	public txLists: any = [];
@@ -16,13 +24,24 @@ export class DashboardComponent implements AfterViewInit {
 	public blockData = false;
 	public transactionData = false;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allTx: allTransactionsService, private allBx: allBlockService) { 
+	/**
+	 * @constructor
+	 * @param toastr : toast manager
+	 * @param vcr : view container reference
+	 * @param router : router
+	 * @param transactionService : transaction service
+	 * @param blockService : block service
+	 */
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private transactionService: TransactionsService, private blockService: BlockService) { 
 		this.toastr.setRootViewContainerRef(vcr);
 	}
 
-	/* For All Transaction */
+	/**
+	 * @function allTransactionsList
+	 * @description get all transactions
+	 */
 	allTransactionsList() {
-		this.allTx.getAllTransactions(25, 10).subscribe(
+		this.transactionService.getAllTransactions(25, 10).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.txLists = resp.transactions;
@@ -38,9 +57,12 @@ export class DashboardComponent implements AfterViewInit {
 		);
 	}
 
-   /*For All Block List */
+   /**
+	* @function allBlockList
+	* @description get all blocks
+    */
 	allBlockList() {
-		this.allBx.getAllBlocks(25, 0).subscribe(
+		this.blockService.getAllBlocks(25, 0).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.bxLists = resp.blocks;
@@ -55,26 +77,48 @@ export class DashboardComponent implements AfterViewInit {
 		);
 	}
 	
-	/*For Block Height */
+	/**
+	 * @function getBlockHeight
+	 * @description navigate to block-info page
+	 * @param height 
+	 * @param name 
+	 */
 	getBlockHeight(height, name) {
 		this.router.navigate(['/block-info', name, height]);
 	}
 
-	/* For Transactions Detail By ID */
+	/**
+	 * @function getTxId 
+	 * @description navigate to transaction-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getTxId(id, name) {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
-	/* For Amount Detail By Address */
+	/**
+	 * @function getGeneratorId
+	 * @description navigate to user-info page
+	 * @param generatorId 
+	 */
 	getGeneratorId(generatorId) {
 		this.router.navigate(['/user-info', generatorId]);
 	}
 
-	/* For Amount Detail By Address */
+	/**
+	 * @function getSenderId
+	 * @description navigate to user-info page
+	 * @param senderId 
+	 */
 	getSenderId(senderId) {
 		this.router.navigate(['/user-info', senderId]);
 	}
 
+	/**
+	 * @implements ngAfterViewInit
+	 * @description load view for dashboard page
+	 */
 	ngAfterViewInit() {
 		this.allTransactionsList();
 		this.allBlockList()

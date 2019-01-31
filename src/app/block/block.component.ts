@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { allBlockService } from '../shared/services/allBlock.service';
-import { AddressDetailService } from '../shared/services/addressDetail.service';
+import { BlockService } from '../shared/services/block.service';
+import { UserService } from '../shared/services/user.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SocketService } from '../shared/services/socket.service';
 
@@ -12,6 +12,13 @@ import { SocketService } from '../shared/services/socket.service';
 
 })
 
+/**
+ * @description Initializes component
+ * @implements OnInit
+ * @class BlockComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class BlockComponent implements OnInit {
 	rows = [];
 	columns = [];
@@ -32,13 +39,27 @@ export class BlockComponent implements OnInit {
 
 	public innerSpinner = true;
 
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private allBlocks: allBlockService, private userService: AddressDetailService, private socket: SocketService) {
+	/**
+	 * @constructor
+	 * @param toastr : toast manager
+	 * @param vcr : view container reference
+	 * @param router : router
+	 * @param blockService : block service
+	 * @param userService : user service
+	 * @param socket : socketIO service
+	 */
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private blockService: BlockService, private userService: UserService, private socket: SocketService) {
 		this.toastr.setRootViewContainerRef(vcr);
 	 }
 
-	/* For allBlockList */
+	/**
+	 * @function allBlockList
+	 * @description get all blocks
+	 * @param limit : { Number }
+	 * @param offset : { Number }
+	 */
 	allBlockList(limit, offset) {
-		this.allBlocks.getAllBlocks(limit, offset).subscribe(
+		this.blockService.getAllBlocks(limit, offset).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.blocklist = resp.blocks;
@@ -55,7 +76,11 @@ export class BlockComponent implements OnInit {
 		);
 	}
 
-	/* For Data Filter*/
+	/**
+	 * @function filterData
+	 * @description search block details with different parameters
+	 * @param event 
+	 */
 	filterData(event) {
 		if (event) {
 			clearTimeout(this.timeout);
@@ -64,7 +89,7 @@ export class BlockComponent implements OnInit {
 				var searchValue = event.target.value;
 				if (searchValue !== '') {
 					if (!isNaN(searchValue)) {
-						that.allBlocks.getBlocksBasedOnHeight(searchValue).subscribe(
+						that.blockService.getBlockDetailsByHeight(searchValue).subscribe(
 							resp => {
 								if (parseInt(resp.count) !== 0) {
 									if (resp && resp.success) {
@@ -72,7 +97,7 @@ export class BlockComponent implements OnInit {
 										that.page.totalElements = resp.count;
 									}
 								} else {
-									that.allBlocks.getBlocksBasedOnblockId(searchValue).subscribe(
+									that.blockService.getBlockDetailsById(searchValue).subscribe(
 										resp => {
 											if (resp && resp.success) {
 												that.blocklist = [];
@@ -91,7 +116,7 @@ export class BlockComponent implements OnInit {
 						that.userService.getAddressDetail(searchValue).subscribe(
 							resp => {
 								if (resp && resp.success) {
-									that.allBlocks.getBlocksBasedOnpublicKey(resp.account.publicKey).subscribe(
+									that.blockService.getBlocksBasedOnpublicKey(resp.account.publicKey).subscribe(
 										resp => {
 											if (resp.success) {
 												that.blocklist = resp.blocks;
@@ -117,26 +142,50 @@ export class BlockComponent implements OnInit {
 		}
 	}
 
-	/* For Block ID By Height */
+	/**
+	 * @function getBlockId
+	 * @description navigate to block-info page
+	 * @param id 
+	 * @param name 
+	 */
 	getBlockId(id, name) {
 		this.router.navigate(['/block-info', name, id]);
 		this.blocklist = [];
 	}
-	/* For Block Detail By Height */
+	
+	/**
+	 * @function getBlockHeight 
+	 * @description navigate to block-info page
+	 * @param height 
+	 * @param name 
+	 */
 	getBlockHeight(height, name) {
 		this.router.navigate(['/block-info', name, height]);
 	}
-    /*For SenderID */
+	
+	/**
+	 * @function getSenderId
+	 * @description navigate to user-info page
+	 * @param senderId 
+	 */
 	getSenderId(senderId) {
 		this.router.navigate(['/user-info', senderId]);
 	}
 
+	/**
+	 * @function setPage
+	 * @description set page offset and load blocks accordingly
+	 * @param event 
+	 */
 	setPage(event) {
 		this.page.offset = this.page.size * event.offset;
 		this.allBlockList(this.page.size, this.page.offset);
 	}
 
-	
+	/**
+	 * @implements ngOnInit
+	 * @description subscribe to socket's block/change event and set page size, limit and columns for tables
+	 */
 	ngOnInit() {
 		this.socket
 			.getBlocks()

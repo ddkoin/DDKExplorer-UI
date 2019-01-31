@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ContentChild, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AddressDetailService } from '../shared/services/addressDetail.service';
-import { SenderidDetailService } from '../shared/services/senderidDetail.service';
+import { UserService } from '../shared/services/user.service';
+import { TransactionsService } from '../shared/services/transactions.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 declare var jquery: any;
@@ -12,6 +12,14 @@ declare var $: any;
 	templateUrl: './user-info.component.html',
 	styleUrls: ['./user-info.css']
 })
+
+/**
+ * @description Initializes component
+ * @implements OnInit, AfterViewInit
+ * @class UserInfoComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class UserInfoComponent implements OnInit, AfterViewInit {
 	rows = [];
 	columns = [];
@@ -41,16 +49,33 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	public address = 'DDK00000000000000000000';
 	public addressReplace = 'DDK12817390500414975490';
 
-
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private senderidDetail: SenderidDetailService, private activatedRoute: ActivatedRoute, private addressDetail: AddressDetailService) {
+	/**
+	 * @constructor with given params
+	 * @param toastr 
+	 * @param vcr 
+	 * @param router 
+	 * @param activatedRoute 
+	 * @param userService 
+	 * @param transactionService 
+	 */
+	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService, private transactionService: TransactionsService) {
 		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.id;
 		});
 	}
+
+	/**
+	 * @implements ngAfterViewInit
+	 * @description load view for user info page
+	 */
 	ngAfterViewInit() {
 		this.AddressDetail();
 	}
+	/**
+	 * @implements ngOnInit
+	 * @description setup columns and set page size, limit etc for a table
+	 */
 	ngOnInit() {
 		this.columns = [
 			{ name: 'Transaction ID', prop: 'id', width: '240', cellTemplate: this.id },
@@ -65,18 +90,27 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.setPage({ offset: 0 });
 	}
 
-	/* For Transactions Detail By ID */
+	/**
+	 * @function navigate to transaction-info page
+	 * @param id : transactionId
+	 * @param name : name
+	 */
 	getTxId(id, name) {
 		this.router.navigate(['/transaction-info', name, id]);
 	}
 
+	/**
+	 * @function toggle when clicked an element
+	 */
 	clickEvent(event) {
-		//if you just want to toggle the class; change toggle variable.
 		this.toggle != this.toggle;
 	}
 
 
-	/* For SenderId */
+	/**
+	 * @function getSenderId
+	 * @description Navigate to user-info page and load user details i.e address info, transaction info etc
+	 */
 	getSenderId(senderId) {
 		this.typeId = senderId;
 		this.router.navigate(['/user-info', senderId]);
@@ -84,7 +118,10 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
-	/* For Show Transaction */
+	/**
+	 * @function showTransactions
+	 * @description Enables show transactions tab
+	 */
 	showTransactions() {
 		this.tab1 = true;
 		this.tab2 = false;
@@ -92,7 +129,10 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		this.isAct = false;
 	}
 
-	/* For Show Comments */
+	/**
+	 * @function showComments
+	 * @description Enables show comments tab
+	 */
 	showComments() {
 		this.tab1 = false;
 		this.tab2 = true;
@@ -102,13 +142,16 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	}
 
 
-	/* For Detail Address */
+	/**
+	 * @function AddressDetail
+	 * @description get address details
+	 */
 	AddressDetail() {
 		this.addressInfo = [];
 		if (this.typeId === this.address) {
 			this.typeId = this.addressReplace;
 		}
-		this.addressDetail.getAddressDetail(this.typeId).subscribe(
+		this.userService.getAddressDetail(this.typeId).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					this.addressInfo = resp.account;
@@ -125,7 +168,12 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
-	/* For Sender Detail ID */
+	/**
+	 * @function senderIdDetail
+	 * @description load address details and respective transactions details for a address
+	 * @param limit 
+	 * @param offset 
+	 */
 	senderIdDetail(limit, offset) {
 		this.senderInfo = [];
 		this.addressInfo.count = 0;
@@ -133,11 +181,11 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		if (this.typeId === this.address) {
 			this.typeId = this.addressReplace;
 		}
-		this.senderidDetail.getSenderidDetail(this.typeId).subscribe(
+		this.userService.getAddressDetail(this.typeId).subscribe(
 			resp => {
 				if (resp && resp.success) {
 					let data = {};
-					this.senderidDetail.getSenderTransactionsBySenderId(limit, offset, this.typeId, resp.account.address).subscribe(
+					this.transactionService.getSenderTransactionsBySenderId(limit, offset, this.typeId, resp.account.address).subscribe(
 						resp => {
 							if (resp && resp.success) {
 								this.senderInfo = resp.transactions;
@@ -161,12 +209,22 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 		);
 	}
 
+	/**
+	 * @function setPage
+	 * @description set page offset and load user details
+	 * @param event 
+	 */
 	setPage(event) {
 		this.page.offset = this.page.size * event.offset;
 		this.senderIdDetail(this.page.size, this.page.offset);
 	}
 
-	/* For load Commenents */
+	/**
+	 * @function loadCommenents
+	 * @description load comments 
+	 * @param userInfo: user details 
+	 * @param explorerServer: explorer domain link
+	 */
 	loadCommenents(userInfo, explorerServer) {
 		$(document).ready(function () {
 			$('#comments-container').comments({

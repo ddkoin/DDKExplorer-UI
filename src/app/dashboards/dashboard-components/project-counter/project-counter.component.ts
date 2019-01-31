@@ -4,16 +4,22 @@ import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 declare var require: any;
 const data: any = require('./data.json');
 
-import { allBlockService } from '../../../shared/services/allBlock.service'
-import { allTransactionsService } from '../../../shared/services/allTransactions.service';
+import { BlockService } from '../../../shared/services/block.service'
+import { TransactionsService } from '../../../shared/services/transactions.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
-
 
 @Component({
   selector: 'project-counter',
   templateUrl: './project-counter.component.html'
 })
+
+/**
+ * @description Initializes component
+ * @implements AfterViewInit
+ * @class ProjectCounterComponent
+ * @classdesc Main Component logic.
+ * @author Hotam Singh
+ */
 export class ProjectCounterComponent implements AfterViewInit {
 
   subtitle: string;
@@ -88,14 +94,24 @@ export class ProjectCounterComponent implements AfterViewInit {
   public doughnutChartType: string = 'doughnut';
   public doughnutChartLegend: boolean = false;
 
-  constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private allTx: allTransactionsService, private allBx: allBlockService) {
+  /**
+   * @constructor
+   * @param toastr : toast manager
+   * @param vcr : view container reference
+   * @param transactionService : transaction service
+   * @param blockService : block service
+   */
+  constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private transactionService: TransactionsService, private blockService: BlockService) {
     this.subtitle = "This is some text within a card block."
   }
 
 
-  /*For All BlockList */
+  /**
+   * @function allBlockList
+   * @description get all blocks
+   */
   allBlockList() {
-    this.allBx.getAllBlocks(25, 0).subscribe(
+    this.blockService.getAllBlocks(25, 0).subscribe(
       resp => {
         if (resp && resp.success) {
           this.height = resp.blocks[0].height;
@@ -108,9 +124,12 @@ export class ProjectCounterComponent implements AfterViewInit {
     );
   }
 
-  /* For All Transaction */
+  /**
+   * @function allTransactionsList
+   * @description get all transactions
+   */
   allTransactionsList() {
-    this.allTx.getAllTransactions(25, 0).subscribe(
+    this.transactionService.getAllTransactions(25, 0).subscribe(
       resp => {
         if (resp && resp.success) {
           this.transactionLength = resp.count;
@@ -123,9 +142,12 @@ export class ProjectCounterComponent implements AfterViewInit {
     );
   }
 
-  /* For Transaction History */
+  /**
+   * @function transactionsHistory
+   * @description get transactions history for last 14 days
+   */
   transactionsHistory() {
-    this.allTx.getTransactionsHistory().subscribe(
+    this.transactionService.getTransactionsHistory().subscribe(
       resp => {
         if (resp && resp.success) {
           var data = [];
@@ -158,7 +180,10 @@ export class ProjectCounterComponent implements AfterViewInit {
     );
   }
 
-
+  /**
+	 * @implements ngAfterViewInit
+	 * @description load view for dashboard component page
+	 */
   ngAfterViewInit() {
     this.allBlockList();
     this.allTransactionsList();
