@@ -154,6 +154,15 @@ export class DelegateMonitorInfoComponent implements OnInit, AfterViewInit {
 	}
 
 	/**
+	 * @function NextData
+	 * @description get next voters list based on publicKey
+	 * @param publicKey 
+	 */
+	NextData(publicKey){
+		this.getVoters(publicKey);
+	}
+
+	/**
 	 * @function ngOnInit
 	 * @implements ngOnInit
 	 * @description load block info by blockId OR blockHeight
