@@ -64,7 +64,7 @@
                             <span *ngIf="txList.recipientId!==null">
                                 To <a class="address-tag link-hover" (click)="getSenderId(txList.recipientId)">{{txList.recipientId}}</a></span>
                         </p>
-                        <div *ngIf="txList.type === 8; else elseBlock">
+                        <div *ngIf="txList.type === transactionTypes.STAKE; else elseBlock">
                             <p>Amount {{txList.stakedAmount/100000000}} DDK</p>
                         </div>
                         <ng-template #elseBlock>

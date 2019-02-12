@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TransactionsService } from '../../shared/services/transactions.service';
 import { BlockService } from '../../shared/services/block.service'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { JSONLoaderService } from '../../shared/services/json.loader.service';
 
 @Component({
 	templateUrl: './dashboard.component.html',
@@ -20,6 +21,7 @@ export class DashboardComponent implements AfterViewInit {
 	public innerSpinner = true;
 	public txLists: any = [];
 	public bxLists: any = [];
+	public transactionTypes: any = {};
 
 	public blockData = false;
 	public transactionData = false;
@@ -32,7 +34,13 @@ export class DashboardComponent implements AfterViewInit {
 	 * @param transactionService : transaction service
 	 * @param blockService : block service
 	 */
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private transactionService: TransactionsService, private blockService: BlockService) { 
+	constructor(
+		public toastr: ToastsManager, vcr: ViewContainerRef,
+		private router: Router,
+		private transactionService: TransactionsService,
+		private blockService: BlockService,
+		private transactionTypesService: JSONLoaderService
+	) { 
 		this.toastr.setRootViewContainerRef(vcr);
 	}
 
@@ -120,6 +128,9 @@ export class DashboardComponent implements AfterViewInit {
 	 * @description load view for dashboard page
 	 */
 	ngAfterViewInit() {
+		this.transactionTypesService.getJSON().subscribe(transactionTypes => {
+			this.transactionTypes = transactionTypes
+		});
 		this.allTransactionsList();
 		this.allBlockList()
 	}

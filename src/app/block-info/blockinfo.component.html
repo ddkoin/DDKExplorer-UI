@@ -65,17 +65,26 @@
                                                         <div class="transaction-path">
                                                             <div class="transaction-part pull-left">
                                                                 <a href="javascript:void(0);" class="blue-link">{{trax.senderId}}</a>
-                                                                <span ng-show="transaction.type != 8" class="DDK">{{trax.amount/100000000}}
-                                                                    DDK</span>
+                                                                <span *ngIf="trax.type != transactionTypes.STAKE; else elseBlock" class="DDK">{{trax.amount/100000000}} DDK
+                                                                </span>
                                                                 <!-- <span ng-show="transaction.type == 8" class="DDK ng-hide">0 DDK</span> -->
                                                             </div>
+                                                            <ng-template #elseBlock>
+                                                                <span class="DDK">{{trax.stakedAmount/100000000}} DDK
+                                                                </span>
+                                                            </ng-template>
                                                             <div class="transaction-direction">
                                                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                                                             </div>
                                                             <div class="transaction-part pull-right">
                                                                 <a href="javascript:void(0);" class="blue-link">{{trax.recipientId}}</a>
-                                                                <span class="DDK">{{trax.amount/100000000}} DDK</span>
+                                                                <span *ngIf="trax.type !== transactionTypes.STAKE; else elseBlock" class="DDK">{{trax.amount/100000000}} DDK
+                                                                </span>
                                                             </div>
+                                                            <ng-template #elseBlock>
+                                                                <span class="DDK">{{trax.stakedAmount/100000000}} DDK
+                                                                </span>
+                                                            </ng-template>
                                                             <div class="clearfix"></div>
                                                         </div>
                                                         <!-- <button type="button" class="btn waves-effect btn-sm waves-light btn-outline-info pull-right view-all" routerLink="/transactions">View All</button> -->

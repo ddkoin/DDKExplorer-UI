@@ -74,9 +74,10 @@
                             <li>
                                 <span class="row info-summary">
                                     <span class="col-md-3">Amount:</span>
-                                    <div *ngIf="transactionInfo.type === 8; else elseBlock">
+                                    <div *ngIf="transactionInfo.type === transactionTypes.STAKE else elseBlock;">
                                         <span class="col-md-8">{{transactionInfo.stakedAmount/100000000}} DDK
                                         </span>
+                                        
                                     </div>
                                     <ng-template #elseBlock>
                                         <span class="col-md-8">{{transactionInfo.amount/100000000}} DDK

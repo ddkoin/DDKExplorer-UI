@@ -7,12 +7,11 @@ import { environment } from '../../environments/environment';
 import { transition } from '@angular/animations';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SocketService } from '../shared/services/socket.service';
-
+import { JSONLoaderService } from '../shared/services/json.loader.service';
 
 declare var require: any;
 declare var jquery: any;
 declare var $: any;
-const transactionTypes: any = require('../../assets/json/transactionTypes.js');
 
 @Component({
 	templateUrl: './transactions.component.html',
@@ -48,6 +47,7 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	fixedTimezone = new Date(Date.UTC(2016, 0, 1, 17, 0, 0, 0));
 	txFee: any;
 	public innerSpinner = true;
+	public transactionTypes: any = {};
 
 	/**
 	 * @constructor 
@@ -59,8 +59,16 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	 * @param blockService : block service
 	 * @param socket : socket service
 	 */
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private transactionService: TransactionsService, private http: HttpClient, private blockService: BlockService, private socket: SocketService) { 
-	 this.toastr.setRootViewContainerRef(vcr);
+	constructor(
+		public toastr: ToastsManager, vcr: ViewContainerRef,
+		private router: Router,
+		private transactionService: TransactionsService,
+		private http: HttpClient,
+		private blockService: BlockService,
+		private socket: SocketService,
+		private transactionTypesService: JSONLoaderService
+	) {
+		this.toastr.setRootViewContainerRef(vcr);
 	}
 	
 	/**
@@ -112,8 +120,8 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 								}
 							);
 						}else {
-							if(transactionTypes[searchValue.toUpperCase()] !== undefined) {
-								that.transactionService.getTransactionsByType(transactionTypes[searchValue.toUpperCase()]).subscribe(
+							if(this.transactionTypes[searchValue.toUpperCase()] !== undefined) {
+								that.transactionService.getTransactionsByType(this.transactionTypes[searchValue.toUpperCase()]).subscribe(
 									resp => {
 										if(resp && resp.success) {
 											that.transactionlist = resp.transactions;
@@ -249,12 +257,15 @@ export class TransactionsComponent implements OnInit,  AfterViewInit {
 	 * @description subscribe to socket's transaction/change event, setup columns and set page size, limit etc for a table
 	 */
 	ngOnInit(){
-		this.socket
-		.getTransactions()
-		.subscribe((transaction: string) => {
-			this.transactionlist.splice(0, 0, transaction);
-			this.page.totalElements = parseInt(this.page.totalElements) + 1; 
+		this.transactionTypesService.getJSON().subscribe(transactionTypes => {
+			this.transactionTypes = transactionTypes
 		});
+		this.socket
+			.getTransactions()
+			.subscribe((transaction: string) => {
+				this.transactionlist.splice(0, 0, transaction);
+				this.page.totalElements = parseInt(this.page.totalElements) + 1;
+			});
 		this.transactionlist = [];
 		this.columns = [
 			{ name: 'Transation ID', prop: 'id', width: '200', cellTemplate: this.transactionId },

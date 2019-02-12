@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 import { TransactionsService } from '../shared/services/transactions.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { JSONLoaderService } from '../shared/services/json.loader.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -48,6 +49,7 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	public innerSpinner = true;
 	public address = 'DDK00000000000000000000';
 	public addressReplace = 'DDK12817390500414975490';
+	public transactionTypes: any = {};
 
 	/**
 	 * @constructor with given params
@@ -58,7 +60,14 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	 * @param userService 
 	 * @param transactionService 
 	 */
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService, private transactionService: TransactionsService) {
+	constructor(
+		public toastr: ToastsManager, vcr: ViewContainerRef,
+		private router: Router,
+		private activatedRoute: ActivatedRoute,
+		private userService: UserService,
+		private transactionService: TransactionsService,
+		private transactionTypesService: JSONLoaderService
+	) {
 		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.id;
@@ -77,6 +86,9 @@ export class UserInfoComponent implements OnInit, AfterViewInit {
 	 * @description setup columns and set page size, limit etc for a table
 	 */
 	ngOnInit() {
+		this.transactionTypesService.getJSON().subscribe(transactionTypes => {
+			this.transactionTypes = transactionTypes
+		});
 		this.columns = [
 			{ name: 'Transaction ID', prop: 'id', width: '240', cellTemplate: this.id },
 			{ name: 'Sender ID', prop: 'senderId', width: '240', cellTemplate: this.senderId },

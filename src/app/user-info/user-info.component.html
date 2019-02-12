@@ -89,13 +89,13 @@
                         </ng-template>
 
                         <ng-template #amount let-row="row">
-                            <span *ngIf="row.type !== 8; else stakedAmount">
+                            <span *ngIf="row.type !== transactionTypes.STAKE; else stakedAmount">
                                 <span *ngIf="row.recipientId==row.senderId"><i class="fa fa-circle text-muted"></i></span>
-                                <span *ngIf="row.recipientId!=row.senderId && row.type != 8">
+                                <span *ngIf="row.recipientId!=row.senderId && row.type != transactionTypes.STAKE">
                                     <i class="fa" [ngClass]="{'fa-plus-circle text-success': row.recipientId == addressInfo.address, 
                                     'fa-minus-circle text-danger': row.senderId == addressInfo.address}"></i>
                                 </span>
-                                <span *ngIf="row.type == 8"><i class="fa fa-minus-circle text-danger"></i></span>
+                                <span *ngIf="row.type == transactionTypes.STAKE"><i class="fa fa-minus-circle text-danger"></i></span>
                                 {{row.amount/100000000}}
                             </span>
                             <ng-template #stakedAmount>

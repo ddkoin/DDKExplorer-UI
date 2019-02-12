@@ -4,6 +4,7 @@ import { BlockService } from '../shared/services/block.service';
 import { TransactionsService } from '../shared/services/transactions.service';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { JSONLoaderService } from '../shared/services/json.loader.service';
 
 @Component({
 	templateUrl: './blockinfo.component.html',
@@ -27,6 +28,7 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	public traxList: any;
 	public traxlength: any;
 	public innerSpinner = true;
+	public transactionTypes: any = {};
 
 	/**
 	 * @constructor
@@ -38,7 +40,15 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	 * @param transactionService : transaction service
 	 * @param modalService : modal service
 	 */
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private activatedRoute: ActivatedRoute, private blockService: BlockService, private transactionService: TransactionsService, private modalService: NgbModal) {
+	constructor(
+		public toastr: ToastsManager, vcr: ViewContainerRef,
+		private router: Router,
+		private activatedRoute: ActivatedRoute,
+		private blockService: BlockService,
+		private transactionService: TransactionsService,
+		private modalService: NgbModal,
+		private transactionTypesService: JSONLoaderService
+	) {
 		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
@@ -55,6 +65,9 @@ export class BlockInfoComponent implements OnInit, AfterViewInit {
 	 * @description load block info by blockId OR blockHeight
 	 */
 	ngOnInit() {
+		this.transactionTypesService.getJSON().subscribe(transactionTypes => {
+			this.transactionTypes = transactionTypes;
+		});
 		if (this.typeId == 'blockId') {
 			var blockId = window.location.href.split('/blockId/')[1]
 			this.blockDetail(blockId);

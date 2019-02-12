@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TransactionsService } from '../shared/services/transactions.service'
 import { BlockService } from '../shared/services/block.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { JSONLoaderService } from '../shared/services/json.loader.service';
 
 @Component({
 	templateUrl: './transactioninfo.component.html',
@@ -20,6 +21,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	dtOptions: DataTables.Settings = {};
 	public transactionInfo: any = [];
+	public transactionTypes: any = {};
 	public trxId: any;
 	public typeId: any;
 	public txsId: any;
@@ -36,7 +38,14 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	 * @param activatedRoute : activated route
 	 * @param transactionService: transaction service 
 	 */
-	constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router, private blockService: BlockService, private activatedRoute: ActivatedRoute, private transactionService: TransactionsService) {
+	constructor(
+		public toastr: ToastsManager, vcr: ViewContainerRef,
+		private router: Router,
+		private blockService: BlockService,
+		private activatedRoute: ActivatedRoute,
+		private transactionService: TransactionsService,
+		private transactionTypesService: JSONLoaderService
+	) {
 		this.toastr.setRootViewContainerRef(vcr);
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.typeId = params.name;
@@ -53,6 +62,9 @@ export class TransactionInfoComponent implements OnInit, AfterViewInit {
 	 * @description load transactions/block info by transactionId/blockId
 	 */
 	ngOnInit() {
+		this.transactionTypesService.getJSON().subscribe(transactionTypes => {
+			this.transactionTypes = transactionTypes;
+		});
 		if (this.typeId == 'transactionId') {
 			this.transactionsDetail()
 		} else {
